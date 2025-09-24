@@ -5,7 +5,7 @@ import LoginForm from "@/features/authentication/presentation/components/login.f
 
 function LoginPage() {
     return (
-        <FormLayout image={IMAGES.LOGIN} form={<LoginForm />} />
+        <FormLayout image={IMAGES.REGISTER} form={<LoginForm />} />
     )
 }
 

@@ -3,7 +3,7 @@ import AuthLayout from "@/core/common/presentation/components/layouts/auth.layou
 import ErrorPage from "@/core/common/presentation/pages/error.page";
 import LoginPage from "@/features/authentication/presentation/pages/login.page";
 import ForgetPasswordPage from "@/features/authentication/presentation/pages/forget-password.page";
-import OtpPage from "@/features/authentication/presentation/pages/otp.page";
+import RegisterPage from "@/features/authentication/presentation/pages/register.page";
 import ResetPasswordPage from "@/features/authentication/presentation/pages/reset-password.page";
 import NotFoundPage from "@/core/common/presentation/pages/not-found.page";
 import {protectedLoader, publicOnlyLoader} from "@/core/route/auth-utils";
@@ -31,8 +31,8 @@ export const router = createBrowserRouter([
         errorElement: <ErrorPage />,
       },
       {
-        path: 'otp',
-        element: <OtpPage />,
+        path: 'register',
+        element: <RegisterPage />,
         loader: publicOnlyLoader,
         errorElement: <ErrorPage />,
       },
