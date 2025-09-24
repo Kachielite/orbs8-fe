@@ -25,7 +25,7 @@ export const router = createBrowserRouter([
         errorElement: <ErrorPage />,
       },
       {
-        path: 'forgot-password',
+        path: 'forget-password',
         element: <ForgetPasswordPage />,
         loader: publicOnlyLoader,
         errorElement: <ErrorPage />,
