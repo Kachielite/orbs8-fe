@@ -1,5 +1,5 @@
-import {Failure} from "@/core/errors/failure.error";
-import {ServerException} from "@/core/errors/server.error";
+import { Failure } from '@/core/errors/failure.error';
+import { ServerException } from '@/core/errors/server.error';
 
 const extractErrorRepository = (error: unknown, handlerName: string) => {
   console.error(handlerName, error);

@@ -1,57 +1,59 @@
-import {useNavigate} from "react-router-dom";
-import {useForm} from "react-hook-form";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { useMutation } from 'react-query';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
+
+import { extractErrorHooks } from '@/core/helpers/extract-error-hooks';
+import { registerEffect } from '@/features/authentication/presentation/state/store/effect';
 import {
-    RegisterFormSchemaType,
-    registerSchema,
-    RegisterSchemaType
-} from "@/features/authentication/presentation/validation/auth.validation";
-import {zodResolver} from "@hookform/resolvers/zod";
-import {useMutation} from "react-query";
-import {registerEffect} from "@/features/authentication/presentation/state/store/effect";
-import {extractErrorHooks} from "@/core/helpers/extract-error-hooks";
-import {toast} from "sonner";
+  RegisterFormSchemaType,
+  registerSchema,
+  RegisterSchemaType,
+} from '@/features/authentication/presentation/validation/auth.validation';
 
 const useRegister = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const registerForm = useForm<RegisterFormSchemaType>({
-        resolver: zodResolver(registerSchema),
-        mode: 'onBlur',
-        defaultValues: {
-            name: '',
-            email: '',
-            password: '',
-            confirmPassword: '',
+  const registerForm = useForm<RegisterFormSchemaType>({
+    resolver: zodResolver(registerSchema),
+    mode: 'onBlur',
+    defaultValues: {
+      name: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+    },
+  });
+
+  const { mutateAsync: registerHandler, isLoading: isRegistering } =
+    useMutation(
+      ['register'],
+      async (data: RegisterSchemaType) => {
+        return registerEffect({
+          name: data.name,
+          email: data.email,
+          password: data.password,
+        });
+      },
+      {
+        onSuccess: () => {
+          toast.success('Register successfully, please login');
+          navigate('/login');
+          registerForm.reset();
         },
-    });
-
-    const {mutateAsync: registerHandler, isLoading: isRegistering} = useMutation(
-        ['register'],
-        async (data: RegisterSchemaType) => {
-            return registerEffect({
-                name: data.name,
-                email: data.email,
-                password: data.password,
-            });
+        onError: error => {
+          const errorMessage = extractErrorHooks(error, 'useRegister');
+          toast.error(errorMessage);
         },
-        {
-            onSuccess: () => {
-                toast.success('Register successfully, please login');
-                navigate('/login');
-                registerForm.reset();
-            },
-            onError: error => {
-                const errorMessage = extractErrorHooks(error, 'useRegister');
-                toast.error(errorMessage);
-            },
-        }
-    )
+      }
+    );
 
-    return {
-        registerForm,
-        registerHandler,
-        isRegistering,
-    }
-}
+  return {
+    registerForm,
+    registerHandler,
+    isRegistering,
+  };
+};
 
-export default useRegister
+export default useRegister;

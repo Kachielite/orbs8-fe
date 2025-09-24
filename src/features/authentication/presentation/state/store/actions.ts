@@ -1,6 +1,7 @@
-import type {StateCreator} from 'zustand/vanilla';
-import {AuthSlice} from "@/features/authentication/presentation/state/store/types";
-import {AuthEntity} from "@/features/authentication/domain/entity/auth.entity";
+import { AuthEntity } from '@/features/authentication/domain/entity/auth.entity';
+import { AuthSlice } from '@/features/authentication/presentation/state/store/types';
+
+import type { StateCreator } from 'zustand/vanilla';
 
 export const createAuthActions: StateCreator<
   AuthSlice,

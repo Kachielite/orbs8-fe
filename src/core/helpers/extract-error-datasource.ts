@@ -1,4 +1,4 @@
-import {ServerException} from '@/core/errors/server.error';
+import { ServerException } from '@/core/errors/server.error';
 
 const extractErrorDatasource = (error: unknown, handlerName: string): never => {
   if (error instanceof ServerException) {

@@ -1,15 +1,15 @@
-import {createBrowserRouter} from 'react-router-dom';
-import AuthLayout from "@/core/common/presentation/components/layouts/auth.layout";
-import ErrorPage from "@/core/common/presentation/pages/error.page";
-import LoginPage from "@/features/authentication/presentation/pages/login.page";
-import ForgetPasswordPage from "@/features/authentication/presentation/pages/forget-password.page";
-import RegisterPage from "@/features/authentication/presentation/pages/register.page";
-import ResetPasswordPage from "@/features/authentication/presentation/pages/reset-password.page";
-import NotFoundPage from "@/core/common/presentation/pages/not-found.page";
-import {protectedLoader, publicOnlyLoader} from "@/core/route/auth-utils";
-import DashboardLayout from "@/core/common/presentation/components/layouts/dashboard.layout";
-import DashboardPage from "@/features/dashboard/presentation/pages/dashboard.page";
+import { createBrowserRouter } from 'react-router-dom';
 
+import AuthLayout from '@/core/common/presentation/components/layouts/auth.layout';
+import DashboardLayout from '@/core/common/presentation/components/layouts/dashboard.layout';
+import ErrorPage from '@/core/common/presentation/pages/error.page';
+import NotFoundPage from '@/core/common/presentation/pages/not-found.page';
+import { protectedLoader, publicOnlyLoader } from '@/core/route/auth-utils';
+import ForgetPasswordPage from '@/features/authentication/presentation/pages/forget-password.page';
+import LoginPage from '@/features/authentication/presentation/pages/login.page';
+import RegisterPage from '@/features/authentication/presentation/pages/register.page';
+import ResetPasswordPage from '@/features/authentication/presentation/pages/reset-password.page';
+import DashboardPage from '@/features/dashboard/presentation/pages/dashboard.page';
 
 export const router = createBrowserRouter([
   {

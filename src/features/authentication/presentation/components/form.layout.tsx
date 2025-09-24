@@ -1,7 +1,13 @@
-import {GalleryVerticalEnd} from "lucide-react";
-import {ReactNode} from "react";
+import { GalleryVerticalEnd } from 'lucide-react';
+import { ReactNode } from 'react';
 
-export default function FormLayout({form, image}:{form: ReactNode , image: string}) {
+export default function FormLayout({
+  form,
+  image,
+}: {
+  form: ReactNode;
+  image: string;
+}) {
   return (
     <div className="grid min-h-svh lg:grid-cols-2 w-full">
       <div className="flex flex-col gap-4 p-6 md:p-10">
@@ -14,9 +20,7 @@ export default function FormLayout({form, image}:{form: ReactNode , image: strin
           </a>
         </div>
         <div className="flex flex-1 items-center justify-center">
-          <div className="w-full max-w-xs">
-            {form}
-          </div>
+          <div className="w-full max-w-xs">{form}</div>
         </div>
       </div>
       <div className="bg-muted relative hidden lg:block">
@@ -27,5 +31,5 @@ export default function FormLayout({form, image}:{form: ReactNode , image: strin
         />
       </div>
     </div>
-  )
+  );
 }

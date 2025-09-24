@@ -1,7 +1,8 @@
-import {create} from 'zustand/react';
-import {persist} from 'zustand/middleware';
-import {createAuthSlice} from "@/features/authentication/presentation/state/store/slice";
-import {AuthSlice} from "@/features/authentication/presentation/state/store/types";
+import { persist } from 'zustand/middleware';
+import { create } from 'zustand/react';
+
+import { createAuthSlice } from '@/features/authentication/presentation/state/store/slice';
+import { AuthSlice } from '@/features/authentication/presentation/state/store/types';
 
 type AppState = AuthSlice;
 

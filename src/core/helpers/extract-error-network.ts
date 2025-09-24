@@ -1,4 +1,4 @@
-import {AxiosError} from 'axios';
+import { AxiosError } from 'axios';
 
 const extractErrorNetwork = (error: unknown, handler: string): string => {
   console.error(handler, error);

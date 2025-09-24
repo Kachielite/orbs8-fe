@@ -1,7 +1,7 @@
-import type {FieldValues, Path, UseFormReturn} from 'react-hook-form';
+import { Input } from '@/core/common/presentation/components/ui/input';
+import { Label } from '@/core/common/presentation/components/ui/label';
 
-import {Input} from '@/core/common/presentation/components/ui/input';
-import {Label} from '@/core/common/presentation/components/ui/label';
+import type { FieldValues, Path, UseFormReturn } from 'react-hook-form';
 
 interface CustomInputProps<T extends FieldValues> {
   id: Path<T>; // ensures `id` is a key of the form

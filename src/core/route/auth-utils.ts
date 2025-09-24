@@ -1,4 +1,4 @@
-import {redirect} from 'react-router-dom';
+import { redirect } from 'react-router-dom';
 
 export const authService = {
   isAuthenticated: async (): Promise<boolean> => {
