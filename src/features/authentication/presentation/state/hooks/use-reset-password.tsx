@@ -1,4 +1,4 @@
-import {redirect, useLocation, useNavigate} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import {toast} from "sonner";
 import {useForm} from "react-hook-form";
 import {
@@ -9,6 +9,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {useMutation} from "react-query";
 import {resetPasswordEffect} from "@/features/authentication/presentation/state/store/effect";
 import {extractErrorHooks} from "@/core/helpers/extract-error-hooks";
+import {useEffect} from 'react';
 
 const useResetPassword = () => {
     const navigate = useNavigate();
@@ -16,10 +17,13 @@ const useResetPassword = () => {
     const params = new URLSearchParams(location.search);
     const token = params.get('token');
 
-    if(!token){
-        toast.error('Invalid reset password link, please request a new one');
-        return redirect('/forgot-password');
-    }
+    // Navigate away on missing/invalid token; keep a stable return type for the hook
+    useEffect(() => {
+        if (!token) {
+            toast.error('Invalid reset password link, please request a new one');
+            navigate('/forget-password', { replace: true });
+        }
+    }, [token, navigate]);
 
     const resetPasswordForm = useForm<ResetPasswordFormSchemaType>({
         resolver: zodResolver(resetPasswordSchema),
@@ -27,7 +31,7 @@ const useResetPassword = () => {
         defaultValues: {
             password: '',
             confirmPassword: '',
-            token
+            token: token ?? ''
         }
     });
 
