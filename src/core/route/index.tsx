@@ -6,7 +6,9 @@ import ForgetPasswordPage from "@/features/authentication/presentation/pages/for
 import OtpPage from "@/features/authentication/presentation/pages/otp.page";
 import ResetPasswordPage from "@/features/authentication/presentation/pages/reset-password.page";
 import NotFoundPage from "@/core/common/presentation/pages/not-found.page";
-import {publicOnlyLoader} from "@/core/route/auth-utils";
+import {protectedLoader, publicOnlyLoader} from "@/core/route/auth-utils";
+import DashboardLayout from "@/core/common/presentation/components/layouts/dashboard.layout";
+import DashboardPage from "@/features/dashboard/presentation/pages/dashboard.page";
 
 
 export const router = createBrowserRouter([
@@ -42,19 +44,19 @@ export const router = createBrowserRouter([
       },
 
       // // Protected routes
-      // {
-      //   path: '/',
-      //   element: <DashboardLayout />,
-      //   errorElement: <ErrorPage />,
-      //   loader: protectedLoader,
-      //   children: [
-      //     {
-      //       path: '',
-      //       element: <OverviewPage />,
-      //       errorElement: <ErrorPage />,
-      //     },
-      //   ],
-      // },
+      {
+        path: '/',
+        element: <DashboardLayout />,
+        errorElement: <ErrorPage />,
+        loader: protectedLoader,
+        children: [
+          {
+            path: '',
+            element: <DashboardPage />,
+            errorElement: <ErrorPage />,
+          },
+        ],
+      },
     ],
   },
   // Catch-all route for 404
