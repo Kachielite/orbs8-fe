@@ -1,25 +1,24 @@
-/* eslint-disable no-undef */
 module.exports = {
   root: true,
   env: {
     browser: true,
     es2021: true,
-    node: true
+    node: true,
   },
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
-    project: false
+    project: false,
   },
   settings: {
     react: { version: 'detect' },
     'import/resolver': {
       typescript: {
         alwaysTryTypes: true,
-        project: __dirname
-      }
-    }
+        project: __dirname,
+      },
+    },
   },
   plugins: ['react', 'react-hooks', '@typescript-eslint', 'import'],
   extends: [
@@ -29,7 +28,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:import/recommended',
     'plugin:import/typescript',
-    'prettier'
+    'prettier',
   ],
   rules: {
     'react/react-in-jsx-scope': 'off',
@@ -45,19 +44,19 @@ module.exports = {
           'internal',
           ['parent', 'sibling', 'index'],
           'object',
-          'type'
+          'type',
         ],
         pathGroups: [
-          { pattern: '@/**', group: 'internal', position: 'before' }
+          { pattern: '@/**', group: 'internal', position: 'before' },
         ],
-        pathGroupsExcludedImportTypes: ['builtin']
-      }
-    ]
+        pathGroupsExcludedImportTypes: ['builtin'],
+      },
+    ],
   },
   overrides: [
     {
       files: ['*.ts', '*.tsx'],
-      rules: {}
-    }
-  ]
-}
+      rules: {},
+    },
+  ],
+};
