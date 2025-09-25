@@ -1,16 +1,16 @@
-import {inject, injectable} from 'tsyringe';
+import { inject, injectable } from 'tsyringe';
 
 import extractErrorDatasource from '@/core/helpers/extract-error-datasource';
-import {AuthNetwork} from '@/features/authentication/data/datasource/auth.network';
-import {AuthModel} from '@/features/authentication/data/model/auth.model';
+import { AuthNetwork } from '@/features/authentication/data/datasource/auth.network';
+import { AuthModel } from '@/features/authentication/data/model/auth.model';
 import {
-    LoginSchemaType,
-    LoginWithGoogleSchemaType,
-    RefreshTokenSchemaType,
-    RegisterSchemaType,
-    RequestPasswordResetSchemaType,
-    ResetPasswordSchemaType,
-    VerifyPasswordResetTokenSchemaType,
+  LoginSchemaType,
+  LoginWithGoogleSchemaType,
+  RefreshTokenSchemaType,
+  RegisterSchemaType,
+  RequestPasswordResetSchemaType,
+  ResetPasswordSchemaType,
+  VerifyPasswordResetTokenSchemaType,
 } from '@/features/authentication/presentation/validation/auth.validation';
 
 export interface AuthDataSource {
@@ -22,7 +22,9 @@ export interface AuthDataSource {
     payload: RequestPasswordResetSchemaType
   ): Promise<string>;
   resetPassword(payload: ResetPasswordSchemaType): Promise<string>;
-  verifyPasswordResetToken(payload: VerifyPasswordResetTokenSchemaType): Promise<string>;
+  verifyPasswordResetToken(
+    payload: VerifyPasswordResetTokenSchemaType
+  ): Promise<string>;
 }
 
 @injectable()
@@ -88,11 +90,16 @@ export class AuthDataSourceImpl implements AuthDataSource {
     }
   }
 
-  async verifyPasswordResetToken(payload: VerifyPasswordResetTokenSchemaType): Promise<string> {
+  async verifyPasswordResetToken(
+    payload: VerifyPasswordResetTokenSchemaType
+  ): Promise<string> {
     try {
       return await this.authNetwork.verifyPasswordResetToken(payload);
     } catch (error) {
-      throw extractErrorDatasource(error, 'AuthDataSourceImpl:VerifyPasswordResetToken');
+      throw extractErrorDatasource(
+        error,
+        'AuthDataSourceImpl:VerifyPasswordResetToken'
+      );
     }
   }
 }

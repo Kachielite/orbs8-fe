@@ -1,16 +1,16 @@
 import axios from 'axios';
-import {injectable} from 'tsyringe';
+import { injectable } from 'tsyringe';
 
-import {BASE_URL} from '@/core/constants/env.constants';
+import { BASE_URL } from '@/core/constants/env.constants';
 import extractErrorNetwork from '@/core/helpers/extract-error-network';
 import {
-    LoginSchemaType,
-    LoginWithGoogleSchemaType,
-    RefreshTokenSchemaType,
-    RegisterSchemaType,
-    RequestPasswordResetSchemaType,
-    ResetPasswordSchemaType,
-    VerifyPasswordResetTokenSchemaType,
+  LoginSchemaType,
+  LoginWithGoogleSchemaType,
+  RefreshTokenSchemaType,
+  RegisterSchemaType,
+  RequestPasswordResetSchemaType,
+  ResetPasswordSchemaType,
+  VerifyPasswordResetTokenSchemaType,
 } from '@/features/authentication/presentation/validation/auth.validation';
 
 @injectable()
@@ -85,13 +85,18 @@ export class AuthNetwork {
     }
   }
 
-  public async verifyPasswordResetToken(payload: VerifyPasswordResetTokenSchemaType) {
+  public async verifyPasswordResetToken(
+    payload: VerifyPasswordResetTokenSchemaType
+  ) {
     try {
-      const response = await axios.post(`${this.authPath}/verify-token`, payload);
+      const response = await axios.post(
+        `${this.authPath}/verify-token`,
+        payload
+      );
       return response.data;
     } catch (error) {
-        const errorMessage = extractErrorNetwork(error, 'AuthNetwork');
-        throw new Error(errorMessage);
+      const errorMessage = extractErrorNetwork(error, 'AuthNetwork');
+      throw new Error(errorMessage);
     }
   }
 }

@@ -1,4 +1,4 @@
-import {AuthEntity} from '@/features/authentication/domain/entity/auth.entity';
+import { AuthEntity } from '@/features/authentication/domain/entity/auth.entity';
 
 export type AuthSlice = {
   //state

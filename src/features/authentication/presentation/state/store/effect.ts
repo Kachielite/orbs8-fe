@@ -1,20 +1,20 @@
-import {fold} from 'fp-ts/Either';
+import { fold } from 'fp-ts/Either';
 
-import {Failure} from '@/core/errors/failure.error';
-import {getAuthUseCases} from '@/core/init-dependencies/auth.dependency';
-import {AuthEntity} from '@/features/authentication/domain/entity/auth.entity';
-import {LoginUseCaseParam} from '@/features/authentication/domain/use-case/login';
-import {RegisterUseCaseParam} from '@/features/authentication/domain/use-case/register';
-import {RequestPasswordResetUseCaseParam} from '@/features/authentication/domain/use-case/request-password-reset';
-import {ResetPasswordUseCaseParam} from '@/features/authentication/domain/use-case/reset-password';
+import { Failure } from '@/core/errors/failure.error';
+import { getAuthUseCases } from '@/core/init-dependencies/auth.dependency';
+import { AuthEntity } from '@/features/authentication/domain/entity/auth.entity';
+import { LoginUseCaseParam } from '@/features/authentication/domain/use-case/login';
+import { RegisterUseCaseParam } from '@/features/authentication/domain/use-case/register';
+import { RequestPasswordResetUseCaseParam } from '@/features/authentication/domain/use-case/request-password-reset';
+import { ResetPasswordUseCaseParam } from '@/features/authentication/domain/use-case/reset-password';
+import { VerifyPasswordTokenUseCaseParam } from '@/features/authentication/domain/use-case/verify-password-token';
 import {
-    LoginSchemaType,
-    RegisterSchemaType,
-    RequestPasswordResetSchemaType,
-    ResetPasswordSchemaType,
-    VerifyPasswordResetTokenSchemaType,
+  LoginSchemaType,
+  RegisterSchemaType,
+  RequestPasswordResetSchemaType,
+  ResetPasswordSchemaType,
+  VerifyPasswordResetTokenSchemaType,
 } from '@/features/authentication/presentation/validation/auth.validation';
-import {VerifyPasswordTokenUseCaseParam} from "@/features/authentication/domain/use-case/verify-password-token";
 
 export const loginEffect = async (payload: LoginSchemaType) => {
   const response = await getAuthUseCases().loginUseCase.execute(
@@ -74,14 +74,13 @@ export const verifyPasswordResetTokenEffect = async (
   payload: VerifyPasswordResetTokenSchemaType
 ) => {
   const response = await getAuthUseCases().verifyPasswordTokenUseCase.execute(
-      new VerifyPasswordTokenUseCaseParam(payload)
-  )
+    new VerifyPasswordTokenUseCaseParam(payload)
+  );
 
-      return fold<Failure, string, string>(
+  return fold<Failure, string, string>(
     failure => {
       throw failure;
     },
     res => res
   )(response);
-
-}
+};

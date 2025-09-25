@@ -1,20 +1,20 @@
-import {zodResolver} from '@hookform/resolvers/zod';
-import {useForm} from 'react-hook-form';
-import {useMutation} from 'react-query';
-import {useNavigate} from 'react-router-dom';
-import {toast} from 'sonner';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { useMutation } from 'react-query';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 
-import {extractErrorHooks} from '@/core/helpers/extract-error-hooks';
-import {resetPasswordEffect} from '@/features/authentication/presentation/state/store/effect';
+import { useAppStore } from '@/core/common/presentation/state/store';
+import { extractErrorHooks } from '@/core/helpers/extract-error-hooks';
+import { resetPasswordEffect } from '@/features/authentication/presentation/state/store/effect';
 import {
-    ResetPasswordFormSchemaType,
-    resetPasswordSchema,
+  ResetPasswordFormSchemaType,
+  resetPasswordSchema,
 } from '@/features/authentication/presentation/validation/auth.validation';
-import {useAppStore} from "@/core/common/presentation/state/store";
 
 const useResetPassword = () => {
   const navigate = useNavigate();
-  const {resetPasswordToken, setResetPasswordToken} = useAppStore();
+  const { resetPasswordToken, setResetPasswordToken } = useAppStore();
 
   const resetPasswordForm = useForm<ResetPasswordFormSchemaType>({
     resolver: zodResolver(resetPasswordSchema),
@@ -37,6 +37,7 @@ const useResetPassword = () => {
       },
       {
         onSuccess: () => {
+          setResetPasswordToken(null);
           toast.success('Reset password successfully, please login');
           navigate('/login');
           resetPasswordForm.reset();
