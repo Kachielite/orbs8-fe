@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import {z} from 'zod';
 
 export const loginSchema = z.object({
   email: z.email().min(1, { message: 'Email is required' }),
@@ -65,4 +65,12 @@ export type ResetPasswordFormSchemaType = z.infer<typeof resetPasswordSchema>;
 export type ResetPasswordSchemaType = Omit<
   ResetPasswordFormSchemaType,
   'confirmPassword'
+>;
+
+export const verifyPasswordResetTokenSchema = z.object({
+  token: z.string().min(1, { message: 'Token is required' }),
+    email: z.email().min(1, { message: 'Email is required' }),
+});
+export type VerifyPasswordResetTokenSchemaType = z.infer<
+  typeof verifyPasswordResetTokenSchema
 >;

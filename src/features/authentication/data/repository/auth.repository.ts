@@ -1,20 +1,20 @@
-import { Either, right } from 'fp-ts/lib/Either';
-import { inject, injectable } from 'tsyringe';
+import {Either, right} from 'fp-ts/lib/Either';
+import {inject, injectable} from 'tsyringe';
 
-import { Failure } from '@/core/errors/failure.error';
+import {Failure} from '@/core/errors/failure.error';
 import extractErrorRepository from '@/core/helpers/extract-error-respository';
-import { type AuthDataSource } from '@/features/authentication/data/datasource/auth.datasource';
-import { AuthRepository } from '@/features/authentication/domain/repository/auth.repository';
+import {type AuthDataSource} from '@/features/authentication/data/datasource/auth.datasource';
+import {AuthRepository} from '@/features/authentication/domain/repository/auth.repository';
 
 import {
-  LoginSchemaType,
-  LoginWithGoogleSchemaType,
-  RefreshTokenSchemaType,
-  RegisterSchemaType,
-  RequestPasswordResetSchemaType,
-  ResetPasswordSchemaType,
+    LoginSchemaType,
+    LoginWithGoogleSchemaType,
+    RefreshTokenSchemaType,
+    RegisterSchemaType,
+    RequestPasswordResetSchemaType,
+    ResetPasswordSchemaType,
 } from '../../presentation/validation/auth.validation';
-import { AuthModel } from '../model/auth.model';
+import {AuthModel} from '../model/auth.model';
 
 @injectable()
 export class AuthRepositoryImpl implements AuthRepository {
@@ -86,6 +86,15 @@ export class AuthRepositoryImpl implements AuthRepository {
       return right(response);
     } catch (error) {
       throw extractErrorRepository(error, 'AuthRepositoryImpl:ResetPassword');
+    }
+  }
+
+  async verifyPasswordResetToken(payload: any): Promise<Either<Failure, string>> {
+    try {
+      const response = await this.authDataSource.verifyPasswordResetToken(payload);
+      return right(response);
+    } catch (error) {
+      throw extractErrorRepository(error, 'AuthRepositoryImpl:VerifyPasswordResetToken');
     }
   }
 }
