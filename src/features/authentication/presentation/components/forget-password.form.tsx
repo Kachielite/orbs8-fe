@@ -9,35 +9,44 @@ function ForgetPasswordForm() {
     resetPasswordForm,
     requestPasswordResetHandler,
     isRequestingPasswordRest,
+    emailSent,
   } = useRequestPasswordReset();
   return (
-    <form className="flex flex-col gap-8">
+    <form
+      className="flex flex-col gap-8"
+      onSubmit={resetPasswordForm.handleSubmit(data =>
+        requestPasswordResetHandler(data)
+      )}
+    >
       <div className="flex flex-col items-center gap-2 text-center">
-        <h1 className="text-2xl font-bold">Recover your password 🔑</h1>
+        <h1 className="text-2xl font-bold">
+          {emailSent
+            ? 'Email sent successfully 📧 '
+            : 'Recover your password 🔑'}
+        </h1>
         <p className="text-muted-foreground text-sm text-balance">
-          We&apos;ll send you an email to reset your password.
+          {emailSent
+            ? 'Check your email for a reset link'
+            : "We'll send you an email to reset your password."}
         </p>
       </div>
-      <div className="grid gap-6">
-        <CustomInput
-          id="email"
-          formController={resetPasswordForm}
-          label="Email"
-          placeholder="Enter your email"
-        />
-        <Button
-          type="submit"
-          className="w-full"
-          disabled={isRequestingPasswordRest}
-          onClick={() =>
-            resetPasswordForm.handleSubmit(data =>
-              requestPasswordResetHandler(data)
-            )()
-          }
-        >
-          Send Reset Link
-        </Button>
-      </div>
+      {!emailSent && (
+        <div className="grid gap-6">
+          <CustomInput
+            id="email"
+            formController={resetPasswordForm}
+            label="Email"
+            placeholder="Enter your email"
+          />
+          <Button
+            type="submit"
+            className="w-full"
+            disabled={isRequestingPasswordRest}
+          >
+            Send Reset Link
+          </Button>
+        </div>
+      )}
     </form>
   );
 }

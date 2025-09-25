@@ -8,7 +8,10 @@ import useLogin from '@/features/authentication/presentation/state/hooks/use-log
 function LoginForm() {
   const { loginForm, loginHandler, isLoggingIn } = useLogin();
   return (
-    <form className="flex flex-col gap-6">
+    <form
+      className="flex flex-col gap-6"
+      onSubmit={loginForm.handleSubmit(data => loginHandler(data))}
+    >
       <div className="flex flex-col items-center gap-2 text-center">
         <h1 className="text-2xl font-bold">Welcome back 👋</h1>
         <p className="text-muted-foreground text-sm text-balance">
@@ -18,6 +21,7 @@ function LoginForm() {
       <div className="grid gap-6">
         <CustomInput
           id="email"
+          type="email"
           formController={loginForm}
           label="Email"
           placeholder="Enter your email"
@@ -37,13 +41,8 @@ function LoginForm() {
             Forgot your password?
           </Link>
         </div>
-        <Button
-          type="submit"
-          className="w-full"
-          disabled={isLoggingIn}
-          onClick={() => loginForm.handleSubmit(data => loginHandler(data))()}
-        >
-          Login
+        <Button type="submit" className="w-full" disabled={isLoggingIn}>
+          {isLoggingIn ? 'Logging in...' : 'Login'}
         </Button>
       </div>
       <div className="text-center text-sm">

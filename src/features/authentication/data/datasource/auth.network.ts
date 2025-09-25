@@ -63,7 +63,7 @@ export class AuthNetwork {
   public async requestPasswordReset(payload: RequestPasswordResetSchemaType) {
     try {
       const response = await axios.get(
-        `${this.authPath}/request-password-reset?email=${payload.email}`
+        `${this.authPath}/request-reset-password?email=${payload.email}`
       );
       return response.data;
     } catch (error) {

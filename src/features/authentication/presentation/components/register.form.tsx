@@ -8,19 +8,23 @@ import useRegister from '@/features/authentication/presentation/state/hooks/use-
 function RegisterForm() {
   const { registerForm, registerHandler, isRegistering } = useRegister();
   return (
-    <form className="flex flex-col gap-6">
+    <form
+      className="flex flex-col gap-6"
+      onSubmit={registerForm.handleSubmit(data => registerHandler(data))}
+    >
       <div className="flex flex-col items-center gap-2 text-center">
         <h1 className="text-2xl font-bold">Create your account 👋</h1>
       </div>
       <div className="grid gap-6">
         <CustomInput
-          id="email"
+          id="name"
           formController={registerForm}
           label="Name"
           placeholder="Enter your name"
         />
         <CustomInput
           id="email"
+          type="email"
           formController={registerForm}
           label="Email"
           placeholder="Enter your email"
@@ -39,14 +43,7 @@ function RegisterForm() {
           placeholder="Renter your password"
           type="password"
         />
-        <Button
-          type="submit"
-          className="w-full"
-          disabled={isRegistering}
-          onClick={() =>
-            registerForm.handleSubmit(data => registerHandler(data))()
-          }
-        >
+        <Button type="submit" className="w-full" disabled={isRegistering}>
           {isRegistering ? 'Creating account...' : 'Create account'}
         </Button>
       </div>

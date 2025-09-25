@@ -29,7 +29,7 @@ function CustomInput<T extends FieldValues>({
 
   return (
     <div className="grid gap-3">
-      <Label htmlFor={label}>{label}</Label>
+      <Label htmlFor={id}>{label}</Label>
       <Input
         id={id}
         type={type}

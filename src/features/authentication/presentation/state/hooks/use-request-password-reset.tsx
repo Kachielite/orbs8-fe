@@ -9,8 +9,10 @@ import {
   requestPasswordResetSchema,
   RequestPasswordResetSchemaType,
 } from '@/features/authentication/presentation/validation/auth.validation';
+import { useState } from 'react';
 
 const useRequestPasswordReset = () => {
+  const [emailSent, setEmailSent] = useState<boolean>(false);
   const resetPasswordForm = useForm<RequestPasswordResetSchemaType>({
     resolver: zodResolver(requestPasswordResetSchema),
     mode: 'onBlur',
@@ -31,6 +33,7 @@ const useRequestPasswordReset = () => {
     },
     {
       onSuccess: () => {
+        setEmailSent(true);
         toast.success(
           'An email has been sent to reset your password, please check your inbox'
         );
@@ -50,6 +53,7 @@ const useRequestPasswordReset = () => {
     resetPasswordForm,
     requestPasswordResetHandler,
     isRequestingPasswordRest,
+    emailSent,
   };
 };
 
