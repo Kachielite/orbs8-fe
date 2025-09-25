@@ -74,10 +74,10 @@ export class AuthNetwork {
 
   public async resetPassword(payload: ResetPasswordSchemaType) {
     try {
-      const response = await axios.post(
-        `${this.authPath}/reset-password`,
-        payload
-      );
+      const response = await axios.post(`${this.authPath}/reset-password`, {
+        newPassword: payload.password,
+        token: payload.token,
+      });
       return response.data;
     } catch (error) {
       const errorMessage = extractErrorNetwork(error, 'AuthNetwork');

@@ -35,7 +35,7 @@ const useVerifyPasswordResetToken = () => {
         toast.success(
           'Reset link verified successfully, you can reset your password now'
         );
-        navigate('/login');
+        navigate('/reset-password', { replace: true });
       },
       onError: error => {
         const errorMessage = extractErrorHooks(
