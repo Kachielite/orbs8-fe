@@ -1,19 +1,19 @@
-import { inject, injectable } from 'tsyringe';
+import {inject, injectable} from 'tsyringe';
 
 import extractErrorDatasource from '@/core/helpers/extract-error-datasource';
-import { AuthNetwork } from '@/features/authentication/data/datasource/auth.network';
-import { AuthModel } from '@/features/authentication/data/model/auth.model';
+import {AuthNetwork} from '@/features/authentication/data/datasource/auth.network';
+import {AuthModel} from '@/features/authentication/data/model/auth.model';
 import {
-  LoginSchemaType,
-  LoginWithGoogleSchemaType,
-  RefreshTokenSchemaType,
-  RegisterSchemaType,
-  RequestPasswordResetSchemaType,
-  ResetPasswordSchemaType,
-  VerifyPasswordResetTokenSchemaType,
+    LoginSchemaType,
+    LoginWithGoogleSchemaType,
+    RefreshTokenSchemaType,
+    RegisterSchemaType,
+    RequestPasswordResetSchemaType,
+    ResetPasswordSchemaType,
+    VerifyPasswordResetTokenSchemaType,
 } from '@/features/authentication/presentation/validation/auth.validation';
 
-export interface AuthDataSource {
+export interface IAuthDataSource {
   login(payload: LoginSchemaType): Promise<AuthModel>;
   register(payload: RegisterSchemaType): Promise<string>;
   refreshToken(payload: RefreshTokenSchemaType): Promise<AuthModel>;
@@ -28,7 +28,7 @@ export interface AuthDataSource {
 }
 
 @injectable()
-export class AuthDataSourceImpl implements AuthDataSource {
+export class AuthDataSourceImpl implements IAuthDataSource {
   private readonly authNetwork: AuthNetwork;
 
   constructor(@inject(AuthNetwork) authNetwork: AuthNetwork) {

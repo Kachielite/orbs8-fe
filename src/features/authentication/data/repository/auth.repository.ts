@@ -1,26 +1,26 @@
-import { Either, right } from 'fp-ts/lib/Either';
-import { inject, injectable } from 'tsyringe';
+import {Either, right} from 'fp-ts/lib/Either';
+import {inject, injectable} from 'tsyringe';
 
-import { Failure } from '@/core/errors/failure.error';
+import {Failure} from '@/core/errors/failure.error';
 import extractErrorRepository from '@/core/helpers/extract-error-respository';
-import { type AuthDataSource } from '@/features/authentication/data/datasource/auth.datasource';
-import { AuthRepository } from '@/features/authentication/domain/repository/auth.repository';
+import {type IAuthDataSource} from '@/features/authentication/data/datasource/IAuthDataSource';
+import {IAuthRepository} from '@/features/authentication/domain/repository/IAuthRepository';
 
 import {
-  LoginSchemaType,
-  LoginWithGoogleSchemaType,
-  RefreshTokenSchemaType,
-  RegisterSchemaType,
-  RequestPasswordResetSchemaType,
-  ResetPasswordSchemaType,
-  VerifyPasswordResetTokenSchemaType,
+    LoginSchemaType,
+    LoginWithGoogleSchemaType,
+    RefreshTokenSchemaType,
+    RegisterSchemaType,
+    RequestPasswordResetSchemaType,
+    ResetPasswordSchemaType,
+    VerifyPasswordResetTokenSchemaType,
 } from '../../presentation/validation/auth.validation';
-import { AuthModel } from '../model/auth.model';
+import {AuthModel} from '../model/auth.model';
 
 @injectable()
-export class AuthRepositoryImpl implements AuthRepository {
+export class AuthRepositoryImpl implements IAuthRepository {
   constructor(
-    @inject('AuthDataSource') private readonly authDataSource: AuthDataSource
+    @inject('AuthDataSource') private readonly authDataSource: IAuthDataSource
   ) {}
 
   async login(payload: LoginSchemaType): Promise<Either<Failure, AuthModel>> {

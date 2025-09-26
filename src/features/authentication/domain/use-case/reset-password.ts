@@ -1,11 +1,11 @@
-import { inject, injectable } from 'tsyringe';
+import {inject, injectable} from 'tsyringe';
 
-import { Failure } from '@/core/errors/failure.error';
-import { UseCase } from '@/core/use-case';
-import { type AuthRepository } from '@/features/authentication/domain/repository/auth.repository';
-import { ResetPasswordSchemaType } from '@/features/authentication/presentation/validation/auth.validation';
+import {Failure} from '@/core/errors/failure.error';
+import {UseCase} from '@/core/use-case';
+import {type IAuthRepository} from '@/features/authentication/domain/repository/IAuthRepository';
+import {ResetPasswordSchemaType} from '@/features/authentication/presentation/validation/auth.validation';
 
-import type { Either } from 'fp-ts/Either';
+import type {Either} from 'fp-ts/Either';
 
 export class ResetPasswordUseCaseParam {
   constructor(public readonly payload: ResetPasswordSchemaType) {}
@@ -16,7 +16,7 @@ export class ResetPasswordUseCase
   implements UseCase<string, ResetPasswordUseCaseParam>
 {
   constructor(
-    @inject('AuthRepository') private readonly authRepository: AuthRepository
+    @inject('AuthRepository') private readonly authRepository: IAuthRepository
   ) {}
 
   async execute(

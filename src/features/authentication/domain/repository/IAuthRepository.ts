@@ -1,18 +1,18 @@
-import { Failure } from '@/core/errors/failure.error';
-import { AuthModel } from '@/features/authentication/data/model/auth.model';
+import {Failure} from '@/core/errors/failure.error';
+import {AuthModel} from '@/features/authentication/data/model/auth.model';
 import {
-  LoginSchemaType,
-  LoginWithGoogleSchemaType,
-  RefreshTokenSchemaType,
-  RegisterSchemaType,
-  RequestPasswordResetSchemaType,
-  ResetPasswordSchemaType,
-  VerifyPasswordResetTokenSchemaType,
+    LoginSchemaType,
+    LoginWithGoogleSchemaType,
+    RefreshTokenSchemaType,
+    RegisterSchemaType,
+    RequestPasswordResetSchemaType,
+    ResetPasswordSchemaType,
+    VerifyPasswordResetTokenSchemaType,
 } from '@/features/authentication/presentation/validation/auth.validation';
 
-import type { Either } from 'fp-ts/Either';
+import type {Either} from 'fp-ts/Either';
 
-export interface AuthRepository {
+export interface IAuthRepository {
   login(payload: LoginSchemaType): Promise<Either<Failure, AuthModel>>;
   register(payload: RegisterSchemaType): Promise<Either<Failure, string>>;
   refreshToken(

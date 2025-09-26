@@ -3,7 +3,7 @@ import {UserNetwork} from "@/features/user/data/datasource/user.network";
 import {inject, injectable} from "tsyringe";
 import extractErrorRepository from "@/core/helpers/extract-error-respository";
 
-export interface UserDataSource {
+export interface IUserDataSource {
     getUser():Promise<UserModel>;
 }
 
