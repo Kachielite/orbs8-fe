@@ -4,12 +4,12 @@ import {Failure} from "@/core/errors/failure.error";
 import {UserEntity} from "@/features/user/domain/entity/user.entity";
 import {fold} from "fp-ts/Either";
 
-export const getUserEffect = async () => {
+export const getUserEffect = async ():Promise<UserEntity> => {
     const response = await getUserUseCases().getUserUseCase.execute(
         new NoParams()
     );
 
-    fold<Failure, UserEntity, UserEntity>(
+    return fold<Failure, UserEntity, UserEntity>(
         failure => {
             throw failure;
         },
