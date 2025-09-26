@@ -13,7 +13,7 @@ export class UserRepository implements IUserRepository {
     ) {
     }
 
-    async getUsers(): Promise<Either<Failure, UserEntity>> {
+    async getUser(): Promise<Either<Failure, UserEntity>> {
         try {
             const response = await this.userDataSource.getUser();
             return right(response)

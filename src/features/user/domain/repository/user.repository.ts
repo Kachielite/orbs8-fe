@@ -3,5 +3,5 @@ import {UserEntity} from "@/features/user/domain/entity/user.entity";
 import {Either} from "fp-ts/lib/Either";
 
 export interface IUserRepository {
-    getUsers(): Promise<Either<Failure, UserEntity>>;
+    getUser(): Promise<Either<Failure, UserEntity>>;
 }
