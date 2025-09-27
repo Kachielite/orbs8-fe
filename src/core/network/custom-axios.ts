@@ -22,7 +22,6 @@ class AxiosClient {
       if (token) {
         const setup = { ...config };
         setup.headers.Authorization = `Bearer ${token}`;
-
         return setup;
       }
 
@@ -31,17 +30,20 @@ class AxiosClient {
   }
 
   handleUnauthorized() {
+    let isRedirecting = false;
     this.instance.interceptors.response.use(
       (response) => response,
       async (error) => {
         if (
-          error.response?.status === 401 ||
-          error.response?.data?.message === 'Unauthorized'
+          (error.response?.status === 401 ||
+            error.response?.data?.message === 'Unauthorized') &&
+          !isRedirecting &&
+          window.location.pathname !== '/login'
         ) {
+          isRedirecting = true;
           window.localStorage.clear();
           window.sessionStorage.clear();
           window.location.replace('/login');
-          return error;
         }
         return Promise.reject(error);
       }
@@ -53,10 +55,10 @@ class AxiosClient {
   }
 
   private getToken(): string | null {
-      const persistentState =  localStorage.getItem('auth-state');
+      const persistentState =  localStorage.getItem('auth-data');
       const authState = persistentState ? JSON.parse(persistentState) : null;
-      if(authState && authState.auth) {
-        return authState.auth.accessToken;
+      if(authState && authState.state.auth) {
+        return authState.state.auth.accessToken;
       }
       return null;
   }

@@ -9,7 +9,7 @@ import {IUserRepository} from "@/features/user/domain/repository/user.repository
 export function configureUserContainer(){
     // Register network/data dependencies
     container.registerSingleton<UserNetwork>(UserNetwork);
-    container.register<IUserDatasource>('UserRepository', {
+    container.register<IUserDatasource>('UserDataSource', {
         useClass: UserDataSource,
     });
 
