@@ -1,9 +1,9 @@
-import {inject, injectable} from 'tsyringe';
+import { inject, injectable } from 'tsyringe';
 import CustomAxios from '@/core/network/custom-axios';
 import extractErrorNetwork from '@/core/helpers/extract-error-network';
 import {
-    GetOauthTokenSchemaType,
-    ManualSyncRequestSchemaType
+  GetOauthTokenSchemaType,
+  ManualSyncRequestSchemaType,
 } from '@/features/email/presentation/validation/email-sync';
 
 @injectable()
