@@ -10,7 +10,7 @@ export class EmailSyncStatusModel extends EmailSyncStatusEntity {
         super(syncStatus, lastSyncAt, emailsScanned);
     }
 
-    static from(emailConnectionStatus: EmailSyncStatusEntity): EmailSyncStatusModel {
+    static fromJSON(emailConnectionStatus: EmailSyncStatusEntity): EmailSyncStatusModel {
         return new EmailSyncStatusModel(emailConnectionStatus.syncStatus, emailConnectionStatus.lastSyncAt, emailConnectionStatus.emailsScanned);
     }
 }
