@@ -1,4 +1,4 @@
-import {Spinner} from "@/core/common/presentation/components/loader";
+import { Spinner } from '@/core/common/presentation/components/loader';
 
 export function GlobalLoader({ show }: { show: boolean }) {
   if (!show) return null;

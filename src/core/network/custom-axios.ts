@@ -1,6 +1,6 @@
-import type {AxiosInstance} from 'axios';
+import type { AxiosInstance } from 'axios';
 import axios from 'axios';
-import {injectable} from 'tsyringe';
+import { injectable } from 'tsyringe';
 
 @injectable()
 class AxiosClient {
@@ -17,8 +17,8 @@ class AxiosClient {
   }
 
   setupRequestInterceptor() {
-    this.instance.interceptors.request.use(async (config) => {
-        const token = this.getToken();
+    this.instance.interceptors.request.use(async config => {
+      const token = this.getToken();
       if (token) {
         const setup = { ...config };
         setup.headers.Authorization = `Bearer ${token}`;
@@ -32,8 +32,8 @@ class AxiosClient {
   handleUnauthorized() {
     let isRedirecting = false;
     this.instance.interceptors.response.use(
-      (response) => response,
-      async (error) => {
+      response => response,
+      async error => {
         if (
           (error.response?.status === 401 ||
             error.response?.data?.message === 'Unauthorized') &&
@@ -55,12 +55,12 @@ class AxiosClient {
   }
 
   private getToken(): string | null {
-      const persistentState =  localStorage.getItem('auth-data');
-      const authState = persistentState ? JSON.parse(persistentState) : null;
-      if(authState && authState.state.auth) {
-        return authState.state.auth.accessToken;
-      }
-      return null;
+    const persistentState = localStorage.getItem('auth-data');
+    const authState = persistentState ? JSON.parse(persistentState) : null;
+    if (authState && authState.state.auth) {
+      return authState.state.auth.accessToken;
+    }
+    return null;
   }
 }
 

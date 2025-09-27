@@ -1,16 +1,16 @@
-import {inject, injectable} from 'tsyringe';
+import { inject, injectable } from 'tsyringe';
 
 import extractErrorDatasource from '@/core/helpers/extract-error-datasource';
-import {AuthNetwork} from '@/features/authentication/data/datasource/auth.network';
-import {AuthModel} from '@/features/authentication/data/model/auth.model';
+import { AuthNetwork } from '@/features/authentication/data/datasource/auth.network';
+import { AuthModel } from '@/features/authentication/data/model/auth.model';
 import {
-    LoginSchemaType,
-    LoginWithGoogleSchemaType,
-    RefreshTokenSchemaType,
-    RegisterSchemaType,
-    RequestPasswordResetSchemaType,
-    ResetPasswordSchemaType,
-    VerifyPasswordResetTokenSchemaType,
+  LoginSchemaType,
+  LoginWithGoogleSchemaType,
+  RefreshTokenSchemaType,
+  RegisterSchemaType,
+  RequestPasswordResetSchemaType,
+  ResetPasswordSchemaType,
+  VerifyPasswordResetTokenSchemaType,
 } from '@/features/authentication/presentation/validation/auth.validation';
 
 export interface IAuthDatasource {

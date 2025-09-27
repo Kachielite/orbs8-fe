@@ -5,6 +5,7 @@ A privacy-focused subscription discovery and management UI built with React, Typ
 ---
 
 ## Table of Contents
+
 - [Features](#features)
 - [Tech Stack](#tech-stack)
 - [Architecture](#architecture)
@@ -22,6 +23,7 @@ A privacy-focused subscription discovery and management UI built with React, Typ
 ---
 
 ## Features
+
 - **Authentication:** Register, login, Google login, refresh tokens
 - **Password Reset:** Request link, verify token, set new password
 - **Gmail Connection:** Initiate OAuth, show sync status, manual sync (UI planned)
@@ -31,6 +33,7 @@ A privacy-focused subscription discovery and management UI built with React, Typ
 ---
 
 ## Tech Stack
+
 - React 18 + TypeScript
 - Vite (dev/build tooling)
 - React Router (routing)
@@ -43,6 +46,7 @@ A privacy-focused subscription discovery and management UI built with React, Typ
 ---
 
 ## Architecture
+
 - **Feature-first, Clean Architecture:**
   - Presentation: Components, pages, hooks, local state
   - Domain: Use-cases, repository interfaces, entities (UI-agnostic)
@@ -54,6 +58,7 @@ A privacy-focused subscription discovery and management UI built with React, Typ
 ---
 
 ## Folder Structure
+
 ```
 src/
 ├─ App.tsx           # App root, router provider
@@ -103,13 +108,16 @@ npm run format:check  # Check formatting
 ---
 
 ## Environment Variables
+
 - `VITE_BACKEND_URL` — Base URL of the backend API (e.g., http://localhost:3000)
 - Set in `.env` and consumed via `import.meta.env` in `src/core/constants/env.constants.ts`
 
 ---
 
 ## API Integration
+
 **Auth Endpoints:**
+
 - `POST /auth/register` — Create user
 - `POST /auth/login` — Obtain tokens
 - `POST /auth/google` — Google login
@@ -119,6 +127,7 @@ npm run format:check  # Check formatting
 - `POST /auth/reset-password` — Set new password
 
 **Gmail Connector (planned):**
+
 - `GET  /email/get-auth` — Get OAuth URL
 - `POST /email/get-token` — Exchange OAuth code
 - `GET  /email/sync-status` — Sync status
@@ -127,6 +136,7 @@ npm run format:check  # Check formatting
 ---
 
 ## Routing & Access Control
+
 - **Public routes:** `/login`, `/register`, `/forget-password`, `/reset-password`
   - Redirect to dashboard if authenticated
 - **Protected area:** `/` (dashboard)
@@ -135,6 +145,7 @@ npm run format:check  # Check formatting
 ---
 
 ## Error Handling
+
 - Typed errors (Failure, ServerException) at each layer
 - Mapping helpers for user-friendly messages
 - Presentation hooks surface errors via toast/messages
@@ -142,6 +153,7 @@ npm run format:check  # Check formatting
 ---
 
 ## Styling
+
 - Tailwind CSS utility classes
 - UI primitives: button, input, label, card
 - Layout components for consistent structure
@@ -149,6 +161,7 @@ npm run format:check  # Check formatting
 ---
 
 ## Contributing
+
 - Feature-first structure, clean architecture boundaries
 - DI via tsyringe, explicit use-cases
 - Repository interfaces are UI-agnostic
@@ -161,6 +174,7 @@ npm run format:check  # Check formatting
 This project follows a **feature-first, clean architecture** approach, ensuring separation of concerns, testability, and scalability. The main architectural concepts are:
 
 ### 1. Layered Structure
+
 - **Presentation Layer:**
   - Contains UI components, pages, hooks, and local state.
   - Handles user interaction, form validation, and state display.
@@ -175,24 +189,29 @@ This project follows a **feature-first, clean architecture** approach, ensuring 
   - Example: `src/features/authentication/data/`.
 
 ### 2. Dependency Injection
+
 - Uses `tsyringe` for dependency injection.
 - All dependencies (repositories, use-cases) are registered at startup in `src/core/init-dependencies/`.
 - Promotes loose coupling and easier testing.
 
 ### 3. State Management
+
 - Uses Zustand for global state, with slices per feature.
 - Local state is managed in components/hooks where appropriate.
 
 ### 4. Routing & Access Control
+
 - Uses React Router for navigation.
 - Public and protected routes are defined in `src/core/route/`.
 - Loaders and layout boundaries enforce authentication and redirect logic.
 
 ### 5. Error Handling
+
 - Typed errors propagate from data to presentation layer.
 - Helpers map errors to user-friendly messages.
 
 ### 6. Extensibility
+
 - New features are added as new folders under `features/`, each with its own data, domain, and presentation subfolders.
 - Shared code lives in `core/common` and `core/helpers`.
 
@@ -252,6 +271,7 @@ sequenceDiagram
 ---
 
 ## Notes
+
 - Type safety: Zod schemas validate forms; DTO mapping isolates API contracts from UI
 - Future: Gmail connection UI, subscription list/detail UI, privacy dashboard, notifications
 - See backend README for server/data privacy details

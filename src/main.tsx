@@ -1,17 +1,17 @@
 import 'reflect-metadata';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import {QueryClient, QueryClientProvider} from 'react-query';
-import {Toaster} from 'sonner';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { Toaster } from 'sonner';
 
 import App from '@/App';
 import '@/index.css';
-import {configureAuthContainer} from '@/core/init-dependencies/auth.dependency';
-import {configureCustomAxiosContainer} from "@/core/init-dependencies/custom-axois.dependency";
-import {configureUserContainer} from "@/core/init-dependencies/user.depencey";
+import { configureAuthContainer } from '@/core/init-dependencies/auth.dependency';
+import { configureCustomAxiosContainer } from '@/core/init-dependencies/custom-axois.dependency';
+import { configureUserContainer } from '@/core/init-dependencies/user.depencey';
 
 // Initialize dependencies
-configureCustomAxiosContainer()
+configureCustomAxiosContainer();
 configureAuthContainer();
 configureUserContainer();
 
