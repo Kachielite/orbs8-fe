@@ -5,14 +5,17 @@ import { createAuthSlice } from '@/features/authentication/presentation/state/st
 import { AuthSlice } from '@/features/authentication/presentation/state/store/types';
 import { UserSlice } from '@/features/user/presentation/state/store/types';
 import { createUserSlice } from '@/features/user/presentation/state/store/slice';
+import { EmailSlice } from '@/features/email/presentation/state/store/type';
+import { createEmailSlice } from '@/features/email/presentation/state/store/slice';
 
-type AppState = AuthSlice & UserSlice;
+type AppState = AuthSlice & UserSlice & EmailSlice;
 
 export const useAppStore = create<AppState>()(
   persist(
     (...a) => ({
       ...createAuthSlice(...a),
       ...createUserSlice(...a),
+      ...createEmailSlice(...a),
     }),
     {
       name: 'auth-data', // unique name
