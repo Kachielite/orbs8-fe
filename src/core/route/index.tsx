@@ -10,6 +10,7 @@ import LoginPage from '@/features/authentication/presentation/pages/login.page';
 import RegisterPage from '@/features/authentication/presentation/pages/register.page';
 import ResetPasswordPage from '@/features/authentication/presentation/pages/reset-password.page';
 import DashboardPage from '@/features/dashboard/presentation/pages/dashboard.page';
+import LinkEmailPage from '@/features/email/presentation/pages/link-email.page';
 
 export const router = createBrowserRouter([
   {
@@ -53,6 +54,11 @@ export const router = createBrowserRouter([
           {
             path: '',
             element: <DashboardPage />,
+            errorElement: <ErrorPage />,
+          },
+          {
+            path: '/link-email',
+            element: <LinkEmailPage />,
             errorElement: <ErrorPage />,
           },
         ],
