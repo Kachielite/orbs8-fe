@@ -1,4 +1,4 @@
-import { getUserUseCases } from '@/core/init-dependencies/user.depencey';
+import { getUserUseCases } from '@/core/init-dependencies/user.dependency';
 import { NoParams } from '@/core/use-case';
 import { Failure } from '@/core/errors/failure.error';
 import { UserEntity } from '@/features/user/domain/entity/user.entity';
