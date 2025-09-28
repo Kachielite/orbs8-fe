@@ -1,0 +1,70 @@
+import React from 'react';
+import {
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/core/common/presentation/components/ui/card';
+import { Mail } from 'lucide-react';
+import { Input } from '@/core/common/presentation/components/ui/input';
+import { Button } from '@/core/common/presentation/components/ui/button';
+
+function FilterLabelStep({ setStep }: { setStep: (step: number) => void }) {
+  const [label, setLabel] = React.useState<string>('');
+  return (
+    <>
+      <CardHeader className="flex flex-col gap-4 text-center items-center mb-6">
+        <Mail size={64} className="text-primary" />
+        <CardTitle className="text-2xl lg:text-3xl">
+          Choose Your Filter Label
+        </CardTitle>
+        <CardDescription className="text-muted-foreground text-sm lg:text-lg w-full text-balance">
+          To protect your privacy, OrbS8 only reads emails from the Gmail label
+          you define. Create a filter in Gmail and apply a label.
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="flex flex-col gap-3 text-sm lg:text-base items-start">
+        <p className="font-medium">Filter Rules You Should Use:</p>
+        <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+          <li>
+            <span className="font-medium">Subject contains:</span> subscription,
+            renewal, invoice, payment, receipt, trial, canceled
+          </li>
+          <li>
+            <span className="font-medium">From (optional):</span> noreply@,
+            billing@, support@
+          </li>
+          <li>
+            <span className="font-medium">Label:</span> Enter below (e.g.{' '}
+            <code className="px-1 py-0.5 rounded bg-muted">Subscriptions</code>)
+          </li>
+        </ul>
+
+        <Input
+          placeholder="Enter Gmail Label Name (e.g. Subscriptions)"
+          value={label}
+          onChange={e => setLabel(e.target.value)}
+        />
+      </CardContent>
+      <CardFooter className="flex flex-col gap-3 w-full">
+        <Button className="w-full" onClick={() => setStep(3)} disabled={!label}>
+          Proceed & Start Sync
+        </Button>
+        <p className="text-xs text-muted-foreground text-center">
+          Need help?{' '}
+          <a
+            href="https://support.google.com/mail/answer/6579?hl=en"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary hover:underline"
+          >
+            Learn how to create a Gmail filter
+          </a>
+        </p>
+      </CardFooter>
+    </>
+  );
+}
+
+export default FilterLabelStep;
