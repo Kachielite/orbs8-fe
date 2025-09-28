@@ -1,12 +1,12 @@
 import React from 'react';
 import { useAppStore } from '@/core/common/presentation/state/store';
-import LinkEmailPage from '@/features/email/presentation/pages/link-email.page';
+import { Navigate } from 'react-router-dom';
 
 function DashboardPage() {
   const { user } = useAppStore();
 
   if (!user?.emailLinked) {
-    return <LinkEmailPage />;
+    return <Navigate to="/link-email" replace />;
   }
 
   return <div>DashboardPage</div>;

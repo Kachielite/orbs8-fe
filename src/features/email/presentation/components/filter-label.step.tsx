@@ -7,11 +7,13 @@ import {
   CardTitle,
 } from '@/core/common/presentation/components/ui/card';
 import { Mail } from 'lucide-react';
-import { Input } from '@/core/common/presentation/components/ui/input';
 import { Button } from '@/core/common/presentation/components/ui/button';
+import useSyncEmail from '@/features/email/presentation/state/hooks/use-sync-email';
+import CustomInput from '@/core/common/presentation/components/forms/custom-input';
 
-function FilterLabelStep({ setStep }: { setStep: (step: number) => void }) {
-  const [label, setLabel] = React.useState<string>('');
+function FilterLabelStep() {
+  const { syncEmailForm, isSyncingEmail, syncEmailHandler } = useSyncEmail();
+
   return (
     <>
       <CardHeader className="flex flex-col gap-4 text-center items-center mb-6">
@@ -24,7 +26,7 @@ function FilterLabelStep({ setStep }: { setStep: (step: number) => void }) {
           you define. Create a filter in Gmail and apply a label.
         </CardDescription>
       </CardHeader>
-      <CardContent className="flex flex-col gap-3 text-sm lg:text-base items-start">
+      <CardContent className="flex flex-col gap-3 text-sm lg:text-base items-start w-full">
         <p className="font-medium">Filter Rules You Should Use:</p>
         <ul className="list-disc list-inside space-y-1 text-muted-foreground">
           <li>
@@ -40,16 +42,21 @@ function FilterLabelStep({ setStep }: { setStep: (step: number) => void }) {
             <code className="px-1 py-0.5 rounded bg-muted">Subscriptions</code>)
           </li>
         </ul>
-
-        <Input
-          placeholder="Enter Gmail Label Name (e.g. Subscriptions)"
-          value={label}
-          onChange={e => setLabel(e.target.value)}
-        />
+        <div className="w-full">
+          <CustomInput
+            id="labelName"
+            formController={syncEmailForm}
+            placeholder="Enter Gmail Label Name (e.g. Subscriptions)"
+          />
+        </div>
       </CardContent>
       <CardFooter className="flex flex-col gap-3 w-full">
-        <Button className="w-full" onClick={() => setStep(3)} disabled={!label}>
-          Proceed & Start Sync
+        <Button
+          className="w-full"
+          onClick={syncEmailForm.handleSubmit(data => syncEmailHandler(data))}
+          disabled={isSyncingEmail}
+        >
+          {isSyncingEmail ? 'Processing...' : ' Proceed & Start Sync'}
         </Button>
         <p className="text-xs text-muted-foreground text-center">
           Need help?{' '}

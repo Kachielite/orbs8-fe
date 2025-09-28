@@ -1,14 +1,7 @@
 import React from 'react';
-import {cn} from "@/core/lib/utils";
+import { cn } from '@/core/lib/utils';
 
-const steps = [
-  'Consent',
-  'Connect',
-  'Label',
-  'Done',
-];
-
-
+const steps = ['Consent', 'Connect', 'Label', 'Done'];
 
 function LinkStepIndicator({ step }: { step: number }) {
   return (
@@ -18,13 +11,13 @@ function LinkStepIndicator({ step }: { step: number }) {
           {/* Circle */}
           <div
             className={cn(
-  'w-8 h-8 flex items-center justify-center rounded-full text-sm font-medium',
-  index === step
-    ? 'bg-primary text-white dark:bg-primary/40 dark:text-white'
-    : index < step
-      ? 'bg-primary/20 text-primary dark:bg-primary/20 dark:text-primary'
-      : 'bg-muted text-muted-foreground dark:bg-muted dark:text-muted-foreground'
-)}
+              'w-8 h-8 flex items-center justify-center rounded-full text-sm font-medium',
+              index === step
+                ? 'bg-primary text-white dark:bg-primary/40 dark:text-white'
+                : index < step
+                  ? 'bg-primary/20 text-primary dark:bg-primary/20 dark:text-primary'
+                  : 'bg-muted text-muted-foreground dark:bg-muted dark:text-muted-foreground'
+            )}
           >
             {index + 1}
           </div>

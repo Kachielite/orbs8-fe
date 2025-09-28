@@ -8,8 +8,10 @@ import {
 } from '@/features/email/presentation/validation/email-sync';
 import { toast } from 'sonner';
 import { extractErrorHooks } from '@/core/helpers/extract-error-hooks';
+import { useAppStore } from '@/core/common/presentation/state/store';
 
 const useSyncEmail = () => {
+  const { setStep } = useAppStore();
   const syncEmailForm = useForm<ManualSyncRequestSchemaType>({
     resolver: zodResolver(manualSyncRequest),
     defaultValues: {
@@ -27,6 +29,7 @@ const useSyncEmail = () => {
         onSuccess: message => {
           syncEmailForm.reset();
           toast.success(message);
+          setStep(3);
         },
         onError: error => {
           const errorMessage = extractErrorHooks(error, 'useGetToken');

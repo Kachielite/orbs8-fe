@@ -11,12 +11,12 @@ import { SyncEmailUseCase } from '@/features/email/domain/use-case/sync-email';
 export function configureEmailSyncContainer() {
   // Register network/data layer dependency
   container.registerSingleton<EmailSyncNetwork>(EmailSyncNetwork);
-  container.register<IEmailSyncDataSource>('EmailSyncDataSource', {
+  container.register<IEmailSyncDataSource>('IEmailDatasource', {
     useClass: EmailSyncNetwork,
   });
 
   // Register domain layer dependency
-  container.register<IEmailSyncRepository>('EmailSyncRepository', {
+  container.register<IEmailSyncRepository>('IEmailSyncRepository', {
     useClass: EmailSyncRepository,
   });
   container.registerSingleton<GetOauthUrlUseCase>(GetOauthUrlUseCase);

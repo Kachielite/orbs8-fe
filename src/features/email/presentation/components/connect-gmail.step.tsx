@@ -7,8 +7,10 @@ import {
 } from '@/core/common/presentation/components/ui/card';
 import { Cable } from 'lucide-react';
 import { Button } from '@/core/common/presentation/components/ui/button';
+import useGetOauthUrl from '@/features/email/presentation/state/hooks/use-get-oauth-url';
 
-function ConnectGmailStep({ setStep }: { setStep: (step: number) => void }) {
+function ConnectGmailStep() {
+  const { isGettingOAuthUrl, getOAuthUrlHandler } = useGetOauthUrl();
   return (
     <>
       <CardHeader className="flex flex-col gap-4 text-center items-center mb-6">
@@ -22,8 +24,12 @@ function ConnectGmailStep({ setStep }: { setStep: (step: number) => void }) {
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-4 items-center">
-        <Button className="w-full" onClick={() => setStep(2)}>
-          Allow Gmail Access
+        <Button
+          className="w-full"
+          onClick={() => getOAuthUrlHandler()}
+          disabled={isGettingOAuthUrl}
+        >
+          {isGettingOAuthUrl ? 'Processing...' : 'Allow Gmail Access'}
         </Button>
       </CardContent>
     </>

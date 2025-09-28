@@ -6,8 +6,9 @@ export const createEmailActions: StateCreator<
   EmailSlice,
   [],
   [],
-  Pick<EmailSlice, 'setSyncStatus'>
+  Pick<EmailSlice, 'setSyncStatus' | 'setStep'>
 > = set => ({
   setSyncStatus: (syncStatus: EmailSyncStatusEntity | null) =>
     set({ syncStatus }),
+  setStep: (step: number) => set({ step }),
 });
