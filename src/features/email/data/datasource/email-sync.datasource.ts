@@ -12,6 +12,7 @@ export interface IEmailSyncDataSource {
   getToken(request: GetOauthTokenSchemaType): Promise<string>;
   getSyncStatus(): Promise<EmailSyncStatusModel>;
   syncEmail(request: ManualSyncRequestSchemaType): Promise<string>;
+  verifyAccessToEmailLabel(labelName: string): Promise<string>;
 }
 
 @injectable()
@@ -51,6 +52,17 @@ export class EmailSyncDataSource implements IEmailSyncDataSource {
       return await this.emailSyncNetwork.syncEmail(request);
     } catch (error) {
       throw extractErrorRepository(error, 'EmailSyncDataSource:syncEmail');
+    }
+  }
+
+  async verifyAccessToEmailLabel(labelName: string): Promise<string> {
+    try {
+      return await this.emailSyncNetwork.verifyAccessToEmailLabel(labelName);
+    } catch (error) {
+      throw extractErrorRepository(
+        error,
+        'EmailSyncDataSource:verifyAccessToEmailLabel'
+      );
     }
   }
 }

@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import {z} from 'zod';
 
 export const getOauthToken = z.object({
   code: z.string().min(1, { message: 'Code is required' }),
@@ -11,3 +11,9 @@ export const manualSyncRequest = z.object({
 });
 
 export type ManualSyncRequestSchemaType = z.infer<typeof manualSyncRequest>;
+
+export const verifyEmailLabelSchema = z.object({
+  labelName: z.string().min(1, { message: 'Label name is required' }),
+});
+
+export type VerifyEmailLabelSchemaType = z.infer<typeof verifyEmailLabelSchema>;

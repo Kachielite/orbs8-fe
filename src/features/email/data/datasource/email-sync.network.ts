@@ -51,4 +51,14 @@ export class EmailSyncNetwork {
       throw extractErrorNetwork(error, 'UserNetwork:syncEmail');
     }
   }
+
+  public async verifyAccessToEmailLabel(labelName: string) {
+    try {
+      const url = `${this.emailPath}/verify-label-access?labelName=${encodeURIComponent(labelName)}`;
+      const response = await this.axios.getInstance().get(url);
+      return response.data;
+    } catch (error) {
+      throw extractErrorNetwork(error, 'UserNetwork:verifyAccessToEmailLabel');
+    }
+  }
 }

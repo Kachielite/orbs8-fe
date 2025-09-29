@@ -1,14 +1,16 @@
-import { IEmailSyncRepository } from '@/features/email/domain/repository/email-sync.repository';
-import { inject, injectable } from 'tsyringe';
-import { type IEmailSyncDataSource } from '@/features/email/data/datasource/email-sync.datasource';
-import { Failure } from '@/core/errors/failure.error';
 import { Either, right } from 'fp-ts/lib/Either';
+import { inject, injectable } from 'tsyringe';
+
+import { Failure } from '@/core/errors/failure.error';
+import extractErrorRepository from '@/core/helpers/extract-error-respository';
+import { type IEmailSyncDataSource } from '@/features/email/data/datasource/email-sync.datasource';
+import { IEmailSyncRepository } from '@/features/email/domain/repository/email-sync.repository';
+
 import {
   GetOauthTokenSchemaType,
   ManualSyncRequestSchemaType,
 } from '../../presentation/validation/email-sync';
 import { EmailSyncStatusModel } from '../model/email-sync-status.model';
-import extractErrorRepository from '@/core/helpers/extract-error-respository';
 
 @injectable()
 export class EmailSyncRepository implements IEmailSyncRepository {
@@ -54,6 +56,21 @@ export class EmailSyncRepository implements IEmailSyncRepository {
       return right(response);
     } catch (error) {
       throw extractErrorRepository(error, 'EmailSyncRepository:syncEmail');
+    }
+  }
+
+  async verifyAccessToEmailLabel(
+    labelName: string
+  ): Promise<Either<Failure, string>> {
+    try {
+      const response =
+        await this.emailDatasource.verifyAccessToEmailLabel(labelName);
+      return right(response);
+    } catch (error) {
+      throw extractErrorRepository(
+        error,
+        'EmailSyncRepository:verifyAccessToEmailLabel'
+      );
     }
   }
 }

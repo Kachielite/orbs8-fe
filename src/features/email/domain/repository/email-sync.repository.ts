@@ -13,4 +13,5 @@ export interface IEmailSyncRepository {
   syncEmail(
     request: ManualSyncRequestSchemaType
   ): Promise<Either<Failure, string>>;
+  verifyAccessToEmailLabel(labelName: string): Promise<Either<Failure, string>>;
 }
