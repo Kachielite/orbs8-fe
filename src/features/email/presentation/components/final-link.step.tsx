@@ -1,14 +1,12 @@
+import {ShieldCheck} from 'lucide-react';
 import React from 'react';
-import { Button } from '@/core/common/presentation/components/ui/button';
-import {
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/core/common/presentation/components/ui/card';
-import { ShieldCheck } from 'lucide-react';
+import {useNavigate} from "react-router-dom";
+
+import {Button} from '@/core/common/presentation/components/ui/button';
+import {CardDescription, CardFooter, CardHeader, CardTitle,} from '@/core/common/presentation/components/ui/card';
 
 function FinalLinkStep() {
+    const navigate = useNavigate();
   return (
     <>
       <CardHeader className="flex flex-col gap-4 text-center items-center mb-6">
@@ -22,7 +20,7 @@ function FinalLinkStep() {
         </CardDescription>
       </CardHeader>
       <CardFooter>
-        <Button className="w-full">Go to Dashboard</Button>
+        <Button onClick={() => navigate('/')} className="w-full">Go to Dashboard</Button>
       </CardFooter>
     </>
   );
