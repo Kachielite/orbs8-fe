@@ -12,7 +12,7 @@ import {
 
 import type { Either } from 'fp-ts/Either';
 
-export interface AuthRepository {
+export interface IAuthRepository {
   login(payload: LoginSchemaType): Promise<Either<Failure, AuthModel>>;
   register(payload: RegisterSchemaType): Promise<Either<Failure, string>>;
   refreshToken(

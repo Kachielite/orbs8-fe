@@ -1,12 +1,6 @@
 import { container } from 'tsyringe';
 
-import {
-  AuthDataSource,
-  AuthDataSourceImpl,
-} from '@/features/authentication/data/datasource/auth.datasource';
 import { AuthNetwork } from '@/features/authentication/data/datasource/auth.network';
-import { AuthRepositoryImpl } from '@/features/authentication/data/repository/auth.repository';
-import { AuthRepository } from '@/features/authentication/domain/repository/auth.repository';
 import { LoginUseCase } from '@/features/authentication/domain/use-case/login';
 import { LoginWithGoogleUseCase } from '@/features/authentication/domain/use-case/login-with-google';
 import { RefreshTokenUseCase } from '@/features/authentication/domain/use-case/refresh-token';
@@ -14,17 +8,23 @@ import { RegisterUseCase } from '@/features/authentication/domain/use-case/regis
 import { RequestPasswordResetUseCase } from '@/features/authentication/domain/use-case/request-password-reset';
 import { ResetPasswordUseCase } from '@/features/authentication/domain/use-case/reset-password';
 import { VerifyPasswordTokenUseCase } from '@/features/authentication/domain/use-case/verify-password-token';
+import {
+  AuthDataSource,
+  IAuthDatasource,
+} from '@/features/authentication/data/datasource/auth.datasource';
+import { IAuthRepository } from '@/features/authentication/domain/repository/auth.repository';
+import { AuthRepository } from '@/features/authentication/data/repository/auth.repository';
 
 export function configureAuthContainer() {
   // Register network/data layer dependency
   container.registerSingleton<AuthNetwork>(AuthNetwork);
-  container.register<AuthDataSource>('AuthDataSource', {
-    useClass: AuthDataSourceImpl,
+  container.register<IAuthDatasource>('AuthDataSource', {
+    useClass: AuthDataSource,
   });
 
   // Register domain layer dependency
-  container.register<AuthRepository>('AuthRepository', {
-    useClass: AuthRepositoryImpl,
+  container.register<IAuthRepository>('AuthRepository', {
+    useClass: AuthRepository,
   });
   container.registerSingleton<LoginUseCase>(LoginUseCase);
   container.registerSingleton<LoginWithGoogleUseCase>(LoginWithGoogleUseCase);

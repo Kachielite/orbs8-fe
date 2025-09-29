@@ -3,6 +3,11 @@ import { ServerException } from '@/core/errors/server.error';
 
 const extractErrorRepository = (error: unknown, handlerName: string) => {
   console.error(handlerName, error);
+  console.log(
+    'instance of error',
+    error instanceof ServerException,
+    (error as ServerException).message
+  );
   const errorMessage =
     error instanceof ServerException
       ? error.message

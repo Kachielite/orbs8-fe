@@ -7,9 +7,15 @@ import { Toaster } from 'sonner';
 import App from '@/App';
 import '@/index.css';
 import { configureAuthContainer } from '@/core/init-dependencies/auth.dependency';
+import { configureCustomAxiosContainer } from '@/core/init-dependencies/custom-axois.dependency';
+import { configureUserContainer } from '@/core/init-dependencies/user.dependency';
+import { configureEmailSyncContainer } from '@/core/init-dependencies/email-sync.dependency';
 
 // Initialize dependencies
+configureCustomAxiosContainer();
 configureAuthContainer();
+configureUserContainer();
+configureEmailSyncContainer();
 
 // React Query
 const queryClient = new QueryClient({

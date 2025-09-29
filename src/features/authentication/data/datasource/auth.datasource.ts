@@ -13,7 +13,7 @@ import {
   VerifyPasswordResetTokenSchemaType,
 } from '@/features/authentication/presentation/validation/auth.validation';
 
-export interface AuthDataSource {
+export interface IAuthDatasource {
   login(payload: LoginSchemaType): Promise<AuthModel>;
   register(payload: RegisterSchemaType): Promise<string>;
   refreshToken(payload: RefreshTokenSchemaType): Promise<AuthModel>;
@@ -28,7 +28,7 @@ export interface AuthDataSource {
 }
 
 @injectable()
-export class AuthDataSourceImpl implements AuthDataSource {
+export class AuthDataSource implements IAuthDatasource {
   private readonly authNetwork: AuthNetwork;
 
   constructor(@inject(AuthNetwork) authNetwork: AuthNetwork) {

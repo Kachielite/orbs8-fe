@@ -3,7 +3,7 @@ import { inject, injectable } from 'tsyringe';
 
 import { Failure } from '@/core/errors/failure.error';
 import { UseCase } from '@/core/use-case';
-import { type AuthRepository } from '@/features/authentication/domain/repository/auth.repository';
+import { type IAuthRepository } from '@/features/authentication/domain/repository/auth.repository';
 import { RegisterSchemaType } from '@/features/authentication/presentation/validation/auth.validation';
 
 export class RegisterUseCaseParam {
@@ -13,7 +13,7 @@ export class RegisterUseCaseParam {
 @injectable()
 export class RegisterUseCase implements UseCase<string, RegisterUseCaseParam> {
   constructor(
-    @inject('AuthRepository') private readonly authRepository: AuthRepository
+    @inject('AuthRepository') private readonly authRepository: IAuthRepository
   ) {}
 
   async execute(
