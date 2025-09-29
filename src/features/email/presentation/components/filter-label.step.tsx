@@ -30,23 +30,31 @@ function FilterLabelStep() {
         <p className="font-medium">Filter Rules You Should Use:</p>
         <ul className="list-disc list-inside space-y-1 text-muted-foreground">
           <li>
-            <span className="font-medium">Subject contains:</span> subscription,
-            renewal, invoice, payment, receipt, trial, canceled
+            <span className="font-medium">Subject contains:</span> "transaction"
+            OR "payment" OR "deposit" OR "withdrawal" OR "transfer"
           </li>
           <li>
-            <span className="font-medium">From (optional):</span> noreply@,
-            billing@, support@
+            <span className="font-medium">Has the words:</span> "debit" OR
+            "credit"
           </li>
           <li>
             <span className="font-medium">Label:</span> Enter below (e.g.{' '}
-            <code className="px-1 py-0.5 rounded bg-muted">Subscriptions</code>)
+            <code className="px-1 py-0.5 rounded bg-muted">Transactions</code>)
+          </li>
+          <li>
+            <span className="font-medium">Important:</span> Check the box that
+            says{' '}
+            <span className="text-primary">
+              "Also apply filter to matching conversations"
+            </span>{' '}
+            to ensure all relevant emails are properly labeled
           </li>
         </ul>
         <div className="w-full">
           <CustomInput
             id="labelName"
             formController={syncEmailForm}
-            placeholder="Enter Gmail Label Name (e.g. Subscriptions)"
+            placeholder="Enter Gmail Label Name (e.g. Transactions)"
           />
         </div>
       </CardContent>
