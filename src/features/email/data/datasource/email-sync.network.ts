@@ -1,9 +1,10 @@
-import { inject, injectable } from 'tsyringe';
-import CustomAxios from '@/core/network/custom-axios';
+import {inject, injectable} from 'tsyringe';
+
 import extractErrorNetwork from '@/core/helpers/extract-error-network';
+import CustomAxios from '@/core/network/custom-axios';
 import {
-  GetOauthTokenSchemaType,
-  ManualSyncRequestSchemaType,
+    GetOauthTokenSchemaType,
+    ManualSyncRequestSchemaType,
 } from '@/features/email/presentation/validation/email-sync';
 
 @injectable()
@@ -54,7 +55,7 @@ export class EmailSyncNetwork {
 
   public async verifyAccessToEmailLabel(labelName: string) {
     try {
-      const url = `${this.emailPath}/verify-label-access?labelName=${encodeURIComponent(labelName)}`;
+      const url = `${this.emailPath}/verify-label-access?label-name=${encodeURIComponent(labelName)}`;
       const response = await this.axios.getInstance().get(url);
       return response.data;
     } catch (error) {

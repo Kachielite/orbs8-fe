@@ -1,11 +1,12 @@
-import { inject, injectable } from 'tsyringe';
+import {inject, injectable} from 'tsyringe';
+
+import extractErrorDatasource from "@/core/helpers/extract-error-datasource";
+import {EmailSyncNetwork} from '@/features/email/data/datasource/email-sync.network';
+import {EmailSyncStatusModel} from '@/features/email/data/model/email-sync-status.model';
 import {
-  GetOauthTokenSchemaType,
-  ManualSyncRequestSchemaType,
+    GetOauthTokenSchemaType,
+    ManualSyncRequestSchemaType,
 } from '@/features/email/presentation/validation/email-sync';
-import { EmailSyncNetwork } from '@/features/email/data/datasource/email-sync.network';
-import extractErrorRepository from '@/core/helpers/extract-error-respository';
-import { EmailSyncStatusModel } from '@/features/email/data/model/email-sync-status.model';
 
 export interface IEmailSyncDataSource {
   getOAuthUrl(): Promise<string>;
@@ -26,7 +27,7 @@ export class EmailSyncDataSource implements IEmailSyncDataSource {
     try {
       return await this.emailSyncNetwork.getOAuthUrl();
     } catch (error) {
-      throw extractErrorRepository(error, 'EmailSyncDataSource:getOAuthUrl');
+      throw extractErrorDatasource(error, 'EmailSyncDataSource:getOAuthUrl');
     }
   }
 
@@ -34,7 +35,7 @@ export class EmailSyncDataSource implements IEmailSyncDataSource {
     try {
       return await this.emailSyncNetwork.getToken(request);
     } catch (error) {
-      throw extractErrorRepository(error, 'EmailSyncDataSource:getToken');
+      throw extractErrorDatasource(error, 'EmailSyncDataSource:getToken');
     }
   }
 
@@ -43,7 +44,7 @@ export class EmailSyncDataSource implements IEmailSyncDataSource {
       const response = await this.emailSyncNetwork.getSyncStatus();
       return EmailSyncStatusModel.fromJSON(response);
     } catch (error) {
-      throw extractErrorRepository(error, 'EmailSyncDataSource:getSyncStatus');
+      throw extractErrorDatasource(error, 'EmailSyncDataSource:getSyncStatus');
     }
   }
 
@@ -51,7 +52,7 @@ export class EmailSyncDataSource implements IEmailSyncDataSource {
     try {
       return await this.emailSyncNetwork.syncEmail(request);
     } catch (error) {
-      throw extractErrorRepository(error, 'EmailSyncDataSource:syncEmail');
+      throw extractErrorDatasource(error, 'EmailSyncDataSource:syncEmail');
     }
   }
 
@@ -59,7 +60,7 @@ export class EmailSyncDataSource implements IEmailSyncDataSource {
     try {
       return await this.emailSyncNetwork.verifyAccessToEmailLabel(labelName);
     } catch (error) {
-      throw extractErrorRepository(
+      throw extractErrorDatasource(
         error,
         'EmailSyncDataSource:verifyAccessToEmailLabel'
       );
