@@ -1,11 +1,11 @@
-import {inject, injectable} from 'tsyringe';
+import { inject, injectable } from 'tsyringe';
 
-import extractErrorDatasource from "@/core/helpers/extract-error-datasource";
-import {EmailSyncNetwork} from '@/features/email/data/datasource/email-sync.network';
-import {EmailSyncStatusModel} from '@/features/email/data/model/email-sync-status.model';
+import extractErrorDatasource from '@/core/helpers/extract-error-datasource';
+import { EmailSyncNetwork } from '@/features/email/data/datasource/email-sync.network';
+import { EmailSyncStatusModel } from '@/features/email/data/model/email-sync-status.model';
 import {
-    GetOauthTokenSchemaType,
-    ManualSyncRequestSchemaType,
+  GetOauthTokenSchemaType,
+  ManualSyncRequestSchemaType,
 } from '@/features/email/presentation/validation/email-sync';
 
 export interface IEmailSyncDataSource {

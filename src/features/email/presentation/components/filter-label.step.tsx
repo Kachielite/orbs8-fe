@@ -1,19 +1,20 @@
-import {Mail} from 'lucide-react';
+import { Mail } from 'lucide-react';
 import React from 'react';
 
 import CustomInput from '@/core/common/presentation/components/forms/custom-input';
-import {Button} from '@/core/common/presentation/components/ui/button';
+import { Button } from '@/core/common/presentation/components/ui/button';
 import {
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
 } from '@/core/common/presentation/components/ui/card';
-import useVerifyEmailLabel from "@/features/email/presentation/state/hooks/use-verify-email-label";
+import useVerifyEmailLabel from '@/features/email/presentation/state/hooks/use-verify-email-label';
 
 function FilterLabelStep() {
-  const { emailLabelForm, verifyEmailLabelAccessHandler, verifyingAccess } = useVerifyEmailLabel();
+  const { emailLabelForm, verifyEmailLabelAccessHandler, verifyingAccess } =
+    useVerifyEmailLabel();
 
   return (
     <>
@@ -32,12 +33,14 @@ function FilterLabelStep() {
         <p className="font-medium">Filter Rules You Should Use:</p>
         <ul className="list-disc list-inside space-y-1 text-muted-foreground">
           <li>
-            <span className="font-medium">Subject contains:</span> &quot;transaction&quot;
-            OR &quot;payment&quot; OR &quot;deposit&quot; OR &quot;withdrawal&quot; OR &quot;transfer&quot;
+            <span className="font-medium">Subject contains:</span>{' '}
+            &quot;transaction&quot; OR &quot;payment&quot; OR
+            &quot;deposit&quot; OR &quot;withdrawal&quot; OR
+            &quot;transfer&quot;
           </li>
           <li>
-            <span className="font-medium">Has the words:</span> &quot;debit&quot; OR
-            &quot;credit&quot;
+            <span className="font-medium">Has the words:</span>{' '}
+            &quot;debit&quot; OR &quot;credit&quot;
           </li>
           <li>
             <span className="font-medium">Label:</span> Enter below (e.g.{' '}
@@ -63,7 +66,9 @@ function FilterLabelStep() {
       <CardFooter className="flex flex-col gap-3 w-full">
         <Button
           className="w-full"
-          onClick={emailLabelForm.handleSubmit(data => verifyEmailLabelAccessHandler(data))}
+          onClick={emailLabelForm.handleSubmit(data =>
+            verifyEmailLabelAccessHandler(data)
+          )}
           disabled={verifyingAccess}
         >
           {verifyingAccess ? 'Processing...' : ' Proceed & Start Sync'}

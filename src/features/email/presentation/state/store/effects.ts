@@ -1,15 +1,15 @@
-import {fold} from 'fp-ts/Either';
+import { fold } from 'fp-ts/Either';
 
-import {Failure} from '@/core/errors/failure.error';
-import {getEmailSyncUseCases} from '@/core/init-dependencies/email-sync.dependency';
-import {NoParams} from '@/core/use-case';
-import {EmailSyncStatusEntity} from '@/features/email/domain/entity/email-sync-status.entity';
-import {GetTokenUseCaseParam} from '@/features/email/domain/use-case/get-token';
-import {SyncEmailUseCaseParam} from '@/features/email/domain/use-case/sync-email';
-import {VerifyEmailLabelUseCaseParam} from "@/features/email/domain/use-case/verify-email-label";
+import { Failure } from '@/core/errors/failure.error';
+import { getEmailSyncUseCases } from '@/core/init-dependencies/email-sync.dependency';
+import { NoParams } from '@/core/use-case';
+import { EmailSyncStatusEntity } from '@/features/email/domain/entity/email-sync-status.entity';
+import { GetTokenUseCaseParam } from '@/features/email/domain/use-case/get-token';
+import { SyncEmailUseCaseParam } from '@/features/email/domain/use-case/sync-email';
+import { VerifyEmailLabelUseCaseParam } from '@/features/email/domain/use-case/verify-email-label';
 import {
-    GetOauthTokenSchemaType,
-    ManualSyncRequestSchemaType,
+  GetOauthTokenSchemaType,
+  ManualSyncRequestSchemaType,
 } from '@/features/email/presentation/validation/email-sync';
 
 export const getOAuthUrlEffect = async () => {
@@ -72,10 +72,9 @@ export const getTokenEffect = async (request: GetOauthTokenSchemaType) => {
 };
 
 export const verifyAccessToEmailLabelEffect = async (labelName: string) => {
-  const response =
-    await getEmailSyncUseCases().verifyEmailLabelUseCase.execute(
-      new VerifyEmailLabelUseCaseParam(labelName)
-    );
+  const response = await getEmailSyncUseCases().verifyEmailLabelUseCase.execute(
+    new VerifyEmailLabelUseCaseParam(labelName)
+  );
 
   return fold<Failure, string, string>(
     failure => {
@@ -85,4 +84,4 @@ export const verifyAccessToEmailLabelEffect = async (labelName: string) => {
       return message;
     }
   )(response);
-}
+};

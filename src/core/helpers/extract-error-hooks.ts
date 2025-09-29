@@ -1,4 +1,4 @@
-import {Failure} from '@/core/errors/failure.error';
+import { Failure } from '@/core/errors/failure.error';
 
 export const extractErrorHooks = (error: unknown, hookName: string) => {
   console.log('instace of error', error instanceof Failure, error);
