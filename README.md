@@ -1,6 +1,6 @@
-# Subscription Tracker Frontend
+# Bank Notification Reader Frontend
 
-A privacy-focused subscription discovery and management UI built with React, TypeScript, and Vite. Integrates with a NestJS + Postgres backend for authentication, Gmail connection, and subscription insights.
+A privacy-focused bank email notification reader UI built with React, TypeScript, and Vite. Integrates with a NestJS + Postgres backend for authentication, Gmail connection, and bank notification insights.
 
 ---
 
@@ -27,7 +27,7 @@ A privacy-focused subscription discovery and management UI built with React, Typ
 - **Authentication:** Register, login, Google login, refresh tokens
 - **Password Reset:** Request link, verify token, set new password
 - **Gmail Connection:** Initiate OAuth, show sync status, manual sync (UI planned)
-- **Dashboard:** View subscription summaries and details (planned/expanding)
+- **Dashboard:** View bank notification summaries and details (planned/expanding)
 - **Privacy:** No raw email content stored; transparency on data scanned and sync status
 
 ---
@@ -273,5 +273,5 @@ sequenceDiagram
 ## Notes
 
 - Type safety: Zod schemas validate forms; DTO mapping isolates API contracts from UI
-- Future: Gmail connection UI, subscription list/detail UI, privacy dashboard, notifications
+- Future: Gmail connection UI, bank notification list/detail UI, privacy dashboard, notifications
 - See backend README for server/data privacy details
