@@ -25,7 +25,7 @@ export function configureEmailSyncContainer() {
   container.registerSingleton<GetSyncStatus>(GetSyncStatus);
   container.registerSingleton<GetTokenUseCase>(GetTokenUseCase);
   container.registerSingleton<SyncEmailUseCase>(SyncEmailUseCase);
-  container.registerSingleton<VerifyEmailLabelUseCase>(VerifyEmailLabelUseCase)
+  container.registerSingleton<VerifyEmailLabelUseCase>(VerifyEmailLabelUseCase);
 }
 
 export function getEmailSyncUseCases() {

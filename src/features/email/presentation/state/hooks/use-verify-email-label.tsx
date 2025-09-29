@@ -36,6 +36,7 @@ const useVerifyEmailLabel = () => {
     )
 
     return {
+        emailLabelForm,
         verifyingAccess,
         verifyEmailLabelAccessHandler,
     }
