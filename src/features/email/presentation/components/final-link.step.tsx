@@ -17,8 +17,8 @@ function FinalLinkStep() {
           You’re all set 🎉
         </CardTitle>
         <CardDescription className="text-muted-foreground text-sm lg:text-lg w-full text-balance">
-          OrbS8 is now syncing your subscription emails. Your dashboard will
-          update shortly.
+          OrbS8 is now syncing your <strong>bank notification emails</strong>.
+          Your dashboard will update with your latest transactions shortly.
         </CardDescription>
       </CardHeader>
       <CardFooter>

@@ -23,7 +23,8 @@ function FilterLabelStep() {
         </CardTitle>
         <CardDescription className="text-muted-foreground text-sm lg:text-lg w-full text-balance">
           To protect your privacy, OrbS8 only reads emails from the Gmail label
-          you define. Create a filter in Gmail and apply a label.
+          you define. Create a filter in Gmail for{' '}
+          <strong>bank alert messages</strong> and apply a label.
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-3 text-sm lg:text-base items-start w-full">

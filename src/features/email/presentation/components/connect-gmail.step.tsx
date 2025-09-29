@@ -18,9 +18,10 @@ function ConnectGmailStep() {
         <CardTitle className="text-2xl lg:text-3xl">
           Connect your Gmail
         </CardTitle>
-        <CardDescription className="text-muted-foreground text-sm lg:text-lg w-full text-balance">
-          Authorize OrbS8 to access Gmail (read-only). This lets us fetch your
-          subscription emails.
+        <CardDescription className="text-muted-foreground text-sm lg:text-lg w-full">
+          Authorize OrbS8 to access Gmail (read-only). This allows us to
+          securely fetch your <strong>bank notification emails</strong> from the
+          label you define — nothing else.
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-4 items-center">
