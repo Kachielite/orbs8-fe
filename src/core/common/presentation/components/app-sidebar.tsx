@@ -1,29 +1,29 @@
 "use client"
 
-import * as React from "react"
 import {
-  AudioWaveform,
-  BookOpen,
-  Bot,
-  Command,
-  Frame,
-  GalleryVerticalEnd,
-  Map,
-  PieChart,
-  Settings2,
-  SquareTerminal,
+    AudioWaveform,
+    BookOpen,
+    Bot,
+    Command,
+    Frame,
+    GalleryVerticalEnd,
+    Map,
+    PieChart,
+    Settings2,
+    SquareTerminal,
 } from "lucide-react"
+import * as React from "react"
 
-import { NavMain } from "@/core/common/presentation/components/nav-main"
-import { NavProjects } from "@/core/common/presentation/components/nav-projects"
-import { NavUser } from "@/core/common/presentation/components/nav-user"
-import { TeamSwitcher } from "@/core/common/presentation/components/team-switcher"
+import {Brand} from "@/core/common/presentation/components/brand"
+import {NavMain} from "@/core/common/presentation/components/nav-main"
+import {NavProjects} from "@/core/common/presentation/components/nav-projects"
+import {NavUser} from "@/core/common/presentation/components/nav-user"
 import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarHeader,
-  SidebarRail,
+    Sidebar,
+    SidebarContent,
+    SidebarFooter,
+    SidebarHeader,
+    SidebarRail,
 } from "@/core/common/presentation/components/ui/sidebar"
 
 // This is sample data.
@@ -160,7 +160,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
+        <Brand/>
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
