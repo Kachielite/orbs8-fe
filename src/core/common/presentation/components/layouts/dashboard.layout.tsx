@@ -1,26 +1,30 @@
-import {AppSidebar} from "@/core/common/presentation/components/app-sidebar"
-import {GlobalLoader} from "@/core/common/presentation/components/global-loader";
+import { AppSidebar } from '@/core/common/presentation/components/app-sidebar';
+import { GlobalLoader } from '@/core/common/presentation/components/global-loader';
 import {
-    Breadcrumb,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbList,
-    BreadcrumbPage,
-    BreadcrumbSeparator,
-} from "@/core/common/presentation/components/ui/breadcrumb"
-import {Separator} from "@/core/common/presentation/components/ui/separator"
-import {SidebarInset, SidebarProvider, SidebarTrigger,} from "@/core/common/presentation/components/ui/sidebar"
-import useGetUser from "@/features/user/presentation/state/hook/use-get-user";
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/core/common/presentation/components/ui/breadcrumb';
+import { Separator } from '@/core/common/presentation/components/ui/separator';
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from '@/core/common/presentation/components/ui/sidebar';
+import useGetUser from '@/features/user/presentation/state/hook/use-get-user';
 
 const DashboardLayout = () => {
-    const {isFetchingUser} = useGetUser();
+  const { isFetchingUser } = useGetUser();
 
-    if (isFetchingUser){
-        return <GlobalLoader show={true} />
-    }
+  if (isFetchingUser) {
+    return <GlobalLoader show={true} />;
+  }
 
   return (
-   <SidebarProvider>
+    <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">

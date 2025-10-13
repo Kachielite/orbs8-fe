@@ -1,30 +1,29 @@
-import {useQuery} from 'react-query';
-import {toast} from 'sonner';
+import { useQuery } from 'react-query';
+import { toast } from 'sonner';
 
-import {useAppStore} from '@/core/common/presentation/state/store';
-import {extractErrorHooks} from '@/core/helpers/extract-error-hooks';
-import {syncEmailEffect} from '@/features/email/presentation/state/store/effects';
+import { useAppStore } from '@/core/common/presentation/state/store';
+import { extractErrorHooks } from '@/core/helpers/extract-error-hooks';
+import { syncEmailEffect } from '@/features/email/presentation/state/store/effects';
 
 const useSyncEmail = () => {
   const { setStep } = useAppStore();
 
-  const { isLoading: isSyncingEmail } =
-    useQuery(
-      ['sync-email'],
-      async () => {
-        return syncEmailEffect();
+  const { isLoading: isSyncingEmail } = useQuery(
+    ['sync-email'],
+    async () => {
+      return syncEmailEffect();
+    },
+    {
+      onSuccess: () => {
+        toast.success('Email synced starting');
+        setStep(3);
       },
-      {
-        onSuccess: () => {
-            toast.success("Email synced starting");
-          setStep(3);
-        },
-        onError: error => {
-          const errorMessage = extractErrorHooks(error, 'useGetToken');
-          toast.error(errorMessage);
-        },
-      }
-    );
+      onError: error => {
+        const errorMessage = extractErrorHooks(error, 'useGetToken');
+        toast.error(errorMessage);
+      },
+    }
+  );
 
   return {
     isSyncingEmail,

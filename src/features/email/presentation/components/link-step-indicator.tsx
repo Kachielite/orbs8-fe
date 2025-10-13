@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {cn} from '@/core/lib/utils';
+import { cn } from '@/core/lib/utils';
 
 const steps = ['Consent', 'Connect', 'Label', 'Sync', 'Done'];
 
