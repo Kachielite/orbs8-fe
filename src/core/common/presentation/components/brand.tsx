@@ -9,10 +9,10 @@ export function Brand() {
     <SidebarMenu>
       <SidebarMenuItem>
          <a href="#" className="flex items-center gap-2 font-medium p-2">
-            <div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md">
+            <div className="bg-primary text-primary-foreground flex size-6 group-data-[collapsible=icon]:size-5 items-center justify-center group-data-[collapsible=icon]:rounded-sm rounded-md">
               <GalleryVerticalEnd className="size-4" />
             </div>
-            Orbs8 Inc.
+            <span className="group-data-[collapsible=icon]:hidden">Orbs8 Inc.</span>
           </a>
       </SidebarMenuItem>
     </SidebarMenu>
