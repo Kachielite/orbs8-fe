@@ -1,18 +1,15 @@
-import { inject, injectable } from 'tsyringe';
+import {inject, injectable} from 'tsyringe';
 
 import extractErrorDatasource from '@/core/helpers/extract-error-datasource';
-import { EmailSyncNetwork } from '@/features/email/data/datasource/email-sync.network';
-import { EmailSyncStatusModel } from '@/features/email/data/model/email-sync-status.model';
-import {
-  GetOauthTokenSchemaType,
-  ManualSyncRequestSchemaType,
-} from '@/features/email/presentation/validation/email-sync';
+import {EmailSyncNetwork} from '@/features/email/data/datasource/email-sync.network';
+import {EmailSyncStatusModel} from '@/features/email/data/model/email-sync-status.model';
+import {GetOauthTokenSchemaType,} from '@/features/email/presentation/validation/email-sync';
 
 export interface IEmailSyncDataSource {
   getOAuthUrl(): Promise<string>;
   getToken(request: GetOauthTokenSchemaType): Promise<string>;
   getSyncStatus(): Promise<EmailSyncStatusModel>;
-  syncEmail(request: ManualSyncRequestSchemaType): Promise<string>;
+  syncEmail(): Promise<string>;
   verifyAccessToEmailLabel(labelName: string): Promise<string>;
 }
 
@@ -48,9 +45,9 @@ export class EmailSyncDataSource implements IEmailSyncDataSource {
     }
   }
 
-  async syncEmail(request: ManualSyncRequestSchemaType): Promise<string> {
+  async syncEmail(): Promise<string> {
     try {
-      return await this.emailSyncNetwork.syncEmail(request);
+      return await this.emailSyncNetwork.syncEmail();
     } catch (error) {
       throw extractErrorDatasource(error, 'EmailSyncDataSource:syncEmail');
     }

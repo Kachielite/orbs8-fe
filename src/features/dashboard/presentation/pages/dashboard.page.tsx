@@ -1,8 +1,9 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+import {Navigate} from 'react-router-dom';
 
-import { GlobalLoader } from '@/core/common/presentation/components/global-loader';
-import { useAppStore } from '@/core/common/presentation/state/store';
+import {GlobalLoader} from '@/core/common/presentation/components/global-loader';
+import {useAppStore} from '@/core/common/presentation/state/store';
+import SyncEmailAlert from "@/features/email/presentation/components/sync-email-alert";
 import useGetUser from '@/features/user/presentation/state/hook/use-get-user';
 
 function DashboardPage() {
@@ -17,7 +18,7 @@ function DashboardPage() {
     return <Navigate to="/link-email" replace />;
   }
 
-  return <div>DashboardPage</div>;
+  return <div><SyncEmailAlert/></div>;
 }
 
 export default DashboardPage;
