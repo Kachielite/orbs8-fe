@@ -1,27 +1,27 @@
+import {Slot} from "@radix-ui/react-slot"
+import {cva, VariantProps} from "class-variance-authority"
+import {PanelLeftIcon} from "lucide-react"
 import * as React from "react"
-import { Slot } from "@radix-ui/react-slot"
-import { cva, VariantProps } from "class-variance-authority"
-import { PanelLeftIcon } from "lucide-react"
 
-import { useIsMobile } from "@/core/common/presentation/state/hooks/use-mobile"
-import { cn } from "@/core/lib/utils"
-import { Button } from "@/core/common/presentation/components/ui/button"
-import { Input } from "@/core/common/presentation/components/ui/input"
-import { Separator } from "@/core/common/presentation/components/ui/separator"
+import {Button} from "@/core/common/presentation/components/ui/button"
+import {Input} from "@/core/common/presentation/components/ui/input"
+import {Separator} from "@/core/common/presentation/components/ui/separator"
 import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
+    Sheet,
+    SheetContent,
+    SheetDescription,
+    SheetHeader,
+    SheetTitle,
 } from "@/core/common/presentation/components/ui/sheet"
-import { Skeleton } from "@/core/common/presentation/components/ui/skeleton"
+import {Skeleton} from "@/core/common/presentation/components/ui/skeleton"
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
 } from "@/core/common/presentation/components/ui/tooltip"
+import {useIsMobile} from "@/core/common/presentation/state/hooks/use-mobile"
+import {cn} from "@/core/lib/utils"
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state"
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
@@ -493,7 +493,14 @@ const sidebarMenuButtonVariants = cva(
   }
 )
 
-function SidebarMenuButton({
+const SidebarMenuButton = React.forwardRef<
+  HTMLButtonElement,
+  React.ComponentProps<"button"> & {
+    asChild?: boolean
+    isActive?: boolean
+    tooltip?: string | React.ComponentProps<typeof TooltipContent>
+  } & VariantProps<typeof sidebarMenuButtonVariants>
+>(({
   asChild = false,
   isActive = false,
   variant = "default",
@@ -501,16 +508,13 @@ function SidebarMenuButton({
   tooltip,
   className,
   ...props
-}: React.ComponentProps<"button"> & {
-  asChild?: boolean
-  isActive?: boolean
-  tooltip?: string | React.ComponentProps<typeof TooltipContent>
-} & VariantProps<typeof sidebarMenuButtonVariants>) {
+}, ref) => {
   const Comp = asChild ? Slot : "button"
   const { isMobile, state } = useSidebar()
 
   const button = (
     <Comp
+      ref={ref}
       data-slot="sidebar-menu-button"
       data-sidebar="menu-button"
       data-size={size}
@@ -541,7 +545,8 @@ function SidebarMenuButton({
       />
     </Tooltip>
   )
-}
+})
+SidebarMenuButton.displayName = "SidebarMenuButton"
 
 function SidebarMenuAction({
   className,
