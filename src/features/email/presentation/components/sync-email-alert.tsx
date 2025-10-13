@@ -1,16 +1,16 @@
-import {CheckCircle2, Loader2} from "lucide-react";
-import {useEffect, useState} from "react";
+import {Loader2} from "lucide-react";
+import React, {useEffect, useState} from "react";
 import {Navigate} from "react-router-dom";
 import {io} from "socket.io-client";
 
 import {GlobalLoader} from "@/core/common/presentation/components/global-loader";
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/core/common/presentation/components/ui/card";
+import {CardContent, CardDescription, CardHeader, CardTitle} from "@/core/common/presentation/components/ui/card";
 import {Progress} from "@/core/common/presentation/components/ui/progress";
 import {useAppStore} from "@/core/common/presentation/state/store";
 import useSyncEmail from "@/features/email/presentation/state/hooks/use-sync-email";
 import {SyncEmailSchemaType} from "@/features/email/presentation/validation/email-sync";
 
-function SyncEmailAlert() {
+function SyncEmailAlert({setStep}:{setStep: (step: number) => void}) {
   const {auth} = useAppStore();
   const {isSyncingEmail} = useSyncEmail()
   const token = auth?.accessToken
@@ -40,12 +40,13 @@ function SyncEmailAlert() {
     socket.on("sync_completed", () => {
       setProgress(100);
       setStatus("done");
+      setStep(4)
     });
 
     return () => {
       socket.disconnect();
     };
-  }, [token]);
+  }, [setStep, token]);
 
   if(isSyncingEmail) {
       return <GlobalLoader show={isSyncingEmail} />
@@ -56,43 +57,30 @@ function SyncEmailAlert() {
   }
 
     return (
-    <Card className="max-w-md mx-auto text-center py-6 px-4">
-      <CardHeader className="flex flex-col items-center gap-3">
+    <>
+      <CardHeader className="flex flex-col gap-4 text-center items-center mb-6">
         <div className="bg-primary/10 p-3 rounded-full mb-2">
-          {status === "done" ? (
-            <CheckCircle2 className="w-8 h-8 text-primary" />
-          ) : (
-            <Loader2 className="w-8 h-8 text-primary animate-spin" />
-          )}
+        <Loader2 className="w-8 h-8 text-primary animate-spin" />
         </div>
 
-        <CardTitle className="text-2xl font-semibold">
-          {status === "done"
-            ? "Sync Complete 🎉"
-            : "Syncing your bank alerts ✨"}
+        <CardTitle className="text-2xl lg:text-3xl">
+          Syncing your bank alerts ✨
         </CardTitle>
 
-        <CardDescription className="text-muted-foreground text-base">
-          {status === "done"
-            ? "OrbS8 has successfully synced your transactions! You will now be able to view your organized bank alerts and insights."
-            : "OrbS8 is scanning your inbox for bank notifications and organizing your transactions in real time."}
+        <CardDescription className="flex flex-col gap-3 text-sm lg:text-base items-start w-full">
+          OrbS8 is scanning your inbox for bank notifications and organizing your transactions in real time.
         </CardDescription>
       </CardHeader>
 
-      <CardContent className="mt-6">
+      <CardContent className="flex flex-col gap-8 items-center">
         <Progress value={progress} className="h-3 rounded-full" />
         {status === "syncing" && (
           <p className="text-sm text-muted-foreground mt-3">
             Syncing... {progress}%
           </p>
         )}
-        {status === "done" && (
-          <p className="text-sm text-muted-foreground mt-3">
-            All caught up! 🎯
-          </p>
-        )}
       </CardContent>
-    </Card>
+    </>
     )
 }
 

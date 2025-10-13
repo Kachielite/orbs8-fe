@@ -15,9 +15,9 @@ const useSyncEmail = () => {
         return syncEmailEffect();
       },
       {
-        onSuccess: message => {
-          toast.success(message);
-          setStep(4);
+        onSuccess: () => {
+            toast.success("Email synced starting");
+          setStep(3);
         },
         onError: error => {
           const errorMessage = extractErrorHooks(error, 'useGetToken');

@@ -1,7 +1,8 @@
 import React from 'react';
-import { cn } from '@/core/lib/utils';
 
-const steps = ['Consent', 'Connect', 'Label', 'Done'];
+import {cn} from '@/core/lib/utils';
+
+const steps = ['Consent', 'Connect', 'Label', 'Sync', 'Done'];
 
 function LinkStepIndicator({ step }: { step: number }) {
   return (

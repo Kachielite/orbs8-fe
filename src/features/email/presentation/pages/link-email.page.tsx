@@ -27,7 +27,7 @@ function LinkEmailPage() {
         {step === 0 && <TransparencyConsentStep setStep={setStep} />}
         {step === 1 && <ConnectGmailStep />}
         {step === 2 && <FilterLabelStep />}
-          {step === 3 && <SyncEmailAlert />}
+          {step === 3 && <SyncEmailAlert setStep={setStep} />}
         {step === 4 && <FinalLinkStep />}
       </Card>
     </div>
