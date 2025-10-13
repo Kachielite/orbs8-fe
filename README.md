@@ -126,7 +126,7 @@ npm run format:check  # Check formatting
 - `POST /auth/verify-token` — Verify reset token
 - `POST /auth/reset-password` — Set new password
 
-**Gmail Connector (planned):**
+**Gmail Connector:**
 
 - `GET  /email/get-auth` — Get OAuth URL
 - `POST /email/get-token` — Exchange OAuth code

@@ -1,34 +1,22 @@
-import { useMutation } from 'react-query';
-import { syncEmailEffect } from '@/features/email/presentation/state/store/effects';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  manualSyncRequest,
-  ManualSyncRequestSchemaType,
-} from '@/features/email/presentation/validation/email-sync';
-import { toast } from 'sonner';
-import { extractErrorHooks } from '@/core/helpers/extract-error-hooks';
-import { useAppStore } from '@/core/common/presentation/state/store';
+import {useQuery} from 'react-query';
+import {toast} from 'sonner';
+
+import {useAppStore} from '@/core/common/presentation/state/store';
+import {extractErrorHooks} from '@/core/helpers/extract-error-hooks';
+import {syncEmailEffect} from '@/features/email/presentation/state/store/effects';
 
 const useSyncEmail = () => {
   const { setStep } = useAppStore();
-  const syncEmailForm = useForm<ManualSyncRequestSchemaType>({
-    resolver: zodResolver(manualSyncRequest),
-    defaultValues: {
-      labelName: '',
-    },
-  });
 
-  const { isLoading: isSyncingEmail, mutateAsync: syncEmailHandler } =
-    useMutation(
+  const { isLoading: isSyncingEmail } =
+    useQuery(
       ['sync-email'],
-      async (data: ManualSyncRequestSchemaType) => {
-        return syncEmailEffect({ labelName: data.labelName });
+      async () => {
+        return syncEmailEffect();
       },
       {
-        onSuccess: message => {
-          syncEmailForm.reset();
-          toast.success(message);
+        onSuccess: () => {
+            toast.success("Email synced starting");
           setStep(3);
         },
         onError: error => {
@@ -39,9 +27,7 @@ const useSyncEmail = () => {
     );
 
   return {
-    syncEmailForm,
     isSyncingEmail,
-    syncEmailHandler,
   };
 };
 

@@ -1,20 +1,21 @@
-import { Mail } from 'lucide-react';
+import {Mail} from 'lucide-react';
 import React from 'react';
 
 import CustomInput from '@/core/common/presentation/components/forms/custom-input';
-import { Button } from '@/core/common/presentation/components/ui/button';
+import {Button} from '@/core/common/presentation/components/ui/button';
 import {
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
 } from '@/core/common/presentation/components/ui/card';
 import useVerifyEmailLabel from '@/features/email/presentation/state/hooks/use-verify-email-label';
 
 function FilterLabelStep() {
   const { emailLabelForm, verifyEmailLabelAccessHandler, verifyingAccess } =
     useVerifyEmailLabel();
+
 
   return (
     <>
@@ -71,7 +72,7 @@ function FilterLabelStep() {
           )}
           disabled={verifyingAccess}
         >
-          {verifyingAccess ? 'Processing...' : ' Proceed & Start Sync'}
+          {verifyingAccess ? 'Verifying...' : 'Verify & Sync'}
         </Button>
         <p className="text-xs text-muted-foreground text-center">
           Need help?{' '}

@@ -1,17 +1,14 @@
-import { Failure } from '@/core/errors/failure.error';
-import { inject, injectable } from 'tsyringe';
-import { UseCase } from '@/core/use-case';
-import { type IEmailSyncRepository } from '@/features/email/domain/repository/email-sync.repository';
-import { Either } from 'fp-ts/lib/Either';
-import { ManualSyncRequestSchemaType } from '@/features/email/presentation/validation/email-sync';
+import {Either} from 'fp-ts/lib/Either';
+import {inject, injectable} from 'tsyringe';
 
-export class SyncEmailUseCaseParam {
-  constructor(public readonly request: ManualSyncRequestSchemaType) {}
-}
+import {Failure} from '@/core/errors/failure.error';
+import {NoParams, UseCase} from '@/core/use-case';
+import {type IEmailSyncRepository} from '@/features/email/domain/repository/email-sync.repository';
+
 
 @injectable()
 export class SyncEmailUseCase
-  implements UseCase<string, SyncEmailUseCaseParam>
+  implements UseCase<string, NoParams>
 {
   constructor(
     @inject('IEmailSyncRepository')
@@ -19,8 +16,8 @@ export class SyncEmailUseCase
   ) {}
 
   async execute(
-    params: SyncEmailUseCaseParam
+    _params: NoParams
   ): Promise<Either<Failure, string>> {
-    return await this.emailSyncRepository.syncEmail(params.request);
+    return await this.emailSyncRepository.syncEmail();
   }
 }
