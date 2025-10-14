@@ -1,23 +1,17 @@
 'use client';
 
-import {
-  ArrowRightLeft,
-  Brain,
-  Landmark,
-  LayoutDashboard,
-  Settings,
-} from 'lucide-react';
+import {ArrowRightLeft, Brain, Landmark, LayoutDashboard, Settings,} from 'lucide-react';
 import * as React from 'react';
 
-import { Brand } from '@/core/common/presentation/components/brand';
-import { NavMain } from '@/core/common/presentation/components/nav-main';
-import { NavUser } from '@/core/common/presentation/components/nav-user';
+import {Brand} from '@/core/common/presentation/components/brand';
+import {NavMain} from '@/core/common/presentation/components/nav-main';
+import {NavUser} from '@/core/common/presentation/components/nav-user';
 import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarHeader,
-  SidebarRail,
+    Sidebar,
+    SidebarContent,
+    SidebarFooter,
+    SidebarHeader,
+    SidebarRail,
 } from '@/core/common/presentation/components/ui/sidebar';
 
 // This is sample data.
@@ -25,27 +19,27 @@ const data = {
   navMain: [
     {
       title: 'Dashboard',
-      url: '#',
+      url: '/',
       icon: LayoutDashboard,
     },
     {
       title: 'Transactions',
-      url: '#',
+      url: '/transactions',
       icon: ArrowRightLeft,
     },
     {
       title: 'Accounts',
-      url: '#',
+      url: '/accounts',
       icon: Landmark,
     },
     {
       title: 'Insights',
-      url: '#',
+      url: '/insights',
       icon: Brain,
     },
     {
       title: 'Settings',
-      url: '#',
+      url: '/settings',
       icon: Settings,
     },
   ],
