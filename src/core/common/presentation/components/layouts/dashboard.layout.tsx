@@ -1,16 +1,20 @@
-import {useLocation} from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
-import {AppSidebar} from '@/core/common/presentation/components/app-sidebar';
-import {GlobalLoader} from '@/core/common/presentation/components/global-loader';
-import PageLayout from "@/core/common/presentation/components/layouts/page.layout";
+import { AppSidebar } from '@/core/common/presentation/components/app-sidebar';
+import { GlobalLoader } from '@/core/common/presentation/components/global-loader';
+import PageLayout from '@/core/common/presentation/components/layouts/page.layout';
 import {
-    Breadcrumb,
-    BreadcrumbItem,
-    BreadcrumbList,
-    BreadcrumbPage,
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbList,
+  BreadcrumbPage,
 } from '@/core/common/presentation/components/ui/breadcrumb';
-import {Separator} from '@/core/common/presentation/components/ui/separator';
-import {SidebarInset, SidebarProvider, SidebarTrigger,} from '@/core/common/presentation/components/ui/sidebar';
+import { Separator } from '@/core/common/presentation/components/ui/separator';
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from '@/core/common/presentation/components/ui/sidebar';
 import useGetUser from '@/features/user/presentation/state/hook/use-get-user';
 
 const DashboardLayout = () => {
@@ -58,7 +62,7 @@ const DashboardLayout = () => {
             </Breadcrumb>
           </div>
         </header>
-          <PageLayout/>
+        <PageLayout />
       </SidebarInset>
     </SidebarProvider>
   );

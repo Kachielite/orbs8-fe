@@ -1,35 +1,34 @@
-import {
-  BadgeCheck,
-  Bell,
-  ChevronsUpDown,
-  CreditCard,
-  LogOut,
-} from 'lucide-react';
+import {ChevronsUpDown, LogOut} from 'lucide-react';
+import {useState} from 'react';
 
+import {CustomAlertDialogue} from '@/core/common/presentation/components/dialogue/custom-alert-dialogue';
+import {Avatar, AvatarFallback,} from '@/core/common/presentation/components/ui/avatar';
 import {
-  Avatar,
-  AvatarFallback,
-} from '@/core/common/presentation/components/ui/avatar';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuTrigger,
 } from '@/core/common/presentation/components/ui/dropdown-menu';
 import {
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  useSidebar,
+    SidebarMenu,
+    SidebarMenuButton,
+    SidebarMenuItem,
+    useSidebar,
 } from '@/core/common/presentation/components/ui/sidebar';
-import { useAppStore } from '@/core/common/presentation/state/store';
+import {useAppStore} from '@/core/common/presentation/state/store';
 
 export function NavUser() {
   const { isMobile } = useSidebar();
-  const { user } = useAppStore();
+  const { user, setAuth } = useAppStore();
+
+  const [showLogout, setShowLogout] = useState(false);
+  const handleLogout = () => {
+    localStorage.removeItem('auth');
+    setAuth(null);
+    setShowLogout(false);
+    window.location.href = '/login';
+  };
 
   const getFullNameInitials = (fullName: string | undefined) => {
     const names = (fullName || 'John Doe')?.split(' ');
@@ -64,42 +63,21 @@ export function NavUser() {
             align="end"
             sideOffset={4}
           >
-            <DropdownMenuLabel className="p-0 font-normal">
-              <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarFallback className="rounded-lg">
-                    {getFullNameInitials(user?.name)}
-                  </AvatarFallback>
-                </Avatar>
-                <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">{user?.name}</span>
-                  <span className="truncate text-xs">{user?.email}</span>
-                </div>
-              </div>
-            </DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <BadgeCheck />
-                Account
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <CreditCard />
-                Billing
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Bell />
-                Notifications
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuLabel className="p-0 font-normal"></DropdownMenuLabel>
+            <DropdownMenuItem onClick={() => setShowLogout(true)}>
               <LogOut />
               Log out
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>
+      <CustomAlertDialogue
+        title="Confirm Logout"
+        description="You’re about to end your current session. Do you want to continue logging out?"
+        visibility={showLogout}
+        setVisibility={setShowLogout}
+        action={handleLogout}
+      />
     </SidebarMenu>
   );
 }

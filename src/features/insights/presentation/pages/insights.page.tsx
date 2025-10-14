@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 function InsightsPage() {
-    return (
-        <div>InsightsPage</div>
-    )
+  return <div>InsightsPage</div>;
 }
 
-export default InsightsPage
+export default InsightsPage;
