@@ -1,13 +1,13 @@
-import {Either, right} from 'fp-ts/lib/Either';
-import {inject, injectable} from 'tsyringe';
+import { Either, right } from 'fp-ts/lib/Either';
+import { inject, injectable } from 'tsyringe';
 
-import {Failure} from '@/core/errors/failure.error';
+import { Failure } from '@/core/errors/failure.error';
 import extractErrorRepository from '@/core/helpers/extract-error-respository';
-import {type IEmailSyncDataSource} from '@/features/email/data/datasource/email-sync.datasource';
-import {IEmailSyncRepository} from '@/features/email/domain/repository/email-sync.repository';
+import { type IEmailSyncDataSource } from '@/features/email/data/datasource/email-sync.datasource';
+import { IEmailSyncRepository } from '@/features/email/domain/repository/email-sync.repository';
 
-import {GetOauthTokenSchemaType,} from '../../presentation/validation/email-sync';
-import {EmailSyncStatusModel} from '../model/email-sync-status.model';
+import { GetOauthTokenSchemaType } from '../../presentation/validation/email-sync';
+import { EmailSyncStatusModel } from '../model/email-sync-status.model';
 
 @injectable()
 export class EmailSyncRepository implements IEmailSyncRepository {
@@ -45,8 +45,7 @@ export class EmailSyncRepository implements IEmailSyncRepository {
     }
   }
 
-  async syncEmail(
-  ): Promise<Either<Failure, string>> {
+  async syncEmail(): Promise<Either<Failure, string>> {
     try {
       const response = await this.emailDatasource.syncEmail();
       return right(response);

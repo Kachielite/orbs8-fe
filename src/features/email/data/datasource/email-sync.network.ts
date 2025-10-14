@@ -1,8 +1,8 @@
-import {inject, injectable} from 'tsyringe';
+import { inject, injectable } from 'tsyringe';
 
 import extractErrorNetwork from '@/core/helpers/extract-error-network';
 import CustomAxios from '@/core/network/custom-axios';
-import {GetOauthTokenSchemaType,} from '@/features/email/presentation/validation/email-sync';
+import { GetOauthTokenSchemaType } from '@/features/email/presentation/validation/email-sync';
 
 @injectable()
 export class EmailSyncNetwork {
