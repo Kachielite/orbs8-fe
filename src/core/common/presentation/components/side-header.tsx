@@ -2,6 +2,7 @@ import React from 'react'
 import {useLocation} from "react-router-dom";
 
 import {ModeToggle} from "@/core/common/presentation/components/mode-toggle";
+import NotificationToggle from "@/core/common/presentation/components/notification-toggle";
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -50,6 +51,7 @@ function SideHeader() {
               </Breadcrumb>
             </div>
             <div className="ml-auto flex items-center gap-2">
+                <NotificationToggle/>
               <ModeToggle />
             </div>
           </div>
