@@ -1,4 +1,3 @@
-import {Settings} from "lucide-react";
 import {createBrowserRouter} from 'react-router-dom';
 
 import AuthLayout from '@/core/common/presentation/components/layouts/auth.layout';
@@ -14,6 +13,7 @@ import ResetPasswordPage from '@/features/authentication/presentation/pages/rese
 import DashboardPage from '@/features/dashboard/presentation/pages/dashboard.page';
 import LinkEmailPage from '@/features/email/presentation/pages/link-email.page';
 import InsightsPage from "@/features/insights/presentation/pages/insights.page";
+import SettingsPage from "@/features/settings/presentation/pages/settings.page";
 import TransactionsPage from "@/features/transactions/presentation/pages/transactions.page";
 
 export const router = createBrowserRouter([
@@ -82,7 +82,7 @@ export const router = createBrowserRouter([
           },
                       {
             path: '/settings',
-            element: <Settings />,
+            element: <SettingsPage />,
             errorElement: <ErrorPage />,
           },
         ],
