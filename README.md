@@ -139,8 +139,14 @@ npm run format:check  # Check formatting
 
 - **Public routes:** `/login`, `/register`, `/forget-password`, `/reset-password`
   - Redirect to dashboard if authenticated
-- **Protected area:** `/` (dashboard)
-  - Requires valid session; else redirect to `/login`
+- **Protected routes:**
+  - `/` (dashboard)
+  - `/link-email` (link email for Gmail sync)
+  - `/transactions` (view transactions)
+  - `/accounts` (manage accounts)
+  - `/insights` (view insights)
+  - `/settings` (user settings)
+  - Require valid session; else redirect to `/login`
 
 ---
 
