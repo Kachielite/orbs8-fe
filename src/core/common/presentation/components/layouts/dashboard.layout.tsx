@@ -1,24 +1,38 @@
-import { AppSidebar } from '@/core/common/presentation/components/app-sidebar';
-import { GlobalLoader } from '@/core/common/presentation/components/global-loader';
+import {useLocation} from 'react-router-dom';
+
+import {AppSidebar} from '@/core/common/presentation/components/app-sidebar';
+import {GlobalLoader} from '@/core/common/presentation/components/global-loader';
 import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
+    Breadcrumb,
+    BreadcrumbItem,
+    BreadcrumbList,
+    BreadcrumbPage,
 } from '@/core/common/presentation/components/ui/breadcrumb';
-import { Separator } from '@/core/common/presentation/components/ui/separator';
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from '@/core/common/presentation/components/ui/sidebar';
+import {Separator} from '@/core/common/presentation/components/ui/separator';
+import {SidebarInset, SidebarProvider, SidebarTrigger,} from '@/core/common/presentation/components/ui/sidebar';
 import useGetUser from '@/features/user/presentation/state/hook/use-get-user';
 
 const DashboardLayout = () => {
-  const { isFetchingUser } = useGetUser();
+  const location = useLocation();
+  const { pathname } = location;
+  const getPageName = () => {
+    switch (pathname) {
+      case '/':
+        return 'Dashboard';
+      case '/transactions':
+        return 'Transactions';
+      case '/accounts':
+        return 'Accounts';
+      case '/insights':
+        return 'Insights';
+      case '/settings':
+        return 'Settings';
+      default:
+        return 'Dashboard';
+    }
+  };
 
+  const { isFetchingUser } = useGetUser();
   if (isFetchingUser) {
     return <GlobalLoader show={true} />;
   }
@@ -36,14 +50,8 @@ const DashboardLayout = () => {
             />
             <Breadcrumb>
               <BreadcrumbList>
-                <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="#">
-                    Building Your Application
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Data Fetching</BreadcrumbPage>
+                  <BreadcrumbPage>{getPageName()}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>

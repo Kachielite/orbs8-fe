@@ -14,7 +14,6 @@ export function NavMain({
     title: string;
     url: string;
     icon: LucideIcon;
-    isActive: boolean;
   }[];
 }) {
   return (
