@@ -41,16 +41,20 @@ export class AccountSummaryModel extends AccountSummaryEntity {
   constructor(
     public totalBalance: number,
     public spendChange: number,
-    public quotes: Record<string, number>
+    public quotes: Record<string, number>,
+    public numberOfBanks: number,
+    public numberOfAccounts: number,
   ) {
-    super(totalBalance, spendChange, quotes);
+    super(totalBalance, spendChange, quotes, numberOfBanks, numberOfAccounts);
   }
 
   static fromJSON(data: AccountSummaryEntity) {
     return new AccountSummaryModel(
       data.totalBalance,
       data.spendChange,
-      data.quotes
+      data.quotes,
+        data.numberOfBanks,
+        data.numberOfAccounts,
     );
   }
 }

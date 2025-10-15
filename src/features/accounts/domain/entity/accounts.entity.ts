@@ -16,7 +16,7 @@ export class AccountEntity {
     currencyName: string,
     currencyCode: string,
     bankId: number,
-    bankName: string
+    bankName: string,
   ) {
     this.id = id;
     this.accountName = accountName;
@@ -33,14 +33,21 @@ export class AccountSummaryEntity {
   public totalBalance: number;
   public spendChange: number;
   public quotes: Record<string, number>;
+    public numberOfBanks: number;
+    public numberOfAccounts: number;
+
 
   constructor(
     totalBalance: number,
     spendChange: number,
-    quotes: Record<string, number>
+    quotes: Record<string, number>,
+        numberOfBanks: number,
+    numberOfAccounts: number,
   ) {
     this.totalBalance = totalBalance;
     this.spendChange = spendChange;
     this.quotes = quotes;
+        this.numberOfBanks = numberOfBanks;
+        this.numberOfAccounts = numberOfAccounts;
   }
 }
