@@ -100,7 +100,7 @@ function AccountTable() {
                 <TableCell className="border-r border-border last:border-r-0">{account.currencyName}</TableCell>
               )}
               {visibleColumns.includes('balance') && (
-                <TableCell className="border-r border-border last:border-r-0">{account.currentBalance.toLocaleString()}</TableCell>
+                <TableCell className="border-r border-border last:border-r-0">{account.currentBalance.toLocaleString('en-US')}</TableCell>
               )}
             </TableRow>
           ))}
