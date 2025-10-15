@@ -1,22 +1,25 @@
-import {ChevronsUpDown, LogOut} from 'lucide-react';
-import {useState} from 'react';
+import { ChevronsUpDown, LogOut } from 'lucide-react';
+import { useState } from 'react';
 
-import {CustomAlertDialogue} from '@/core/common/presentation/components/dialogue/custom-alert-dialogue';
-import {Avatar, AvatarFallback,} from '@/core/common/presentation/components/ui/avatar';
+import { CustomAlertDialogue } from '@/core/common/presentation/components/dialogue/custom-alert-dialogue';
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuTrigger,
+  Avatar,
+  AvatarFallback,
+} from '@/core/common/presentation/components/ui/avatar';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
 } from '@/core/common/presentation/components/ui/dropdown-menu';
 import {
-    SidebarMenu,
-    SidebarMenuButton,
-    SidebarMenuItem,
-    useSidebar,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  useSidebar,
 } from '@/core/common/presentation/components/ui/sidebar';
-import {useAppStore} from '@/core/common/presentation/state/store';
+import { useAppStore } from '@/core/common/presentation/state/store';
 
 export function NavUser() {
   const { isMobile } = useSidebar();

@@ -1,7 +1,8 @@
-import { UserModel } from '@/features/user/data/model/user.model';
-import { UserNetwork } from '@/features/user/data/datasource/user.network';
 import { inject, injectable } from 'tsyringe';
+
 import extractErrorRepository from '@/core/helpers/extract-error-respository';
+import { UserNetwork } from '@/features/user/data/datasource/user.network';
+import { UserModel } from '@/features/user/data/model/user.model';
 
 export interface IUserDatasource {
   getUser(): Promise<UserModel>;
