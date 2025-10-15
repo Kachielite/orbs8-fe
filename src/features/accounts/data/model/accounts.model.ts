@@ -1,4 +1,7 @@
-import {AccountEntity, AccountSummaryEntity,} from '@/features/accounts/domain/entity/accounts.entity';
+import {
+  AccountEntity,
+  AccountSummaryEntity,
+} from '@/features/accounts/domain/entity/accounts.entity';
 
 export class AccountsModel extends AccountEntity {
   constructor(
@@ -43,7 +46,7 @@ export class AccountSummaryModel extends AccountSummaryEntity {
     public spendChange: number,
     public quotes: Record<string, number>,
     public numberOfBanks: number,
-    public numberOfAccounts: number,
+    public numberOfAccounts: number
   ) {
     super(totalBalance, spendChange, quotes, numberOfBanks, numberOfAccounts);
   }
@@ -53,8 +56,8 @@ export class AccountSummaryModel extends AccountSummaryEntity {
       data.totalBalance,
       data.spendChange,
       data.quotes,
-        data.numberOfBanks,
-        data.numberOfAccounts,
+      data.numberOfBanks,
+      data.numberOfAccounts
     );
   }
 }

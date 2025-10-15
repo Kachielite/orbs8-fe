@@ -1,8 +1,10 @@
+import {
+  AccountEntity,
+  AccountSummaryEntity,
+} from '@/features/accounts/domain/entity/accounts.entity';
+import { AccountsSlice } from '@/features/accounts/presentation/state/store/types';
 
-import {AccountEntity, AccountSummaryEntity} from '@/features/accounts/domain/entity/accounts.entity';
-import {AccountsSlice} from '@/features/accounts/presentation/state/store/types';
-
-import type {StateCreator} from 'zustand/vanilla';
+import type { StateCreator } from 'zustand/vanilla';
 
 export const createAccountsActions: StateCreator<
   AccountsSlice,
@@ -12,5 +14,6 @@ export const createAccountsActions: StateCreator<
 > = set => ({
   setAccounts: (accounts: AccountEntity[]) => set({ accounts }),
   setAccount: (account: AccountEntity) => set({ account }),
-  setAccountSummary: (accountSummary: AccountSummaryEntity | null) => set({ accountSummary }),
+  setAccountSummary: (accountSummary: AccountSummaryEntity | null) =>
+    set({ accountSummary }),
 });

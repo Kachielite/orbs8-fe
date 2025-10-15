@@ -1,12 +1,15 @@
-import {container} from 'tsyringe';
+import { container } from 'tsyringe';
 
-import {AccountDataSource, IAccountsDataSource} from '@/features/accounts/data/datasource/accounts.datasource';
-import {AccountsNetwork} from '@/features/accounts/data/datasource/accounts.network';
-import {AccountsRepository} from '@/features/accounts/data/repository/accounts.repository';
-import {IAccountsRepository} from '@/features/accounts/domain/repository/accounts.repository';
-import {GetAccountById} from '@/features/accounts/domain/use-case/get-account-by-id';
-import {GetAccountSummary} from '@/features/accounts/domain/use-case/get-account-summary';
-import {GetAccounts} from '@/features/accounts/domain/use-case/get-accounts';
+import {
+  AccountDataSource,
+  IAccountsDataSource,
+} from '@/features/accounts/data/datasource/accounts.datasource';
+import { AccountsNetwork } from '@/features/accounts/data/datasource/accounts.network';
+import { AccountsRepository } from '@/features/accounts/data/repository/accounts.repository';
+import { IAccountsRepository } from '@/features/accounts/domain/repository/accounts.repository';
+import { GetAccountById } from '@/features/accounts/domain/use-case/get-account-by-id';
+import { GetAccountSummary } from '@/features/accounts/domain/use-case/get-account-summary';
+import { GetAccounts } from '@/features/accounts/domain/use-case/get-accounts';
 
 export function configureAccountsContainer() {
   // Register network/data layer dependency

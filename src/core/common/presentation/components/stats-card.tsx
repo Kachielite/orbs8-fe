@@ -1,13 +1,13 @@
-import {LucideIcon} from "lucide-react";
+import { LucideIcon } from 'lucide-react';
 
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle
-} from "@/core/common/presentation/components/ui/card";
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/core/common/presentation/components/ui/card';
 
 export type StatsCardData = {
   name: string;

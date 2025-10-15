@@ -1,5 +1,11 @@
-import {Card, CardDescription, CardFooter, CardHeader, CardTitle,} from '@/core/common/presentation/components/ui/card';
-import {Skeleton} from '@/core/common/presentation/components/ui/skeleton';
+import {
+  Card,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/core/common/presentation/components/ui/card';
+import { Skeleton } from '@/core/common/presentation/components/ui/skeleton';
 
 function CardSkeleton() {
   return (

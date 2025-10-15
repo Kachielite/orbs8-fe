@@ -1,10 +1,13 @@
-import {fold} from 'fp-ts/Either';
+import { fold } from 'fp-ts/Either';
 
-import {Failure} from '@/core/errors/failure.error';
-import {getAccountsUseCases} from '@/core/init-dependencies/accounts.dependency';
-import {NoParams} from '@/core/use-case';
-import {AccountEntity, AccountSummaryEntity} from '@/features/accounts/domain/entity/accounts.entity';
-import {GetAccountByIdParam} from '@/features/accounts/domain/use-case/get-account-by-id';
+import { Failure } from '@/core/errors/failure.error';
+import { getAccountsUseCases } from '@/core/init-dependencies/accounts.dependency';
+import { NoParams } from '@/core/use-case';
+import {
+  AccountEntity,
+  AccountSummaryEntity,
+} from '@/features/accounts/domain/entity/accounts.entity';
+import { GetAccountByIdParam } from '@/features/accounts/domain/use-case/get-account-by-id';
 
 export const getAccountByIdEffect = async (id: number) => {
   const response = await getAccountsUseCases().getAccountById.execute(

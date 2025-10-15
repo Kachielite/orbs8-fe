@@ -1,5 +1,5 @@
 export const initialAccountsState = {
-    account: null,
-    accounts: null,
-    accountSummary: null,
+  account: null,
+  accounts: null,
+  accountSummary: null,
 };

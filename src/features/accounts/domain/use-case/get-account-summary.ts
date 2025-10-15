@@ -1,13 +1,15 @@
-import {Either} from 'fp-ts/lib/Either';
-import {inject, injectable} from 'tsyringe';
+import { Either } from 'fp-ts/lib/Either';
+import { inject, injectable } from 'tsyringe';
 
-import {Failure} from '@/core/errors/failure.error';
-import {NoParams, UseCase} from '@/core/use-case';
-import {AccountSummaryEntity} from '@/features/accounts/domain/entity/accounts.entity';
-import {type IAccountsRepository} from '@/features/accounts/domain/repository/accounts.repository';
+import { Failure } from '@/core/errors/failure.error';
+import { NoParams, UseCase } from '@/core/use-case';
+import { AccountSummaryEntity } from '@/features/accounts/domain/entity/accounts.entity';
+import { type IAccountsRepository } from '@/features/accounts/domain/repository/accounts.repository';
 
 @injectable()
-export class GetAccountSummary implements UseCase<AccountSummaryEntity, NoParams> {
+export class GetAccountSummary
+  implements UseCase<AccountSummaryEntity, NoParams>
+{
   constructor(
     @inject('IAccountsRepository')
     private readonly accountsRepository: IAccountsRepository
