@@ -1,7 +1,4 @@
-import {
-  AccountEntity,
-  AccountSummaryEntity,
-} from '@/features/accounts/domain/accounts.entity';
+import {AccountEntity, AccountSummaryEntity,} from '@/features/accounts/domain/entity/accounts.entity';
 
 export class AccountsModel extends AccountEntity {
   constructor(

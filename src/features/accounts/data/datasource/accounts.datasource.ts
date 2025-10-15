@@ -2,12 +2,12 @@ import {inject, injectable} from "tsyringe";
 
 import extractErrorDatasource from "@/core/helpers/extract-error-datasource";
 import {AccountsNetwork} from "@/features/accounts/data/datasource/accounts.network";
-import {AccountsModel} from "@/features/accounts/data/model/accounts.model";
+import {AccountsModel, AccountSummaryModel} from "@/features/accounts/data/model/accounts.model";
 
 export interface IAccountsDataSource {
     getAccountById(id: number): Promise<AccountsModel>;
     getAccounts(): Promise<AccountsModel[]>;
-    getAccountSummary(): Promise<AccountsModel>;
+    getAccountSummary(): Promise<AccountSummaryModel>;
 }
 
 @injectable()
@@ -32,10 +32,10 @@ export class AccountDataSource implements IAccountsDataSource {
         }
     }
 
-    async getAccountSummary(): Promise<AccountsModel> {
+    async getAccountSummary(): Promise<AccountSummaryModel> {
         try {
             const response = await this.accountsNetwork.getAccountSummary();
-            return AccountsModel.fromJSON(response);
+            return AccountSummaryModel.fromJSON(response);
         } catch (error) {
             throw extractErrorDatasource(error, 'AccountDataSource:getAccountSummary');
         }
