@@ -13,12 +13,15 @@ export class TransactionModel extends TransactionsEntity {
         public description: string,
         public transactionDate: string,
         public category: string,
+        public categoryId: number,
         public account: string,
+        public accountId: number,
         public bank: string,
+        public bankId: number,
         public createdAt: string,
 
     ) {
-        super(id, amount, type, description, transactionDate, category, account, bank, createdAt);
+        super(id, amount, type, description, transactionDate, category, categoryId, account, accountId, bank, bankId, createdAt);
     }
 
     static fromJSON(json: TransactionsEntity): TransactionModel {
@@ -29,8 +32,11 @@ export class TransactionModel extends TransactionsEntity {
             json.description,
             json.transactionDate,
             json.category,
+            json.categoryId,
             json.account,
+            json.accountId,
             json.bank,
+            json.bankId,
             json.createdAt,
         );
     }

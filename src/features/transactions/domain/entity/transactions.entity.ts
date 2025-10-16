@@ -7,19 +7,25 @@ export class TransactionsEntity {
     public description: string;
     public transactionDate: string;
     public category: string;
+    public categoryId: number;
     public account: string;
+    public accountId: number;
     public bank: string;
+    public bankId: number;
     public createdAt: string;
 
-    constructor(id: number, amount: number, type: TransactionType, description: string, transactionDate: string, category: string, account: string, bank: string, createdAt: string) {
+    constructor(id: number, amount: number, type: TransactionType, description: string, transactionDate: string, category: string, categoryId: number, account: string, accountId: number, bank: string, bankId: number, createdAt: string) {
         this.id = id;
         this.amount = amount;
         this.type = type;
         this.description = description;
         this.transactionDate = transactionDate;
         this.category = category;
+        this.categoryId = categoryId;
         this.account = account;
+        this.accountId = accountId;
         this.bank = bank;
+        this.bankId = bankId;
         this.createdAt = createdAt;
     }
 }
