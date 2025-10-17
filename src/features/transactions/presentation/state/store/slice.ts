@@ -1,8 +1,8 @@
-import {StateCreator} from 'zustand/vanilla';
+import { StateCreator } from 'zustand/vanilla';
 
-import {createTransactionActions} from '@/features/transactions/presentation/state/store/actions';
-import {initialTransactionState} from '@/features/transactions/presentation/state/store/state';
-import {TransactionSlice} from '@/features/transactions/presentation/state/store/types';
+import { createTransactionActions } from '@/features/transactions/presentation/state/store/actions';
+import { initialTransactionState } from '@/features/transactions/presentation/state/store/state';
+import { TransactionSlice } from '@/features/transactions/presentation/state/store/types';
 
 export const createTransactionSlice: StateCreator<TransactionSlice> = (
   set,

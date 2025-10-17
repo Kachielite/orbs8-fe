@@ -1,6 +1,6 @@
-import {inject, injectable} from 'tsyringe';
+import { inject, injectable } from 'tsyringe';
 
-import {BASE_URL} from '@/core/constants/env.constants';
+import { BASE_URL } from '@/core/constants/env.constants';
 import extractErrorNetwork from '@/core/helpers/extract-error-network';
 import CustomAxios from '@/core/network/custom-axios';
 

@@ -1,24 +1,22 @@
-import {useQuery} from 'react-query';
+import {useMutation} from 'react-query';
 import {toast} from 'sonner';
 
 import {useAppStore} from '@/core/common/presentation/state/store';
 import {extractErrorHooks} from '@/core/helpers/extract-error-hooks';
 import {getTransactionByIdEffect} from '@/features/transactions/presentation/state/store/effects';
 
-const useGetTransactionById = (id: number) => {
-  const { setTransaction } = useAppStore();
+const useGetTransactionById = () => {
+  const { setTransaction, transaction } = useAppStore();
 
   const {
     isLoading: isGettingTransaction,
-    data: transaction,
     error,
-  } = useQuery(
-    ['transaction', id],
+  } = useMutation(
+    ['transaction', transaction?.id],
     async () => {
-      return getTransactionByIdEffect(id);
+      return getTransactionByIdEffect(transaction!.id);
     },
     {
-      enabled: !!id,
       onSuccess: transaction => {
         setTransaction(transaction);
       },

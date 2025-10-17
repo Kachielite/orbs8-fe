@@ -1,4 +1,4 @@
 export const initialBankState = {
-    banks: null,
-    bank: null,
-}
+  banks: null,
+  bank: null,
+};

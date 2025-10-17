@@ -1,11 +1,14 @@
-import {container} from 'tsyringe';
+import { container } from 'tsyringe';
 
-import {BankDataSource, IBankDatasource,} from '@/features/bank/data/datasource/bank.datasource';
-import {BankNetwork} from '@/features/bank/data/datasource/bank.network';
-import {BankRepository} from '@/features/bank/data/repository/bank.repository';
-import {IBankRepository} from '@/features/bank/domain/repository/bank.repository';
-import {GetBankById} from '@/features/bank/domain/use-case/get-bank-by-id';
-import {GetBanks} from '@/features/bank/domain/use-case/get-banks';
+import {
+  BankDataSource,
+  IBankDatasource,
+} from '@/features/bank/data/datasource/bank.datasource';
+import { BankNetwork } from '@/features/bank/data/datasource/bank.network';
+import { BankRepository } from '@/features/bank/data/repository/bank.repository';
+import { IBankRepository } from '@/features/bank/domain/repository/bank.repository';
+import { GetBankById } from '@/features/bank/domain/use-case/get-bank-by-id';
+import { GetBanks } from '@/features/bank/domain/use-case/get-banks';
 
 export function configureBankContainer() {
   // Register network/data layer dependency

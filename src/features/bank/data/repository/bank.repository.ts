@@ -1,11 +1,11 @@
-import {Either, right} from 'fp-ts/lib/Either';
-import {inject, injectable} from 'tsyringe';
+import { Either, right } from 'fp-ts/lib/Either';
+import { inject, injectable } from 'tsyringe';
 
-import {Failure} from '@/core/errors/failure.error';
+import { Failure } from '@/core/errors/failure.error';
 import extractErrorRepository from '@/core/helpers/extract-error-respository';
-import {type IBankDatasource} from '@/features/bank/data/datasource/bank.datasource';
-import {BankEntity} from '@/features/bank/domain/entity/bank.entity';
-import {IBankRepository} from '@/features/bank/domain/repository/bank.repository';
+import { type IBankDatasource } from '@/features/bank/data/datasource/bank.datasource';
+import { BankEntity } from '@/features/bank/domain/entity/bank.entity';
+import { IBankRepository } from '@/features/bank/domain/repository/bank.repository';
 
 @injectable()
 export class BankRepository implements IBankRepository {

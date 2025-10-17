@@ -1,13 +1,16 @@
-import {Either} from 'fp-ts/lib/Either';
-import {inject, injectable} from 'tsyringe';
+import { Either } from 'fp-ts/lib/Either';
+import { inject, injectable } from 'tsyringe';
 
-import {Failure} from '@/core/errors/failure.error';
-import {UseCase} from '@/core/use-case';
-import {IUpdateTransactionQuery} from '@/features/transactions/domain/entity/interface/transactions.interface';
-import {type ITransactionRepository} from '@/features/transactions/domain/repository/transactions.repository';
+import { Failure } from '@/core/errors/failure.error';
+import { UseCase } from '@/core/use-case';
+import { IUpdateTransactionQuery } from '@/features/transactions/domain/entity/interface/transactions.interface';
+import { type ITransactionRepository } from '@/features/transactions/domain/repository/transactions.repository';
 
 export class UpdateTransactionParam {
-  constructor(public readonly id: number, public readonly payload: IUpdateTransactionQuery) {}
+  constructor(
+    public readonly id: number,
+    public readonly payload: IUpdateTransactionQuery
+  ) {}
 }
 
 @injectable()
@@ -22,6 +25,9 @@ export class UpdateTransaction
   async execute(
     params: UpdateTransactionParam
   ): Promise<Either<Failure, string>> {
-    return await this.transactionRepository.updateTransaction(params.id, params.payload);
+    return await this.transactionRepository.updateTransaction(
+      params.id,
+      params.payload
+    );
   }
 }

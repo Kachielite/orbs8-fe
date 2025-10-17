@@ -1,14 +1,14 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 import ColumnToggleDropdown from '@/core/common/presentation/components/column-toggle-dropdown';
 import TableSkeleton from '@/core/common/presentation/components/loaders/table-skeleton';
 import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from '@/core/common/presentation/components/ui/table';
 
 import useGetAccounts from '../state/hooks/use-get-accounts';
@@ -57,7 +57,12 @@ function AccountTable() {
             {columns
               .filter(col => visibleColumns.includes(col.key))
               .map(col => (
-                <TableHead key={col.key} className="border-r border-border last:border-r-0">{col.label}</TableHead>
+                <TableHead
+                  key={col.key}
+                  className="border-r border-border last:border-r-0"
+                >
+                  {col.label}
+                </TableHead>
               ))}
           </TableRow>
         </TableHeader>
@@ -65,19 +70,29 @@ function AccountTable() {
           {filteredAccounts.map(account => (
             <TableRow key={account.id} className="border-b-2 border-border">
               {visibleColumns.includes('accountName') && (
-                <TableCell className="border-r border-border last:border-r-0">{account.accountName}</TableCell>
+                <TableCell className="border-r border-border last:border-r-0">
+                  {account.accountName}
+                </TableCell>
               )}
               {visibleColumns.includes('accountNumber') && (
-                <TableCell className="border-r border-border last:border-r-0">{account.accountNumber}</TableCell>
+                <TableCell className="border-r border-border last:border-r-0">
+                  {account.accountNumber}
+                </TableCell>
               )}
               {visibleColumns.includes('bankName') && (
-                <TableCell className="border-r border-border last:border-r-0">{account.bankName}</TableCell>
+                <TableCell className="border-r border-border last:border-r-0">
+                  {account.bankName}
+                </TableCell>
               )}
               {visibleColumns.includes('currency') && (
-                <TableCell className="border-r border-border last:border-r-0">{account.currencyName}</TableCell>
+                <TableCell className="border-r border-border last:border-r-0">
+                  {account.currencyName}
+                </TableCell>
               )}
               {visibleColumns.includes('balance') && (
-                <TableCell className="border-r border-border last:border-r-0">{account.currentBalance.toLocaleString('en-US')}</TableCell>
+                <TableCell className="border-r border-border last:border-r-0">
+                  {account.currentBalance.toLocaleString('en-US')}
+                </TableCell>
               )}
             </TableRow>
           ))}

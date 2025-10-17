@@ -1,11 +1,14 @@
-import {container} from 'tsyringe';
+import { container } from 'tsyringe';
 
-import {CategoryDataSource, ICategoryDataSource,} from '@/features/category/data/datasource/category.datasource';
-import {CategoryNetwork} from '@/features/category/data/datasource/category.network';
-import {CategoryRepository} from '@/features/category/data/repository/category.repository';
-import {ICategoryRepository} from '@/features/category/domain/repository/category.repository';
-import {GetCategories} from '@/features/category/domain/use-case/get-categories';
-import {GetCategoryById} from '@/features/category/domain/use-case/get-category-by-id';
+import {
+  CategoryDataSource,
+  ICategoryDataSource,
+} from '@/features/category/data/datasource/category.datasource';
+import { CategoryNetwork } from '@/features/category/data/datasource/category.network';
+import { CategoryRepository } from '@/features/category/data/repository/category.repository';
+import { ICategoryRepository } from '@/features/category/domain/repository/category.repository';
+import { GetCategories } from '@/features/category/domain/use-case/get-categories';
+import { GetCategoryById } from '@/features/category/domain/use-case/get-category-by-id';
 
 export function configureCategoryContainer() {
   // Register network/data layer dependency

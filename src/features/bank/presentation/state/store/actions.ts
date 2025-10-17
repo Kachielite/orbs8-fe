@@ -1,7 +1,7 @@
-import {BankEntity} from '@/features/bank/domain/entity/bank.entity';
-import {BankSlice} from '@/features/bank/presentation/state/store/types';
+import { BankEntity } from '@/features/bank/domain/entity/bank.entity';
+import { BankSlice } from '@/features/bank/presentation/state/store/types';
 
-import type {StateCreator} from 'zustand/vanilla';
+import type { StateCreator } from 'zustand/vanilla';
 
 export const createBankActions: StateCreator<
   BankSlice,

@@ -1,10 +1,10 @@
-import {Either} from 'fp-ts/lib/Either';
-import {inject, injectable} from 'tsyringe';
+import { Either } from 'fp-ts/lib/Either';
+import { inject, injectable } from 'tsyringe';
 
-import {Failure} from '@/core/errors/failure.error';
-import {UseCase} from '@/core/use-case';
-import {CategoryEntity} from '@/features/category/domain/entity/category.entity';
-import {type ICategoryRepository} from '@/features/category/domain/repository/category.repository';
+import { Failure } from '@/core/errors/failure.error';
+import { UseCase } from '@/core/use-case';
+import { CategoryEntity } from '@/features/category/domain/entity/category.entity';
+import { type ICategoryRepository } from '@/features/category/domain/repository/category.repository';
 
 export class GetCategoryByIdParam {
   constructor(public readonly id: number) {}

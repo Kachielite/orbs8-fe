@@ -1,13 +1,13 @@
 import React from 'react';
 
-import {Skeleton} from '@/core/common/presentation/components/ui/skeleton';
+import { Skeleton } from '@/core/common/presentation/components/ui/skeleton';
 import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from '@/core/common/presentation/components/ui/table';
 
 interface TableSkeletonProps {

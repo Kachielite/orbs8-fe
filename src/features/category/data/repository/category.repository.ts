@@ -1,11 +1,11 @@
-import {Either, right} from 'fp-ts/lib/Either';
-import {inject, injectable} from 'tsyringe';
+import { Either, right } from 'fp-ts/lib/Either';
+import { inject, injectable } from 'tsyringe';
 
-import {Failure} from '@/core/errors/failure.error';
+import { Failure } from '@/core/errors/failure.error';
 import extractErrorRepository from '@/core/helpers/extract-error-respository';
-import {type ICategoryDataSource} from '@/features/category/data/datasource/category.datasource';
-import {CategoryEntity} from '@/features/category/domain/entity/category.entity';
-import {ICategoryRepository} from '@/features/category/domain/repository/category.repository';
+import { type ICategoryDataSource } from '@/features/category/data/datasource/category.datasource';
+import { CategoryEntity } from '@/features/category/domain/entity/category.entity';
+import { ICategoryRepository } from '@/features/category/domain/repository/category.repository';
 
 @injectable()
 export class CategoryRepository implements ICategoryRepository {

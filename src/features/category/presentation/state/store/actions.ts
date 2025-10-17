@@ -1,7 +1,7 @@
-import {CategoryEntity} from '@/features/category/domain/entity/category.entity';
-import {CategorySlice} from '@/features/category/presentation/state/store/types';
+import { CategoryEntity } from '@/features/category/domain/entity/category.entity';
+import { CategorySlice } from '@/features/category/presentation/state/store/types';
 
-import type {StateCreator} from 'zustand/vanilla';
+import type { StateCreator } from 'zustand/vanilla';
 
 export const createCategoryActions: StateCreator<
   CategorySlice,

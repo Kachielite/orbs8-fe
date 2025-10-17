@@ -1,9 +1,9 @@
-import {ArrowDownRight, ArrowUpRight} from 'lucide-react';
+import { ArrowDownRight, ArrowUpRight } from 'lucide-react';
 import React from 'react';
 
-import {Badge} from '@/core/common/presentation/components/ui/badge';
-import {Skeleton} from '@/core/common/presentation/components/ui/skeleton';
-import {useAppStore} from '@/core/common/presentation/state/store';
+import { Badge } from '@/core/common/presentation/components/ui/badge';
+import { Skeleton } from '@/core/common/presentation/components/ui/skeleton';
+import { useAppStore } from '@/core/common/presentation/state/store';
 import useGetAccountSummary from '@/features/accounts/presentation/state/hooks/use-get-account-summary';
 
 function ExchangeRateSkeleton() {

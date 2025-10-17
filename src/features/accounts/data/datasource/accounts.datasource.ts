@@ -1,8 +1,11 @@
-import {inject, injectable} from 'tsyringe';
+import { inject, injectable } from 'tsyringe';
 
 import extractErrorDatasource from '@/core/helpers/extract-error-datasource';
-import {AccountsNetwork} from '@/features/accounts/data/datasource/accounts.network';
-import {AccountsModel, AccountSummaryModel,} from '@/features/accounts/data/model/accounts.model';
+import { AccountsNetwork } from '@/features/accounts/data/datasource/accounts.network';
+import {
+  AccountsModel,
+  AccountSummaryModel,
+} from '@/features/accounts/data/model/accounts.model';
 
 export interface IAccountsDataSource {
   getAccountById(id: number): Promise<AccountsModel>;

@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 function TransactionTable() {
-    return (
-        <div>TransactionTable</div>
-    )
+  return <div>TransactionTable</div>;
 }
 
-export default TransactionTable
+export default TransactionTable;
