@@ -70,6 +70,8 @@ const useGetTransactions = () => {
   const query: ITransactionQuery = {
     page,
     limit,
+      ...(transactionStartDate && { startDate: transactionStartDate }),
+      ...(transactionEndDate && { endDate: transactionEndDate }),
     ...(transactionType && { transactionType }),
     ...(categoryIds && { categoryIds }),
     ...(accountIds && { accountIds }),

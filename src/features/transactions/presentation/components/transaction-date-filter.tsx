@@ -1,6 +1,6 @@
 import {Calendar} from 'lucide-react';
 import moment from 'moment';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 
 import {Button} from '@/core/common/presentation/components/ui/button';
 import {
@@ -43,12 +43,29 @@ const TransactionDateFilter: React.FC = () => {
   };
 
   const handleResetTemp = () => {
-    setTempStart(moment().startOf('month').format('YYYY-MM-DD'));
-    setTempEnd(moment().endOf('month').format('YYYY-MM-DD'));
+      const defaultStart = moment().startOf('month').format('YYYY-MM-DD');
+      const defaultEnd = moment().endOf('month').format('YYYY-MM-DD');
+    setTempStart(defaultStart);
+    setTempEnd(defaultEnd);
+    setTransactionStartDate(defaultStart);
+    setTransactionEndDate(defaultEnd);
   };
 
+  // validation: ensure start < end when both provided and valid
+  const isRangeValid = useMemo(() => {
+    if (!tempStart || !tempEnd) return true; // allow open-ended ranges
+    const s = moment(tempStart, 'YYYY-MM-DD', true);
+    const e = moment(tempEnd, 'YYYY-MM-DD', true);
+    if (!s.isValid() || !e.isValid()) return false;
+    // require strictly before
+    return s.isBefore(e);
+  }, [tempStart, tempEnd]);
+
   const handleApply = () => {
-    // Validate dates (optional strict check)
+    // Do not apply if range invalid
+    if (!isRangeValid) return;
+
+    // Validate and commit dates (strict parse)
     if (tempStart) {
       const s = moment(tempStart, 'YYYY-MM-DD', true);
       if (s.isValid()) setTransactionStartDate(s.format('YYYY-MM-DD'));
@@ -88,6 +105,7 @@ const TransactionDateFilter: React.FC = () => {
             type="date"
             value={tempStart ?? ''}
             onChange={handleStartChange}
+            aria-invalid={!isRangeValid}
           />
 
           <label className="text-xs font-medium">To</label>
@@ -95,7 +113,12 @@ const TransactionDateFilter: React.FC = () => {
             type="date"
             value={tempEnd ?? ''}
             onChange={handleEndChange}
+            aria-invalid={!isRangeValid}
           />
+
+          {!isRangeValid && (
+            <div className="text-xs text-destructive">Start date must be before end date.</div>
+          )}
 
           <div className="flex justify-end pt-1 space-x-2">
             <Button variant="ghost" size="sm" onClick={handleCancel}>
@@ -104,7 +127,7 @@ const TransactionDateFilter: React.FC = () => {
             <Button variant="ghost" size="sm" onClick={handleResetTemp}>
               Reset
             </Button>
-            <Button variant="default" size="sm" onClick={handleApply}>
+            <Button variant="default" size="sm" onClick={handleApply} disabled={!isRangeValid}>
               Apply
             </Button>
           </div>
