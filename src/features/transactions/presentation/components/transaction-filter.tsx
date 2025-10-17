@@ -67,7 +67,7 @@ const TransactionFilter: React.FC<TransactionFilterProps> = ({
         <div className="px-2 py-1.5 text-sm font-semibold flex items-center justify-between">
           <span>Filters</span>
           <button
-            className="text-xs text-muted-foreground px-2"
+            className="ml-4 text-xs text-muted-foreground p-2 bg-background rounded-md hover:bg-muted hover:text-muted-foreground transition-colors duration-200"
             onClick={() => handleClearAll()}
           >
             Clear
