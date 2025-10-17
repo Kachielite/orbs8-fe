@@ -17,6 +17,7 @@ import {useAppStore} from '@/core/common/presentation/state/store';
 import useGetAccounts from "@/features/accounts/presentation/state/hooks/use-get-accounts";
 import useGetBanks from "@/features/bank/presentation/state/hooks/use-get-banks";
 import useGetCategories from "@/features/category/presentation/state/hooks/use-get-categories";
+import TransactionDateFilter from '@/features/transactions/presentation/components/transaction-date-filter';
 import TransactionFilter from '@/features/transactions/presentation/components/transaction-filter';
 import useGetTransactions from '@/features/transactions/presentation/state/hooks/use-get-transactions';
 
@@ -120,6 +121,7 @@ function TransactionTable() {
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-semibold">List of Transactions</h2>
         <div className="flex items-center">
+          <TransactionDateFilter />
           <TransactionFilter
             handleUpdateQuery={handleUpdateQuery}
             transactionType={transactionType}
