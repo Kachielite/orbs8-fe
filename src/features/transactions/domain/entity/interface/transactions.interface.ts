@@ -10,8 +10,8 @@ export interface ITransactionQuery {
     orderBy?: 'asc' | 'desc';
     sortBy?: 'date' | 'amount' | 'createdAt';
     search?: string;
-    page: number;
-    limit: number;
+    page?: number;
+    limit?: number;
 }
 
 export interface IUpdateTransactionQuery {

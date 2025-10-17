@@ -3,20 +3,23 @@ import {toast} from 'sonner';
 
 import {useAppStore} from '@/core/common/presentation/state/store';
 import {extractErrorHooks} from '@/core/helpers/extract-error-hooks';
-import {ITransactionQuery} from '@/features/transactions/domain/entity/interface/transactions.interface';
 import {getTransactionSummaryEffect} from '@/features/transactions/presentation/state/store/effects';
 
-const useGetTransactionSummary = (query: ITransactionQuery) => {
-  const { setTransactionSummary } = useAppStore();
+const useGetTransactionSummary = () => {
+  const { setTransactionSummary, transactionStartDate, transactionEndDate } = useAppStore();
+
 
   const {
     isLoading: isGettingTransactionSummary,
     data: transactionSummary,
     error,
   } = useQuery(
-    ['transaction-summary', query],
+    ['transaction-summary', transactionStartDate, transactionEndDate],
     async () => {
-      return getTransactionSummaryEffect(query);
+      return getTransactionSummaryEffect({
+          startDate: transactionStartDate,
+          endDate: transactionEndDate
+      });
     },
     {
       onSuccess: transactionSummary => {
