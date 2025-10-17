@@ -128,7 +128,7 @@ function TransactionTable() {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             handleUpdateQuery('search', e.target.value)
           }
-          className="w-64 md:w-96"
+          className="w-56 md:w-96 mr-2"
           aria-label="Search transactions"
         />
         <div className="flex items-center">
@@ -253,7 +253,7 @@ function TransactionTable() {
 
       {/* Pagination controls */}
       <div className="flex items-center justify-between mt-2">
-        <div className="text-sm text-muted-foreground">
+        <div className="text-xs lg:text-sm text-muted-foreground">
           {total === 0
             ? 'No transactions'
             : `Showing ${start} - ${end} of ${total}`}
