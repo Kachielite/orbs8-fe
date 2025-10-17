@@ -1,3 +1,4 @@
+import {ChevronDown, ChevronsUpDown, ChevronUp} from 'lucide-react';
 import moment from "moment";
 import React, {useState} from 'react';
 
@@ -18,7 +19,7 @@ import useGetTransactions from "@/features/transactions/presentation/state/hooks
 
 function TransactionTable() {
     const { transactions, user } = useAppStore();
-    const {isGettingTransactions, handleUpdateQuery, page, limit} = useGetTransactions();
+    const {isGettingTransactions, handleUpdateQuery, page, limit, sortBy, orderBy} = useGetTransactions();
 
     const columns = [
     { key: 'description', label: 'Description' },
@@ -41,6 +42,38 @@ function TransactionTable() {
         ? prev.filter(key => key !== columnKey)
         : [...prev, columnKey]
     );
+  };
+
+  // toggle sort for given field (field should be 'amount' or 'date')
+  const toggleSort = (field: 'amount' | 'date') => {
+    // if different field, start with asc
+    if (sortBy !== field) {
+      handleUpdateQuery('sortBy', field);
+      handleUpdateQuery('orderBy', 'asc');
+      return;
+    }
+
+    // same field: cycle asc -> desc -> null
+    if (orderBy === 'asc') {
+      handleUpdateQuery('orderBy', 'desc');
+      return;
+    }
+
+    if (orderBy === 'desc') {
+      handleUpdateQuery('sortBy', undefined);
+      handleUpdateQuery('orderBy', undefined);
+      return;
+    }
+
+    // fallback to asc
+    handleUpdateQuery('orderBy', 'asc');
+  };
+
+  const handleHeaderKeyDown = (e: React.KeyboardEvent, field: 'amount' | 'date') => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleSort(field);
+    }
   };
 
     if (isGettingTransactions) {
@@ -77,14 +110,54 @@ function TransactionTable() {
           <TableRow>
             {columns
               .filter(col => visibleColumns.includes(col.key))
-              .map(col => (
-                <TableHead
-                  key={col.key}
-                  className="border-r border-border last:border-r-0"
-                >
-                  {col.label}
-                </TableHead>
-              ))}
+              .map(col => {
+                const isAmount = col.key === 'amount';
+                const isDate = col.key === 'transactionDate';
+
+                // render sortable header for amount and transactionDate
+                if (isAmount || isDate) {
+                  const field: 'amount' | 'date' = isAmount ? 'amount' : 'date';
+                  const active = sortBy === field;
+                  const direction = active ? orderBy : undefined;
+
+                  return (
+                    <TableHead
+                      key={col.key}
+                      className="border-r border-border last:border-r-0"
+                    >
+                      <div
+                        role="button"
+                        tabIndex={0}
+                        onClick={() => toggleSort(field)}
+                        onKeyDown={(e) => handleHeaderKeyDown(e, field)}
+                        className="flex items-center cursor-pointer select-none"
+                        aria-pressed={active}
+                        aria-label={`Sort by ${col.label}`}
+                      >
+                        <span>{col.label}</span>
+                        <span className="ml-2">
+                          {active && direction === 'asc' ? (
+                            <ChevronUp className="h-4 w-4 text-foreground" />
+                          ) : active && direction === 'desc' ? (
+                            <ChevronDown className="h-4 w-4 text-foreground" />
+                          ) : (
+                            <ChevronsUpDown className="h-4 w-4 text-muted-foreground" />
+                          )}
+                        </span>
+                      </div>
+                    </TableHead>
+                  );
+                }
+
+                return (
+                  <TableHead
+                    key={col.key}
+                    className="border-r border-border last:border-r-0"
+                  >
+                    {col.label}
+                  </TableHead>
+                );
+              })}
           </TableRow>
         </TableHeader>
         <TableBody>
