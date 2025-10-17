@@ -1,4 +1,5 @@
 import {ArrowRightLeft, BanknoteArrowDown, BanknoteArrowUp, FolderSync} from "lucide-react";
+import moment from "moment";
 import React from 'react'
 
 import CardLoaders from "@/core/common/presentation/components/loaders/card-loader";
@@ -36,7 +37,7 @@ function TransactionCards() {
     {
       name: 'Last Sync',
       description:'Last sync status of your accounts',
-      count: syncStatus?.lastSyncAt || 'Never',
+      count: syncStatus?.lastSyncAt ? moment(syncStatus.lastSyncAt).format('DD/MM/YYYY') : 'Never',
       icon: FolderSync,
     },
   ];
