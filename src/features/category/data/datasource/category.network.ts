@@ -5,7 +5,7 @@ import extractErrorNetwork from "@/core/helpers/extract-error-network";
 import CustomAxios from "@/core/network/custom-axios";
 
 @injectable()
-export class CategoryNetworkDataSource {
+export class CategoryNetwork {
     private readonly categoryPath = `${BASE_URL}/category`;
 
   constructor(@inject(CustomAxios) private readonly axios: CustomAxios) {}
@@ -15,7 +15,7 @@ export class CategoryNetworkDataSource {
             const response = await this.axios.getInstance().get(this.categoryPath);
             return response.data;
         } catch (error) {
-            throw extractErrorNetwork(error, 'CategoryNetworkDataSource:getCategories');
+            throw extractErrorNetwork(error, 'CategoryNetwork:getCategories');
         }
     }
 
@@ -24,7 +24,7 @@ export class CategoryNetworkDataSource {
             const response = await this.axios.getInstance().get(`${this.categoryPath}/${id}`);
             return response.data;
         } catch (error) {
-            throw extractErrorNetwork(error, 'CategoryNetworkDataSource:getCategoryById');
+            throw extractErrorNetwork(error, 'CategoryNetwork:getCategoryById');
         }
     }
 }

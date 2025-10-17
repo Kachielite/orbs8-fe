@@ -5,7 +5,7 @@ export class CategoryModel extends CategoryEntity {
         super(params);
     }
 
-    static fromEntity(entity: CategoryEntity): CategoryModel {
+    static fromJSON(entity: CategoryEntity): CategoryModel {
         return new CategoryModel({
             id: entity.id,
             name: entity.name,
