@@ -5,6 +5,7 @@ import React, {useState} from 'react';
 import ColumnToggleDropdown from '@/core/common/presentation/components/column-toggle-dropdown';
 import TableSkeleton from '@/core/common/presentation/components/loaders/table-skeleton';
 import {Button} from '@/core/common/presentation/components/ui/button';
+import {Input} from '@/core/common/presentation/components/ui/input';
 import {
     Table,
     TableBody,
@@ -34,6 +35,7 @@ function TransactionTable() {
     categoryIds,
     accountIds,
     bankIds,
+    search,
   } = useGetTransactions();
   const {isGettingBanks} = useGetBanks();
   const {isGettingAccounts} = useGetAccounts();
@@ -119,7 +121,16 @@ function TransactionTable() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold">List of Transactions</h2>
+        <Input
+          type="search"
+          placeholder="Search transactions"
+          value={search ?? ''}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            handleUpdateQuery('search', e.target.value)
+          }
+          className="w-64 md:w-96"
+          aria-label="Search transactions"
+        />
         <div className="flex items-center">
           <TransactionDateFilter />
           <TransactionFilter
