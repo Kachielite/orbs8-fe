@@ -1,11 +1,11 @@
-import { inject, injectable } from 'tsyringe';
+import {inject, injectable} from 'tsyringe';
 
-import { BASE_URL } from '@/core/constants/env.constants';
+import {BASE_URL} from '@/core/constants/env.constants';
 import extractErrorNetwork from '@/core/helpers/extract-error-network';
 import CustomAxios from '@/core/network/custom-axios';
 import {
-  ITransactionQuery,
-  IUpdateTransactionQuery,
+    ITransactionQuery,
+    IUpdateTransactionQuery,
 } from '@/features/transactions/domain/entity/interface/transactions.interface';
 
 @injectable()
@@ -20,45 +20,50 @@ export class TransactionNetwork {
       const page = query.page || 1;
       const limit = query.limit || 50;
 
-      const queryParams: Record<string, string> = {
-        page: page.toString(),
-        limit: limit.toString(),
-      };
+      // Use URLSearchParams so we can append repeated keys for arrays
+      const params = new URLSearchParams();
+      params.append('page', page.toString());
+      params.append('limit', limit.toString());
 
       if (query.transactionType) {
-        queryParams['transactionType'] = query.transactionType;
+        params.append('transactionType', query.transactionType);
       }
 
       if (query.startDate && query.endDate) {
-        queryParams['startDate'] = query.startDate;
-        queryParams['endDate'] = query.endDate;
+        params.append('startDate', query.startDate);
+        params.append('endDate', query.endDate);
       }
 
+      // For array fields, append each value as a repeated parameter: categoryIds=20&categoryIds=2
       if (query.categoryIds) {
-        queryParams['categoryIds'] = query.categoryIds.join(',');
+        query.categoryIds.forEach((id) =>
+          params.append('categoryIds', id.toString())
+        );
       }
 
       if (query.accountIds) {
-        queryParams['accountIds'] = query.accountIds.join(',');
+        query.accountIds.forEach((id) =>
+          params.append('accountIds', id.toString())
+        );
       }
 
       if (query.bankIds) {
-        queryParams['bankIds'] = query.bankIds.join(',');
+        query.bankIds.forEach((id) => params.append('bankIds', id.toString()));
       }
 
       if (query.search) {
-        queryParams['search'] = query.search;
+        params.append('search', query.search);
       }
 
       if (query.orderBy) {
-        queryParams['order'] = query.orderBy;
+        params.append('order', query.orderBy);
       }
 
       if (query.sortBy) {
-        queryParams['sort'] = query.sortBy;
+        params.append('sort', query.sortBy);
       }
 
-      const url = `${this.transactionPath}?${new URLSearchParams(queryParams).toString()}`;
+      const url = `${this.transactionPath}?${params.toString()}`;
       const response = await this.axios.getInstance().get(url);
       return response.data;
     } catch (error) {
