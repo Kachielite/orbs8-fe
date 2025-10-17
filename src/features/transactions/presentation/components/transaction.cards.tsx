@@ -36,7 +36,7 @@ function TransactionCards() {
     },
     {
       name: 'Last Sync',
-      description:'Last sync status of your accounts',
+      description:'Last transaction sync status',
       count: syncStatus?.lastSyncAt ? moment(syncStatus.lastSyncAt).format('DD/MM/YYYY') : 'Never',
       icon: FolderSync,
     },
