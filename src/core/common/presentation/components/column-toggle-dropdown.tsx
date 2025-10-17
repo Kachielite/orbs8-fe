@@ -1,13 +1,13 @@
-import { Check, Settings2 } from 'lucide-react';
+import {Check, Settings2} from 'lucide-react';
 import React from 'react';
 
-import { Button } from '@/core/common/presentation/components/ui/button';
+import {Button} from '@/core/common/presentation/components/ui/button';
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
 } from '@/core/common/presentation/components/ui/dropdown-menu';
 
 interface Column {
@@ -30,8 +30,7 @@ function ColumnToggleDropdown({
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline" size="sm">
-          <Settings2 className="mr-2 h-4 w-4" />
-          View
+          <Settings2 className="h-4 w-4" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
