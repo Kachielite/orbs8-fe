@@ -26,7 +26,7 @@ const useGetTransactions = () => {
   const [orderBy, setOrderBy] = useState<'asc' | 'desc' | undefined>(undefined);
   const [search, setSearch] = useState<string | undefined>(undefined);
   const [page, setPage] = useState<number>(1);
-  const [limit, setLimit] = useState<number>(10);
+  const [limit, setLimit] = useState<number>(20);
 
   const debouncedSearchTerm = useDebounce(search, 400);
 
@@ -81,8 +81,6 @@ const useGetTransactions = () => {
 
   const {
     isLoading: isGettingTransactions,
-    data: transactions,
-    error,
   } = useQuery(
     ['transactions', query, transactionStartDate, transactionEndDate],
     async () => {
@@ -101,9 +99,16 @@ const useGetTransactions = () => {
 
   return {
     isGettingTransactions,
-    transactions,
-    error,
-      handleUpdateQuery
+      handleUpdateQuery,
+      transactionType,
+      categoryIds,
+      accountIds,
+      bankIds,
+      sortBy,
+      orderBy,
+      search,
+      page,
+      limit,
   };
 };
 

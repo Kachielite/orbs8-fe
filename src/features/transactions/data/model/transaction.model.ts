@@ -1,13 +1,14 @@
-import { TransactionType } from '@/features/transactions/domain/entity/enum/transaction-type.enum';
+import {TransactionType} from '@/features/transactions/domain/entity/enum/transaction-type.enum';
 import {
-  TopTransactionsEntity,
-  TransactionsEntity,
-  TransactionsSummaryEntity,
+    TopTransactionsEntity,
+    TransactionsEntity,
+    TransactionsSummaryEntity,
 } from '@/features/transactions/domain/entity/transactions.entity';
 
 export class TransactionModel extends TransactionsEntity {
   constructor(
     public id: number,
+    public transactionId: string,
     public amount: number,
     public type: TransactionType,
     public description: string,
@@ -22,6 +23,7 @@ export class TransactionModel extends TransactionsEntity {
   ) {
     super(
       id,
+      transactionId,
       amount,
       type,
       description,
@@ -39,6 +41,7 @@ export class TransactionModel extends TransactionsEntity {
   static fromJSON(json: TransactionsEntity): TransactionModel {
     return new TransactionModel(
       json.id,
+      json.transactionId,
       json.amount,
       json.type,
       json.description,

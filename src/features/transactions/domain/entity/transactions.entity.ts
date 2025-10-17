@@ -1,7 +1,8 @@
-import { TransactionType } from '@/features/transactions/domain/entity/enum/transaction-type.enum';
+import {TransactionType} from '@/features/transactions/domain/entity/enum/transaction-type.enum';
 
 export class TransactionsEntity {
   public id: number;
+  public transactionId: string;
   public amount: number;
   public type: TransactionType;
   public description: string;
@@ -16,6 +17,7 @@ export class TransactionsEntity {
 
   constructor(
     id: number,
+    transactionId: string,
     amount: number,
     type: TransactionType,
     description: string,
@@ -29,6 +31,7 @@ export class TransactionsEntity {
     createdAt: string
   ) {
     this.id = id;
+    this.transactionId = transactionId;
     this.amount = amount;
     this.type = type;
     this.description = description;
