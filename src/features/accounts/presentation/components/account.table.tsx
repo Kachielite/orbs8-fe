@@ -1,15 +1,7 @@
-import {Eye} from 'lucide-react';
 import React, {useState} from 'react';
 
+import ColumnToggleDropdown from '@/core/common/presentation/components/column-toggle-dropdown';
 import TableSkeleton from '@/core/common/presentation/components/loaders/table-skeleton';
-import {Button} from '@/core/common/presentation/components/ui/button';
-import {Checkbox} from '@/core/common/presentation/components/ui/checkbox';
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from '@/core/common/presentation/components/ui/dropdown-menu';
 import {
     Table,
     TableBody,
@@ -53,26 +45,11 @@ function AccountTable() {
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-semibold">Accounts</h2>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="sm">
-              <Eye className="mr-2 h-4 w-4" />
-              View
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {columns.map(col => (
-              <DropdownMenuItem key={col.key} onClick={() => toggleColumn(col.key)}>
-                <Checkbox
-                  checked={visibleColumns.includes(col.key)}
-                  onCheckedChange={() => toggleColumn(col.key)}
-                  className="bg-foreground"
-                />
-                <span className="ml-2">{col.label}</span>
-              </DropdownMenuItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <ColumnToggleDropdown
+          columns={columns}
+          visibleColumns={visibleColumns}
+          onToggleColumn={toggleColumn}
+        />
       </div>
       <Table className="border border-border">
         <TableHeader className="bg-muted">
