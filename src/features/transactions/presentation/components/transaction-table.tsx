@@ -6,21 +6,19 @@ import ColumnToggleDropdown from '@/core/common/presentation/components/column-t
 import TableSkeleton from '@/core/common/presentation/components/loaders/table-skeleton';
 import {Button} from '@/core/common/presentation/components/ui/button';
 import {Input} from '@/core/common/presentation/components/ui/input';
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from '@/core/common/presentation/components/ui/table';
+import * as TableUI from '@/core/common/presentation/components/ui/table';
 import {useAppStore} from '@/core/common/presentation/state/store';
 import useGetAccounts from "@/features/accounts/presentation/state/hooks/use-get-accounts";
 import useGetBanks from "@/features/bank/presentation/state/hooks/use-get-banks";
 import useGetCategories from "@/features/category/presentation/state/hooks/use-get-categories";
+import {TransactionModel} from '@/features/transactions/data/model/transaction.model';
 import TransactionDateFilter from '@/features/transactions/presentation/components/transaction-date-filter';
 import TransactionFilter from '@/features/transactions/presentation/components/transaction-filter';
+import TransactionUpdate from '@/features/transactions/presentation/components/transaction-update';
 import useGetTransactions from '@/features/transactions/presentation/state/hooks/use-get-transactions';
+
+// destructure to ensure JSX identifiers exist in this module scope
+const { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } = TableUI;
 
 function TransactionTable() {
   const { transactions, user } = useAppStore();
@@ -50,6 +48,7 @@ function TransactionTable() {
     { key: 'account', label: 'Account' },
     { key: 'bank', label: 'Bank' },
     { key: 'transactionDate', label: 'Transaction Date' },
+    { key: 'actions', label: 'Actions' },
   ];
 
   const [visibleColumns, setVisibleColumns] = useState<string[]>(
@@ -148,9 +147,9 @@ function TransactionTable() {
           />
         </div>
       </div>
-      <Table className="border border-border">
-        <TableHeader className="bg-muted">
-          <TableRow>
+      <TableUI.Table className="border border-border">
+        <TableUI.TableHeader className="bg-muted">
+          <TableUI.TableRow>
             {columns
               .filter((col) => visibleColumns.includes(col.key))
               .map((col) => {
@@ -164,7 +163,7 @@ function TransactionTable() {
                   const direction = active ? orderBy : undefined;
 
                   return (
-                    <TableHead
+                    <TableUI.TableHead
                       key={col.key}
                       className="border-r border-border last:border-r-0"
                     >
@@ -188,68 +187,73 @@ function TransactionTable() {
                           )}
                         </span>
                       </div>
-                    </TableHead>
+                    </TableUI.TableHead>
                   );
                 }
 
                 return (
-                  <TableHead
+                  <TableUI.TableHead
                     key={col.key}
                     className="border-r border-border last:border-r-0"
                   >
                     {col.label}
-                  </TableHead>
+                  </TableUI.TableHead>
                 );
               })}
-          </TableRow>
-        </TableHeader>
-        <TableBody>
+          </TableUI.TableRow>
+        </TableUI.TableHeader>
+        <TableUI.TableBody>
           {transactions?.data?.map((transaction) => (
-            <TableRow key={transaction.id} className="border-b-2 border-border">
+            <TableUI.TableRow key={transaction.id} className="border-b-2 border-border">
               {visibleColumns.includes('transactionID') && (
-                <TableCell className="border-r border-border last:border-r-0">
+                <TableUI.TableCell className="border-r border-border last-border-r-0">
                   {transaction.transactionId}
-                </TableCell>
+                </TableUI.TableCell>
               )}
               {visibleColumns.includes('description') && (
-                <TableCell className="border-r border-border last-border-r-0">
+                <TableUI.TableCell className="border-r border-border last-border-r-0">
                   {transaction.description.substring(0, 50)}
-                </TableCell>
+                </TableUI.TableCell>
               )}
               {visibleColumns.includes('amount') && (
-                <TableCell className="border-r border-border last-border-r-0">
+                <TableUI.TableCell className="border-r border-border last-border-r-0">
                   {transaction.amount.toLocaleString('en-US')}
-                </TableCell>
+                </TableUI.TableCell>
               )}
               {visibleColumns.includes('type') && (
-                <TableCell className="border-r border-border last-border-r-0">
+                <TableUI.TableCell className="border-r border-border last-border-r-0">
                   {transaction.type}
-                </TableCell>
+                </TableUI.TableCell>
               )}
               {visibleColumns.includes('category') && (
-                <TableCell className="border-r border-border last-border-r-0">
+                <TableUI.TableCell className="border-r border-border last-border-r-0">
                   {transaction.category}
-                </TableCell>
+                </TableUI.TableCell>
               )}
               {visibleColumns.includes('account') && (
-                <TableCell className="border-r border-border last-border-r-0">
+                <TableUI.TableCell className="border-r border-border last-border-r-0">
                   {transaction.account}
-                </TableCell>
+                </TableUI.TableCell>
               )}
               {visibleColumns.includes('bank') && (
-                <TableCell className="border-r border-border last-border-r-0">
+                <TableUI.TableCell className="border-r border-border last-border-r-0">
                   {transaction.bank}
-                </TableCell>
+                </TableUI.TableCell>
               )}
               {visibleColumns.includes('transactionDate') && (
-                <TableCell className="border-r border-border last-border-r-0">
+                <TableUI.TableCell className="border-r border-border last-border-r-0">
                   {moment(transaction.transactionDate).format('DD/MM/YYYY')}
-                </TableCell>
+                </TableUI.TableCell>
               )}
-            </TableRow>
+              {visibleColumns.includes('actions') && (
+                <TableUI.TableCell className="border-r border-border last-border-r-0">
+                  <TransactionUpdate transaction={transaction as unknown as TransactionModel} />
+                </TableUI.TableCell>
+              )}
+            </TableUI.TableRow>
           ))}
-        </TableBody>
-      </Table>
+        </TableUI.TableBody>
+      </TableUI.Table>
 
       {/* Pagination controls */}
       <div className="flex items-center justify-between mt-2">
