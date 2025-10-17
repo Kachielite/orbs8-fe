@@ -1,6 +1,6 @@
-import { inject, injectable } from 'tsyringe';
+import {inject, injectable} from 'tsyringe';
 
-import { BASE_URL } from '@/core/constants/env.constants';
+import {BASE_URL} from '@/core/constants/env.constants';
 import extractErrorNetwork from '@/core/helpers/extract-error-network';
 import CustomAxios from '@/core/network/custom-axios';
 
@@ -8,7 +8,7 @@ import CustomAxios from '@/core/network/custom-axios';
 export class AccountsNetwork {
   private readonly accountPath = `${BASE_URL}/account`;
 
-  constructor(@inject(CustomAxios) private readonly axios: CustomAxios) {}
+  constructor(@inject('AxiosClient') private readonly axios: CustomAxios) {}
 
   public async getAccountById(id: number) {
     try {

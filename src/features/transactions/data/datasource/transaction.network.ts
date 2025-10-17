@@ -8,11 +8,11 @@ import {
     IUpdateTransactionQuery
 } from "@/features/transactions/domain/entity/interface/transactions.interface";
 
-injectable()
+@injectable()
 export class TransactionNetwork {
     private readonly transactionPath = `${BASE_URL}/transaction`;
 
-    constructor(@inject(CustomAxios) private readonly axios: CustomAxios) {}
+    constructor(@inject('AxiosClient') private readonly axios: CustomAxios) {}
 
     public async getTransactions(query: ITransactionQuery) {
         try {

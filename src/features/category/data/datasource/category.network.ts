@@ -8,7 +8,7 @@ import CustomAxios from "@/core/network/custom-axios";
 export class CategoryNetwork {
     private readonly categoryPath = `${BASE_URL}/category`;
 
-  constructor(@inject(CustomAxios) private readonly axios: CustomAxios) {}
+  constructor(@inject('AxiosClient') private readonly axios: CustomAxios) {}
 
     public async getCategories() {
         try {

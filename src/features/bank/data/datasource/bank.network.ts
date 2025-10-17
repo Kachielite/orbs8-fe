@@ -8,7 +8,7 @@ import CustomAxios from "@/core/network/custom-axios";
 export class BankNetwork {
     private readonly bankPath =`${BASE_URL}/bank`;
 
-    constructor(@inject(CustomAxios) private readonly axios: CustomAxios) {}
+    constructor(@inject('AxiosClient') private readonly axios: CustomAxios) {}
 
     async getBanks() {
         try {
