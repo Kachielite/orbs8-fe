@@ -5,12 +5,24 @@ import { createAccountsSlice } from '@/features/accounts/presentation/state/stor
 import { AccountsSlice } from '@/features/accounts/presentation/state/store/types';
 import { createAuthSlice } from '@/features/authentication/presentation/state/store/slice';
 import { AuthSlice } from '@/features/authentication/presentation/state/store/types';
+import { createBankSlice } from '@/features/bank/presentation/state/store/slice';
+import { BankSlice } from '@/features/bank/presentation/state/store/types';
+import { createCategorySlice } from '@/features/category/presentation/state/store/slice';
+import { CategorySlice } from '@/features/category/presentation/state/store/types';
 import { createEmailSlice } from '@/features/email/presentation/state/store/slice';
 import { EmailSlice } from '@/features/email/presentation/state/store/type';
+import { createTransactionSlice } from '@/features/transactions/presentation/state/store/slice';
+import { TransactionSlice } from '@/features/transactions/presentation/state/store/types';
 import { createUserSlice } from '@/features/user/presentation/state/store/slice';
 import { UserSlice } from '@/features/user/presentation/state/store/types';
 
-type AppState = AuthSlice & UserSlice & EmailSlice & AccountsSlice;
+type AppState = AuthSlice &
+  UserSlice &
+  EmailSlice &
+  AccountsSlice &
+  TransactionSlice &
+  CategorySlice &
+  BankSlice;
 
 export const useAppStore = create<AppState>()(
   persist(
@@ -19,6 +31,9 @@ export const useAppStore = create<AppState>()(
       ...createUserSlice(...a),
       ...createEmailSlice(...a),
       ...createAccountsSlice(...a),
+      ...createTransactionSlice(...a),
+      ...createCategorySlice(...a),
+      ...createBankSlice(...a),
     }),
     {
       name: 'auth-data', // unique name

@@ -8,7 +8,7 @@ import CustomAxios from '@/core/network/custom-axios';
 export class AccountsNetwork {
   private readonly accountPath = `${BASE_URL}/account`;
 
-  constructor(@inject(CustomAxios) private readonly axios: CustomAxios) {}
+  constructor(@inject('AxiosClient') private readonly axios: CustomAxios) {}
 
   public async getAccountById(id: number) {
     try {

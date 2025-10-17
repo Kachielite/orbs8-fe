@@ -1,4 +1,4 @@
-import { useMutation } from 'react-query';
+import { useQuery } from 'react-query';
 import { toast } from 'sonner';
 
 import { useAppStore } from '@/core/common/presentation/state/store';
@@ -8,10 +8,7 @@ import { getSyncStatusEffect } from '@/features/email/presentation/state/store/e
 const useGetSyncStatus = () => {
   const { setSyncStatus } = useAppStore();
 
-  const {
-    isLoading: isGettingEmailSyncStatus,
-    mutateAsync: getEmailSyncStatusHandler,
-  } = useMutation(
+  const { isLoading: isGettingEmailSyncStatus } = useQuery(
     ['sync-status'],
     async () => {
       return getSyncStatusEffect();
@@ -29,7 +26,6 @@ const useGetSyncStatus = () => {
 
   return {
     isGettingEmailSyncStatus,
-    getEmailSyncStatusHandler,
   };
 };
 
