@@ -1,24 +1,25 @@
-import {ChevronDown, ChevronsUpDown, ChevronUp} from 'lucide-react';
+import { ChevronDown, ChevronsUpDown, ChevronUp } from 'lucide-react';
 import moment from 'moment';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 import ColumnToggleDropdown from '@/core/common/presentation/components/column-toggle-dropdown';
 import TableSkeleton from '@/core/common/presentation/components/loaders/table-skeleton';
-import {Button} from '@/core/common/presentation/components/ui/button';
-import {Input} from '@/core/common/presentation/components/ui/input';
+import { Button } from '@/core/common/presentation/components/ui/button';
+import { Input } from '@/core/common/presentation/components/ui/input';
 import * as TableUI from '@/core/common/presentation/components/ui/table';
-import {useAppStore} from '@/core/common/presentation/state/store';
-import useGetAccounts from "@/features/accounts/presentation/state/hooks/use-get-accounts";
-import useGetBanks from "@/features/bank/presentation/state/hooks/use-get-banks";
-import useGetCategories from "@/features/category/presentation/state/hooks/use-get-categories";
-import {TransactionModel} from '@/features/transactions/data/model/transaction.model';
+import { useAppStore } from '@/core/common/presentation/state/store';
+import useGetAccounts from '@/features/accounts/presentation/state/hooks/use-get-accounts';
+import useGetBanks from '@/features/bank/presentation/state/hooks/use-get-banks';
+import useGetCategories from '@/features/category/presentation/state/hooks/use-get-categories';
+import { TransactionModel } from '@/features/transactions/data/model/transaction.model';
 import TransactionDateFilter from '@/features/transactions/presentation/components/transaction-date-filter';
 import TransactionFilter from '@/features/transactions/presentation/components/transaction-filter';
 import TransactionUpdate from '@/features/transactions/presentation/components/transaction-update';
 import useGetTransactions from '@/features/transactions/presentation/state/hooks/use-get-transactions';
 
 // destructure to ensure JSX identifiers exist in this module scope
-const { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } = TableUI;
+const { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } =
+  TableUI;
 
 function TransactionTable() {
   const { transactions, user } = useAppStore();
@@ -35,9 +36,9 @@ function TransactionTable() {
     bankIds,
     search,
   } = useGetTransactions();
-  const {isGettingBanks} = useGetBanks();
-  const {isGettingAccounts} = useGetAccounts();
-  const {isGettingCategories} = useGetCategories();
+  const { isGettingBanks } = useGetBanks();
+  const { isGettingAccounts } = useGetAccounts();
+  const { isGettingCategories } = useGetCategories();
 
   const columns = [
     { key: 'description', label: 'Description' },
@@ -52,11 +53,11 @@ function TransactionTable() {
   ];
 
   const [visibleColumns, setVisibleColumns] = useState<string[]>(
-    columns.map((col) => col.key)
+    columns.map(col => col.key)
   );
 
   const toggleColumn = (columnKey: string) => {
-    setVisibleColumns((prev) =>
+    setVisibleColumns(prev =>
       prev.includes(columnKey)
         ? prev.filter((key: string) => key !== columnKey)
         : [...prev, columnKey]
@@ -98,7 +99,12 @@ function TransactionTable() {
     }
   };
 
-  if (isGettingTransactions || isGettingBanks || isGettingAccounts || isGettingCategories) {
+  if (
+    isGettingTransactions ||
+    isGettingBanks ||
+    isGettingAccounts ||
+    isGettingCategories
+  ) {
     return <TableSkeleton rows={5} columns={visibleColumns.length} />;
   }
 
@@ -151,8 +157,8 @@ function TransactionTable() {
         <TableUI.TableHeader className="bg-muted">
           <TableUI.TableRow>
             {columns
-              .filter((col) => visibleColumns.includes(col.key))
-              .map((col) => {
+              .filter(col => visibleColumns.includes(col.key))
+              .map(col => {
                 const isAmount = col.key === 'amount';
                 const isDate = col.key === 'transactionDate';
 
@@ -171,7 +177,7 @@ function TransactionTable() {
                         role="button"
                         tabIndex={0}
                         onClick={() => toggleSort(field)}
-                        onKeyDown={(e) => handleHeaderKeyDown(e, field)}
+                        onKeyDown={e => handleHeaderKeyDown(e, field)}
                         className="flex items-center cursor-pointer select-none"
                         aria-pressed={active}
                         aria-label={`Sort by ${col.label}`}
@@ -203,8 +209,11 @@ function TransactionTable() {
           </TableUI.TableRow>
         </TableUI.TableHeader>
         <TableUI.TableBody>
-          {transactions?.data?.map((transaction) => (
-            <TableUI.TableRow key={transaction.id} className="border-b-2 border-border">
+          {transactions?.data?.map(transaction => (
+            <TableUI.TableRow
+              key={transaction.id}
+              className="border-b-2 border-border"
+            >
               {visibleColumns.includes('transactionID') && (
                 <TableUI.TableCell className="border-r border-border last-border-r-0">
                   {transaction.transactionId}
@@ -247,7 +256,9 @@ function TransactionTable() {
               )}
               {visibleColumns.includes('actions') && (
                 <TableUI.TableCell className="border-r border-border last-border-r-0">
-                  <TransactionUpdate transaction={transaction as unknown as TransactionModel} />
+                  <TransactionUpdate
+                    transaction={transaction as unknown as TransactionModel}
+                  />
                 </TableUI.TableCell>
               )}
             </TableUI.TableRow>

@@ -1,21 +1,21 @@
-import {Filter} from 'lucide-react';
+import { Filter } from 'lucide-react';
 import React from 'react';
 
-import {Button} from '@/core/common/presentation/components/ui/button';
+import { Button } from '@/core/common/presentation/components/ui/button';
 import {
-    DropdownMenu,
-    DropdownMenuCheckboxItem,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuRadioGroup,
-    DropdownMenuRadioItem,
-    DropdownMenuSub,
-    DropdownMenuSubContent,
-    DropdownMenuSubTrigger,
-    DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
 } from '@/core/common/presentation/components/ui/dropdown-menu';
-import {useAppStore} from '@/core/common/presentation/state/store';
-import {TransactionType} from '@/features/transactions/domain/entity/enum/transaction-type.enum';
+import { useAppStore } from '@/core/common/presentation/state/store';
+import { TransactionType } from '@/features/transactions/domain/entity/enum/transaction-type.enum';
 
 interface TransactionFilterProps {
   handleUpdateQuery: (
@@ -39,9 +39,16 @@ const TransactionFilter: React.FC<TransactionFilterProps> = ({
 
   const toggleArray = (key: string, id: number) => {
     const current: number[] | undefined =
-      key === 'categoryIds' ? categoryIds : key === 'accountIds' ? accountIds : bankIds;
+      key === 'categoryIds'
+        ? categoryIds
+        : key === 'accountIds'
+          ? accountIds
+          : bankIds;
 
-    const next = current && current.includes(id) ? current.filter((i) => i !== id) : [...(current ?? []), id];
+    const next =
+      current && current.includes(id)
+        ? current.filter(i => i !== id)
+        : [...(current ?? []), id];
 
     handleUpdateQuery(key, next.length > 0 ? next : undefined);
   };
@@ -78,11 +85,23 @@ const TransactionFilter: React.FC<TransactionFilterProps> = ({
         <DropdownMenuSub>
           <DropdownMenuSubTrigger>Type</DropdownMenuSubTrigger>
           <DropdownMenuSubContent>
-            <DropdownMenuRadioGroup value={transactionType ?? ''} onValueChange={(val) => handleUpdateQuery('transactionType', val ? (val as TransactionType) : undefined)}>
+            <DropdownMenuRadioGroup
+              value={transactionType ?? ''}
+              onValueChange={val =>
+                handleUpdateQuery(
+                  'transactionType',
+                  val ? (val as TransactionType) : undefined
+                )
+              }
+            >
               <DropdownMenuRadioItem value="">All</DropdownMenuRadioItem>
-              {txTypes.map((t) => (
+              {txTypes.map(t => (
                 <DropdownMenuRadioItem key={t} value={t}>
-                  {t === TransactionType.CREDIT ? 'Credit' : t === TransactionType.DEBIT ? 'Debit' : t}
+                  {t === TransactionType.CREDIT
+                    ? 'Credit'
+                    : t === TransactionType.DEBIT
+                      ? 'Debit'
+                      : t}
                 </DropdownMenuRadioItem>
               ))}
             </DropdownMenuRadioGroup>
@@ -94,7 +113,7 @@ const TransactionFilter: React.FC<TransactionFilterProps> = ({
           <DropdownMenuSubTrigger>Category</DropdownMenuSubTrigger>
           <DropdownMenuSubContent>
             {categories && categories.length > 0 ? (
-              categories.map((c) => (
+              categories.map(c => (
                 <DropdownMenuCheckboxItem
                   key={c.id}
                   checked={!!categoryIds?.includes(c.id)}
@@ -114,7 +133,7 @@ const TransactionFilter: React.FC<TransactionFilterProps> = ({
           <DropdownMenuSubTrigger>Account</DropdownMenuSubTrigger>
           <DropdownMenuSubContent>
             {accounts && accounts.length > 0 ? (
-              accounts.map((a) => (
+              accounts.map(a => (
                 <DropdownMenuCheckboxItem
                   key={a.id}
                   checked={!!accountIds?.includes(a.id)}
@@ -134,7 +153,7 @@ const TransactionFilter: React.FC<TransactionFilterProps> = ({
           <DropdownMenuSubTrigger>Bank</DropdownMenuSubTrigger>
           <DropdownMenuSubContent>
             {banks && banks.length > 0 ? (
-              banks.map((b) => (
+              banks.map(b => (
                 <DropdownMenuCheckboxItem
                   key={b.id}
                   checked={!!bankIds?.includes(b.id)}

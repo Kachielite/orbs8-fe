@@ -1,10 +1,17 @@
-import {ArrowRightLeft, BanknoteArrowDown, BanknoteArrowUp, FolderSync,} from 'lucide-react';
+import {
+  ArrowRightLeft,
+  BanknoteArrowDown,
+  BanknoteArrowUp,
+  FolderSync,
+} from 'lucide-react';
 import moment from 'moment';
 import React from 'react';
 
 import CardLoaders from '@/core/common/presentation/components/loaders/card-loader';
-import StatsCard, {StatsCardData,} from '@/core/common/presentation/components/stats-card';
-import {useAppStore} from '@/core/common/presentation/state/store';
+import StatsCard, {
+  StatsCardData,
+} from '@/core/common/presentation/components/stats-card';
+import { useAppStore } from '@/core/common/presentation/state/store';
 import useGetSyncStatus from '@/features/email/presentation/state/hooks/use-get-sync-status';
 import useGetTransactionSummary from '@/features/transactions/presentation/state/hooks/use-get-transaction-summary';
 

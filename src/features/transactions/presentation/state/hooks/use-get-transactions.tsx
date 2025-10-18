@@ -1,13 +1,13 @@
-import {useState} from 'react';
-import {useQuery} from 'react-query';
-import {toast} from 'sonner';
+import { useState } from 'react';
+import { useQuery } from 'react-query';
+import { toast } from 'sonner';
 
 import useDebounce from '@/core/common/presentation/state/context/use-debounce';
-import {useAppStore} from '@/core/common/presentation/state/store';
-import {extractErrorHooks} from '@/core/helpers/extract-error-hooks';
-import {TransactionType} from '@/features/transactions/domain/entity/enum/transaction-type.enum';
-import {ITransactionQuery} from '@/features/transactions/domain/entity/interface/transactions.interface';
-import {getTransactionsEffect} from '@/features/transactions/presentation/state/store/effects';
+import { useAppStore } from '@/core/common/presentation/state/store';
+import { extractErrorHooks } from '@/core/helpers/extract-error-hooks';
+import { TransactionType } from '@/features/transactions/domain/entity/enum/transaction-type.enum';
+import { ITransactionQuery } from '@/features/transactions/domain/entity/interface/transactions.interface';
+import { getTransactionsEffect } from '@/features/transactions/presentation/state/store/effects';
 
 const useGetTransactions = () => {
   const { setTransactions, transactionStartDate, transactionEndDate } =
@@ -70,8 +70,8 @@ const useGetTransactions = () => {
   const query: ITransactionQuery = {
     page,
     limit,
-      ...(transactionStartDate && { startDate: transactionStartDate }),
-      ...(transactionEndDate && { endDate: transactionEndDate }),
+    ...(transactionStartDate && { startDate: transactionStartDate }),
+    ...(transactionEndDate && { endDate: transactionEndDate }),
     ...(transactionType && { transactionType }),
     ...(categoryIds && { categoryIds }),
     ...(accountIds && { accountIds }),
@@ -81,9 +81,7 @@ const useGetTransactions = () => {
     ...(debouncedSearchTerm && { search: debouncedSearchTerm }),
   };
 
-  const {
-    isLoading: isGettingTransactions,
-  } = useQuery(
+  const { isLoading: isGettingTransactions } = useQuery(
     ['transactions', query, transactionStartDate, transactionEndDate],
     async () => {
       return getTransactionsEffect(query);
@@ -101,16 +99,16 @@ const useGetTransactions = () => {
 
   return {
     isGettingTransactions,
-      handleUpdateQuery,
-      transactionType,
-      categoryIds,
-      accountIds,
-      bankIds,
-      sortBy,
-      orderBy,
-      search,
-      page,
-      limit,
+    handleUpdateQuery,
+    transactionType,
+    categoryIds,
+    accountIds,
+    bankIds,
+    sortBy,
+    orderBy,
+    search,
+    page,
+    limit,
   };
 };
 
