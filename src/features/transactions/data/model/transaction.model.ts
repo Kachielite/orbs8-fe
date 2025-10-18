@@ -1,8 +1,8 @@
-import { TransactionType } from '@/features/transactions/domain/entity/enum/transaction-type.enum';
+import {TransactionType} from '@/features/transactions/domain/entity/enum/transaction-type.enum';
 import {
-  TopTransactionsEntity,
-  TransactionsEntity,
-  TransactionsSummaryEntity,
+    TopTransactionsEntity,
+    TransactionsEntity,
+    TransactionsSummaryEntity,
 } from '@/features/transactions/domain/entity/transactions.entity';
 
 export class TransactionModel extends TransactionsEntity {
@@ -60,6 +60,7 @@ export class TransactionModel extends TransactionsEntity {
 export class TransactionSummaryModel extends TransactionsSummaryEntity {
   constructor(
     public topSpendByCategory: TopTransactionsEntity[],
+    public topIncomeByCategory: TopTransactionsEntity[],
     public topSpendByCreditType: TopTransactionsEntity[],
     public topSpendByDebitType: TopTransactionsEntity[],
     public totalSpend: number,
@@ -68,6 +69,7 @@ export class TransactionSummaryModel extends TransactionsSummaryEntity {
   ) {
     super(
       topSpendByCategory,
+      topIncomeByCategory,
       topSpendByCreditType,
       topSpendByDebitType,
       totalSpend,
@@ -79,6 +81,7 @@ export class TransactionSummaryModel extends TransactionsSummaryEntity {
   static fromJSON(json: TransactionsSummaryEntity): TransactionSummaryModel {
     return new TransactionSummaryModel(
       json.topSpendByCategory,
+      json.topIncomeByCategory,
       json.topSpendByCreditType,
       json.topSpendByDebitType,
       json.totalSpend,

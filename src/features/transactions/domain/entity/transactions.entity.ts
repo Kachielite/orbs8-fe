@@ -1,4 +1,4 @@
-import { TransactionType } from '@/features/transactions/domain/entity/enum/transaction-type.enum';
+import {TransactionType} from '@/features/transactions/domain/entity/enum/transaction-type.enum';
 
 export class TransactionsEntity {
   public id: number;
@@ -48,6 +48,7 @@ export class TransactionsEntity {
 
 export class TransactionsSummaryEntity {
   public topSpendByCategory: TopTransactionsEntity[];
+  public topIncomeByCategory: TopTransactionsEntity[];
   public topSpendByCreditType: TopTransactionsEntity[];
   public topSpendByDebitType: TopTransactionsEntity[];
   public totalSpend: number;
@@ -56,6 +57,7 @@ export class TransactionsSummaryEntity {
 
   constructor(
     topSpendByCategory: TopTransactionsEntity[],
+    topIncomeByCategory: TopTransactionsEntity[],
     topSpendByCreditType: TopTransactionsEntity[],
     topSpendByDebitType: TopTransactionsEntity[],
     totalSpend: number,
@@ -63,6 +65,7 @@ export class TransactionsSummaryEntity {
     totalTransactions: number
   ) {
     this.topSpendByCategory = topSpendByCategory;
+    this.topIncomeByCategory = topIncomeByCategory;
     this.topSpendByCreditType = topSpendByCreditType;
     this.topSpendByDebitType = topSpendByDebitType;
     this.totalSpend = totalSpend;
@@ -74,9 +77,11 @@ export class TransactionsSummaryEntity {
 export class TopTransactionsEntity {
   public name: string;
   public amount: number;
+  public percentage: number;
 
-  constructor(name: string, amount: number) {
+  constructor(name: string, amount: number, percentage: number) {
     this.name = name;
     this.amount = amount;
+    this.percentage = percentage;
   }
 }
