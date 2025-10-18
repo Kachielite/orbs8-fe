@@ -1,8 +1,6 @@
-'use client';
+import moment from 'moment/moment';
 
-import moment from 'moment';
-import {Pie, PieChart} from 'recharts';
-
+import {Badge} from '@/core/common/presentation/components/ui/badge';
 import {
     Card,
     CardContent,
@@ -11,89 +9,80 @@ import {
     CardHeader,
     CardTitle,
 } from '@/core/common/presentation/components/ui/card';
-import {
-    ChartConfig,
-    ChartContainer,
-    ChartTooltip,
-    ChartTooltipContent,
-} from '@/core/common/presentation/components/ui/chart';
+import {Progress} from '@/core/common/presentation/components/ui/progress';
+import {Skeleton} from '@/core/common/presentation/components/ui/skeleton';
 import {useAppStore} from '@/core/common/presentation/state/store';
-import {PieChartLoader} from '@/features/dashboard/presentation/components/pie-chart-loader';
 import useDashboardTransactionsSummary
     from '@/features/dashboard/presentation/state/hooks/use-dashboard-transactions-summary';
 
-const chartConfig = {
-  income: {
-    label: 'Income',
-    color: 'var(--chart-1)',
-  },
-  spend: {
-    label: 'Spend',
-    color: 'var(--chart-2)',
-  },
-} satisfies ChartConfig;
-
 export function DashboardIncomeByCategory() {
-  const {
-    dashboardTransactionsSummary,
-    transactionStartDate,
-    transactionEndDate,
-      user
-  } = useAppStore();
+  const { dashboardTransactionsSummary, dashboardStartDate, dashboardEndDate } =
+    useAppStore();
   const { isGettingTransactionSummary } = useDashboardTransactionsSummary();
-  const { totalIncome, totalSpend } = dashboardTransactionsSummary || {};
+  const rawData = dashboardTransactionsSummary?.topIncomeByCategory || [];
 
-  const total = (totalIncome || 0) + (totalSpend || 0);
-  const incomePercentage = total > 0 ? ((totalIncome || 0) / total) * 100 : 0;
-  const spendPercentage = total > 0 ? ((totalSpend || 0) / total) * 100 : 0;
 
-  const chartData = [
-    { type: 'income', amount: totalIncome,  percentage: incomePercentage, fill: 'var(--chart-1)' },
-    { type: 'spend', amount: totalSpend, percentage: spendPercentage, fill: 'var(--chart-2)' },
-  ];
-
-  const start = moment(transactionStartDate).format('DD MMM, YYYY');
-  const end = moment(transactionEndDate).format('DD MMM, YYYY');
+  const start = moment(dashboardStartDate);
+  const end = moment(dashboardEndDate);
 
   if (isGettingTransactionSummary) {
-    return <PieChartLoader />;
+    return (
+      <Card className="flex flex-col h-full">
+        <CardHeader className="items-center pb-0">
+          <CardTitle>
+            <Skeleton className="h-6 w-40" />
+          </CardTitle>
+          <CardDescription>
+            <Skeleton className="h-4 w-32" />
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="flex-1 pb-0 min-h-0">
+          <div className="space-y-5 pt-4">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <div key={i} className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <Skeleton className="h-4 w-24" />
+                  <Skeleton className="h-5 w-12" />
+                </div>
+                <Skeleton className="h-2 w-full" />
+              </div>
+            ))}
+          </div>
+        </CardContent>
+        <CardFooter className="flex-col gap-2 text-sm">
+          <Skeleton className="h-4 w-48" />
+        </CardFooter>
+      </Card>
+    );
   }
-
   return (
     <Card className="flex flex-col h-full">
       <CardHeader className="items-center pb-0">
-        <CardTitle>Income vs Spend</CardTitle>
+        <CardTitle>Top Income by Category</CardTitle>
         <CardDescription>
-          {start} - {end}
+          {start.format('DD MMM, YYYY')} - {end.format('DD MMM, YYYY')}
         </CardDescription>
       </CardHeader>
-      <CardContent className="flex-1 pb-0">
-        <ChartContainer
-          config={chartConfig}
-          className="mx-auto aspect-square max-h-[300px]"
-        >
-          <PieChart>
-            <Pie data={chartData} dataKey="percentage" nameKey="type" />
-            <ChartTooltip content={<ChartTooltipContent hideLabel={false} />} />
-          </PieChart>
-        </ChartContainer>
-        <div className="flex justify-center gap-4 mt-4">
-          {chartData.map(item => (
-            <div key={item.type} className="flex items-center gap-2">
-              <div
-                className="w-3 h-3 rounded"
-                style={{ backgroundColor: item.fill }}
-              ></div>
-              <span className="text-xs">
-                {chartConfig[item.type as keyof typeof chartConfig].label}: {user?.preferredCurrency || "USD"} {item?.amount?.toLocaleString() || 0}
-              </span>
+      <CardContent className="flex-1 pb-0 min-h-0">
+        <div className="space-y-5 pt-4">
+          {rawData.map(item => (
+            <div key={item.name} className="space-y-2">
+              <div className="flex justify-between items-center">
+                <span className="text-sm font-medium text-foreground">
+                  {item.name}
+                </span>
+                <Badge variant="secondary" className="text-xs">
+                  {item.percentage}%
+                </Badge>
+              </div>
+              <Progress value={item.percentage} className="h-2" />
             </div>
           ))}
         </div>
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
         <div className="text-muted-foreground leading-none">
-          Showing total income vs total spend
+          Showing total income by category
         </div>
       </CardFooter>
     </Card>

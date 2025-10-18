@@ -1,30 +1,27 @@
 import moment from 'moment/moment';
 
-import { Badge } from '@/core/common/presentation/components/ui/badge';
+import {Badge} from '@/core/common/presentation/components/ui/badge';
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
 } from '@/core/common/presentation/components/ui/card';
-import { Progress } from '@/core/common/presentation/components/ui/progress';
-import { Skeleton } from '@/core/common/presentation/components/ui/skeleton';
-import { useAppStore } from '@/core/common/presentation/state/store';
-import useDashboardTransactionsSummary from '@/features/dashboard/presentation/state/hooks/use-dashboard-transactions-summary';
+import {Progress} from '@/core/common/presentation/components/ui/progress';
+import {Skeleton} from '@/core/common/presentation/components/ui/skeleton';
+import {useAppStore} from '@/core/common/presentation/state/store';
+import useDashboardTransactionsSummary
+    from '@/features/dashboard/presentation/state/hooks/use-dashboard-transactions-summary';
 
 export function DashboardSpendByCategory() {
   const { dashboardTransactionsSummary, dashboardStartDate, dashboardEndDate } =
     useAppStore();
   const { isGettingTransactionSummary } = useDashboardTransactionsSummary();
   const rawData = dashboardTransactionsSummary?.topSpendByCategory || [];
-  const total = rawData.reduce((sum, item) => sum + item.amount, 0);
-  const sectorData = rawData.map(item => ({
-    sectorName: item.name,
-    adoptionRatePercentage:
-      total > 0 ? Math.round((item.amount / total) * 100) : 0,
-  }));
+
+  console.log(rawData)
 
   const start = moment(dashboardStartDate);
   const end = moment(dashboardEndDate);
@@ -69,17 +66,17 @@ export function DashboardSpendByCategory() {
       </CardHeader>
       <CardContent className="flex-1 pb-0 min-h-0">
         <div className="space-y-5 pt-4">
-          {sectorData.map(item => (
-            <div key={item.sectorName} className="space-y-2">
+          {rawData.map(item => (
+            <div key={item.name} className="space-y-2">
               <div className="flex justify-between items-center">
                 <span className="text-sm font-medium text-foreground">
-                  {item.sectorName}
+                  {item.name}
                 </span>
                 <Badge variant="secondary" className="text-xs">
-                  {item.adoptionRatePercentage}%
+                  {item.percentage}%
                 </Badge>
               </div>
-              <Progress value={item.adoptionRatePercentage} className="h-2" />
+              <Progress value={item.percentage} className="h-2" />
             </div>
           ))}
         </div>
