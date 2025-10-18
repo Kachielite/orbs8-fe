@@ -1,21 +1,24 @@
-import { Label, Pie, PieChart } from 'recharts';
+import moment from "moment/moment";
+import {Label, Pie, PieChart} from 'recharts';
 
 import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
 } from '@/core/common/presentation/components/ui/card';
 import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
+    ChartConfig,
+    ChartContainer,
+    ChartTooltip,
+    ChartTooltipContent,
 } from '@/core/common/presentation/components/ui/chart';
-import { useAppStore } from '@/core/common/presentation/state/store';
-import { PieChartLoader } from '@/features/dashboard/presentation/components/dashboard-spend-by-category-loader';
-import useDashboardTransactionsSummary from '@/features/dashboard/presentation/state/hooks/use-dashboard-transactions-summary';
+import {useAppStore} from '@/core/common/presentation/state/store';
+import {PieChartLoader} from '@/features/dashboard/presentation/components/dashboard-spend-by-category-loader';
+import useDashboardTransactionsSummary
+    from '@/features/dashboard/presentation/state/hooks/use-dashboard-transactions-summary';
 
 const chartConfig = {
   visitors: {
@@ -24,7 +27,7 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function DashboardSpendByCategory() {
-  const { dashboardTransactionsSummary } = useAppStore();
+  const { dashboardTransactionsSummary, dashboardStartDate, dashboardEndDate } = useAppStore();
   const { isGettingTransactionSummary } = useDashboardTransactionsSummary();
   const rawData = dashboardTransactionsSummary?.topSpendByCategory || [];
   const total = rawData.reduce((sum, item) => sum + item.amount, 0);
@@ -34,6 +37,8 @@ export function DashboardSpendByCategory() {
     fill: `var(--chart-${(index % 5) + 1})`,
   }));
 
+   const start = moment(dashboardStartDate);
+  const end = moment(dashboardEndDate);
   if (isGettingTransactionSummary) {
     return <PieChartLoader />;
   }
@@ -41,11 +46,14 @@ export function DashboardSpendByCategory() {
     <Card className="flex flex-col">
       <CardHeader className="items-center pb-0">
         <CardTitle>Top Spend by Category</CardTitle>
+         <CardDescription>
+          {start.format('DD MMM, YYYY')} - {end.format('DD MMM, YYYY')}
+        </CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         <ChartContainer
           config={chartConfig}
-          className="mx-auto aspect-square max-h-[500px]"
+          className="mx-auto aspect-square max-h-[410px]"
         >
           <PieChart>
             <ChartTooltip

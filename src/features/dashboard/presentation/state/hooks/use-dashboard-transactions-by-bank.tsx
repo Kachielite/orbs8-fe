@@ -1,11 +1,12 @@
-import { useQuery } from 'react-query';
-import { toast } from 'sonner';
+import {useQuery} from 'react-query';
+import {toast} from 'sonner';
 
-import { useAppStore } from '@/core/common/presentation/state/store';
-import { extractErrorHooks } from '@/core/helpers/extract-error-hooks';
-import { BankEntity } from '@/features/bank/domain/entity/bank.entity';
-import { ITransactionQuery } from '@/features/transactions/domain/entity/interface/transactions.interface';
-import { getTransactionsEffect } from '@/features/transactions/presentation/state/store/effects';
+import {useAppStore} from '@/core/common/presentation/state/store';
+import {extractErrorHooks} from '@/core/helpers/extract-error-hooks';
+import {BankEntity} from '@/features/bank/domain/entity/bank.entity';
+import {TransactionType} from "@/features/transactions/domain/entity/enum/transaction-type.enum";
+import {ITransactionQuery} from '@/features/transactions/domain/entity/interface/transactions.interface';
+import {getTransactionsEffect} from '@/features/transactions/presentation/state/store/effects';
 
 const useDashboardTransactionsByBank = () => {
   const {
@@ -20,6 +21,7 @@ const useDashboardTransactionsByBank = () => {
     limit: 100,
     startDate: dashboardStartDate,
     endDate: dashboardEndDate,
+      transactionType: TransactionType.DEBIT,
   };
 
   const { isLoading: isGettingTransactionsByBank } = useQuery(

@@ -1,25 +1,26 @@
 'use client';
 
 import moment from 'moment';
-import { Bar, BarChart, CartesianGrid, Legend, XAxis } from 'recharts';
+import {Bar, BarChart, CartesianGrid, Legend, XAxis} from 'recharts';
 
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
 } from '@/core/common/presentation/components/ui/card';
 import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
+    ChartConfig,
+    ChartContainer,
+    ChartTooltip,
+    ChartTooltipContent,
 } from '@/core/common/presentation/components/ui/chart';
-import { Skeleton } from '@/core/common/presentation/components/ui/skeleton';
-import { useAppStore } from '@/core/common/presentation/state/store';
-import useDashboardTransactionTypes from '@/features/dashboard/presentation/state/hooks/use-dashboard-transaction-types';
+import {Skeleton} from '@/core/common/presentation/components/ui/skeleton';
+import {useAppStore} from '@/core/common/presentation/state/store';
+import useDashboardTransactionTypes
+    from '@/features/dashboard/presentation/state/hooks/use-dashboard-transaction-types';
 
 const chartConfig = {
   debit: {
@@ -133,7 +134,7 @@ export function DashboardSpendByType() {
       <CardHeader>
         <CardTitle>Spend by Type</CardTitle>
         <CardDescription>
-          {start.format('MMM YYYY')} - {end.format('MMM YYYY')}
+          {start.format('DD MMM, YYYY')} - {end.format('DD MMM, YYYY')}
         </CardDescription>
       </CardHeader>
       <CardContent>
