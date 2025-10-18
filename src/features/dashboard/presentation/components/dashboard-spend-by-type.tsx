@@ -117,7 +117,21 @@ export function DashboardSpendByType() {
     {} as Record<string, { debit: number; credit: number }>
   );
 
-  const chartData = Object.keys(grouped)
+  const chartData = groupBy === 'day' ? (() => {
+    const monthStart = start.clone().startOf('month');
+    const monthEnd = start.clone().endOf('month');
+    const allDays = [];
+    let current = monthStart.clone();
+    while (current.isSameOrBefore(monthEnd)) {
+      allDays.push(current.format('YYYY-MM-DD'));
+      current.add(1, 'day');
+    }
+    return allDays.map(day => ({
+      month: day,
+      debit: grouped[day]?.debit || 0,
+      credit: grouped[day]?.credit || 0,
+    }));
+  })() : Object.keys(grouped)
     .sort()
     .map(key => ({
       month: key,
@@ -130,15 +144,15 @@ export function DashboardSpendByType() {
   }
 
   return (
-    <Card>
-      <CardHeader>
+    <Card className="flex flex-col h-full">
+      <CardHeader className="h-fit">
         <CardTitle>Spend by Type</CardTitle>
         <CardDescription>
           {start.format('DD MMM, YYYY')} - {end.format('DD MMM, YYYY')}
         </CardDescription>
       </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig} className="lg:h-[495px]">
+      <CardContent className="flex-1 h-[80%]">
+        <ChartContainer config={chartConfig} className="w-full h-full">
           <BarChart accessibilityLayer data={chartData}>
             <CartesianGrid vertical={false} />
             <XAxis
@@ -162,7 +176,7 @@ export function DashboardSpendByType() {
           </BarChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm w-full">
+      <CardFooter className="flex-col items-start gap-2 text-sm w-full h-fit">
         <div className="text-muted-foreground leading-none text-center w-full">
           Showing spend by debit and credit over time
         </div>

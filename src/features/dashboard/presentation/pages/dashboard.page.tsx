@@ -26,7 +26,7 @@ function DashboardPage() {
   return (
     <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
       <TransactionCards />
-      <div className="grid grid-cols-1 gap-4 min-h-0 xl:grid-cols-3 xl:items-stretch xl:grid-rows-1 xl:h-fit">
+      <div className="grid grid-cols-1 gap-4 min-h-0 xl:grid-cols-3 xl:items-stretch xl:grid-rows-1 xl:h-[600px]">
         <div className="flex flex-col h-full xl:col-span-1">
           <DashboardSpendByCategory />
         </div>
