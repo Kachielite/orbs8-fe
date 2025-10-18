@@ -33,11 +33,17 @@ export const createDashboardActions: StateCreator<
     set({ dashboardRecentTransactions: transactions }),
 
   setDashboardTransactionsByTypes: (
-    transactions: TransactionsEntity[] | null
+    transactions: {
+      credit: TransactionsEntity[];
+      debit: TransactionsEntity[];
+    } | null
   ) => set({ dashboardTransactionsByTypes: transactions }),
 
-  setDashboardSpendingByBanks: (transactions: TransactionsEntity[] | null) =>
-    set({ dashboardSpendingByBanks: transactions }),
+  setDashboardSpendingByBanks: (
+    transactions:
+      | { bankName: string; transactions: TransactionsEntity[] }[]
+      | null
+  ) => set({ dashboardSpendingByBanks: transactions }),
 
   setDashboardStartDate: (startDate: string) =>
     set({ dashboardStartDate: startDate }),

@@ -9,8 +9,13 @@ export type DashboardSlice = {
   dashboardTransactionsSummary: TransactionsSummaryEntity | null;
   dashboardAccountsSummary: AccountSummaryEntity | null;
   dashboardRecentTransactions: TransactionsEntity[] | null;
-  dashboardTransactionsByTypes: TransactionsEntity[] | null;
-  dashboardSpendingByBanks: TransactionsEntity[] | null;
+  dashboardTransactionsByTypes: {
+    credit: TransactionsEntity[];
+    debit: TransactionsEntity[];
+  } | null;
+  dashboardSpendingByBanks:
+    | { bankName: string; transactions: TransactionsEntity[] }[]
+    | null;
   dashboardStartDate: string;
   dashboardEndDate: string;
   // setters
@@ -22,10 +27,15 @@ export type DashboardSlice = {
     transactions: TransactionsEntity[] | null
   ) => void;
   setDashboardTransactionsByTypes: (
-    transactions: TransactionsEntity[] | null
+    transactions: {
+      credit: TransactionsEntity[];
+      debit: TransactionsEntity[];
+    } | null
   ) => void;
   setDashboardSpendingByBanks: (
-    transactions: TransactionsEntity[] | null
+    transactions:
+      | { bankName: string; transactions: TransactionsEntity[] }[]
+      | null
   ) => void;
   setDashboardStartDate: (startDate: string) => void;
   setDashboardEndDate: (endDate: string) => void;
