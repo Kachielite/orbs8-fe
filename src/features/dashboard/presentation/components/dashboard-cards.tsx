@@ -1,22 +1,27 @@
-import {Building2, Database, RefreshCcw, Wallet,} from 'lucide-react';
+import { Building2, Database, RefreshCcw, Wallet } from 'lucide-react';
 import moment from 'moment';
 import React from 'react';
 
 import CardLoaders from '@/core/common/presentation/components/loaders/card-loader';
-import StatsCard, {StatsCardData,} from '@/core/common/presentation/components/stats-card';
-import {useAppStore} from '@/core/common/presentation/state/store';
-import useGetAccountSummary from "@/features/accounts/presentation/state/hooks/use-get-account-summary";
-import useDashboardTransactionsSummary
-    from "@/features/dashboard/presentation/state/hooks/use-dashboard-transactions-summary";
-import useGetSyncStatus from "@/features/email/presentation/state/hooks/use-get-sync-status";
+import StatsCard, {
+  StatsCardData,
+} from '@/core/common/presentation/components/stats-card';
+import { useAppStore } from '@/core/common/presentation/state/store';
+import useGetAccountSummary from '@/features/accounts/presentation/state/hooks/use-get-account-summary';
+import useDashboardTransactionsSummary from '@/features/dashboard/presentation/state/hooks/use-dashboard-transactions-summary';
+import useGetSyncStatus from '@/features/email/presentation/state/hooks/use-get-sync-status';
 
 function TransactionCards() {
-  const { dashboardTransactionsSummary, syncStatus, user, accountSummary } = useAppStore();
-  const {isGettingAccountSummary} = useGetAccountSummary();
-  const {isGettingTransactionSummary} = useDashboardTransactionsSummary();
-  const {isGettingEmailSyncStatus} = useGetSyncStatus();
+  const { dashboardTransactionsSummary, syncStatus, user, accountSummary } =
+    useAppStore();
+  const { isGettingAccountSummary } = useGetAccountSummary();
+  const { isGettingTransactionSummary } = useDashboardTransactionsSummary();
+  const { isGettingEmailSyncStatus } = useGetSyncStatus();
 
-  const isLoading = isGettingAccountSummary || isGettingTransactionSummary || isGettingEmailSyncStatus;
+  const isLoading =
+    isGettingAccountSummary ||
+    isGettingTransactionSummary ||
+    isGettingEmailSyncStatus;
 
   const cardData: StatsCardData[] = [
     {
@@ -28,7 +33,8 @@ function TransactionCards() {
     {
       name: 'Total Transactions Synced',
       description: 'Total number of transactions extracted from emails.',
-      count: dashboardTransactionsSummary?.totalTransactions.toLocaleString() || 0,
+      count:
+        dashboardTransactionsSummary?.totalTransactions.toLocaleString() || 0,
       icon: Database,
     },
     {
