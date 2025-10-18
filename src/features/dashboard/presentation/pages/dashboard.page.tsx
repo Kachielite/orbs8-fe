@@ -5,6 +5,7 @@ import { GlobalLoader } from '@/core/common/presentation/components/global-loade
 import { useAppStore } from '@/core/common/presentation/state/store';
 import TransactionCards from '@/features/dashboard/presentation/components/dashboard-cards';
 import { DashboardSpendByCategory } from '@/features/dashboard/presentation/components/dashboard-spend-by-category';
+import { DashboardSpendByType } from '@/features/dashboard/presentation/components/dashboard-spend-by-type';
 import useGetUser from '@/features/user/presentation/state/hook/use-get-user';
 
 function DashboardPage() {
@@ -26,7 +27,9 @@ function DashboardPage() {
         <div className="flex flex-col h-full xl:col-span-1">
           <DashboardSpendByCategory />
         </div>
-        <div className="flex flex-col h-full xl:col-span-2">Chart</div>
+        <div className="flex flex-col h-full xl:col-span-2">
+          <DashboardSpendByType />
+        </div>
       </div>
       <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min" />
     </div>
