@@ -1,8 +1,8 @@
-import {TransactionType} from '@/features/transactions/domain/entity/enum/transaction-type.enum';
+import { TransactionType } from '@/features/transactions/domain/entity/enum/transaction-type.enum';
 import {
-    TopTransactionsEntity,
-    TransactionsEntity,
-    TransactionsSummaryEntity,
+  TopTransactionsEntity,
+  TransactionsEntity,
+  TransactionsSummaryEntity,
 } from '@/features/transactions/domain/entity/transactions.entity';
 
 export class TransactionModel extends TransactionsEntity {

@@ -1,32 +1,31 @@
-"use client"
+'use client';
 
-import moment from "moment/moment";
-import {Bar, BarChart, XAxis, YAxis} from "recharts"
+import moment from 'moment/moment';
+import { Bar, BarChart, XAxis, YAxis } from 'recharts';
 
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from "@/core/common/presentation/components/ui/card"
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/core/common/presentation/components/ui/card';
 import {
-    ChartConfig,
-    ChartContainer,
-    ChartTooltip,
-    ChartTooltipContent,
-} from "@/core/common/presentation/components/ui/chart"
-import {Skeleton} from "@/core/common/presentation/components/ui/skeleton";
-import {useAppStore} from "@/core/common/presentation/state/store";
-import useDashboardTransactionsByBank
-    from "@/features/dashboard/presentation/state/hooks/use-dashboard-transactions-by-bank";
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from '@/core/common/presentation/components/ui/chart';
+import { Skeleton } from '@/core/common/presentation/components/ui/skeleton';
+import { useAppStore } from '@/core/common/presentation/state/store';
+import useDashboardTransactionsByBank from '@/features/dashboard/presentation/state/hooks/use-dashboard-transactions-by-bank';
 
 const chartConfig = {
   visitors: {
-    label: "Amount",
+    label: 'Amount',
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 function BarChartLoader() {
   return (
@@ -57,29 +56,36 @@ function BarChartLoader() {
 }
 
 export function DashboardSpendByBank() {
+  const { dashboardSpendingByBanks, dashboardEndDate, dashboardStartDate } =
+    useAppStore();
+  const { isGettingTransactionsByBank } = useDashboardTransactionsByBank();
 
-    const {dashboardSpendingByBanks, dashboardEndDate, dashboardStartDate} = useAppStore();
-    const {isGettingTransactionsByBank} = useDashboardTransactionsByBank();
+  const grouped =
+    dashboardSpendingByBanks?.reduce(
+      (acc, item) => {
+        const bank = item.bankName;
+        if (!acc[bank]) {
+          acc[bank] = 0;
+        }
+        acc[bank] += item.transactions.reduce(
+          (total, transaction) => total + transaction.amount,
+          0
+        );
+        return acc;
+      },
+      {} as Record<string, number>
+    ) || {};
 
-    const grouped = dashboardSpendingByBanks?.reduce((acc, item) => {
-      const bank = item.bankName;
-      if (!acc[bank]) {
-        acc[bank] = 0;
-      }
-      acc[bank] += item.transactions.reduce((total, transaction) => total + transaction.amount, 0);
-      return acc;
-    }, {} as Record<string, number>) || {};
+  const chartData = Object.keys(grouped).map(bank => ({
+    browser: bank,
+    visitors: grouped[bank],
+    fill: `var(--chart-${(Object.keys(grouped).indexOf(bank) % 5) + 1})`,
+  }));
 
-    const chartData = Object.keys(grouped).map(bank => ({
-      browser: bank,
-      visitors: grouped[bank],
-      fill: `var(--chart-${(Object.keys(grouped).indexOf(bank) % 5) + 1})`,
-    }));
-
-    if (isGettingTransactionsByBank) {
-      return <BarChartLoader />;
-    }
-      const start = moment(dashboardStartDate);
+  if (isGettingTransactionsByBank) {
+    return <BarChartLoader />;
+  }
+  const start = moment(dashboardStartDate);
   const end = moment(dashboardEndDate);
 
   return (
@@ -108,10 +114,7 @@ export function DashboardSpendByBank() {
               axisLine={false}
             />
             <XAxis dataKey="visitors" type="number" hide />
-            <ChartTooltip
-              cursor
-              content={<ChartTooltipContent hideLabel />}
-            />
+            <ChartTooltip cursor content={<ChartTooltipContent hideLabel />} />
             <Bar dataKey="visitors" layout="vertical" radius={2} />
           </BarChart>
         </ChartContainer>
@@ -122,5 +125,5 @@ export function DashboardSpendByBank() {
         </div>
       </CardFooter>
     </Card>
-  )
+  );
 }

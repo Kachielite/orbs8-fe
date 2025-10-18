@@ -1,31 +1,32 @@
-import moment from "moment/moment";
+import moment from 'moment/moment';
 
-import {Badge} from "@/core/common/presentation/components/ui/badge";
+import { Badge } from '@/core/common/presentation/components/ui/badge';
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
 } from '@/core/common/presentation/components/ui/card';
-import {Progress} from "@/core/common/presentation/components/ui/progress";
-import {Skeleton} from "@/core/common/presentation/components/ui/skeleton";
-import {useAppStore} from '@/core/common/presentation/state/store';
-import useDashboardTransactionsSummary
-    from '@/features/dashboard/presentation/state/hooks/use-dashboard-transactions-summary';
+import { Progress } from '@/core/common/presentation/components/ui/progress';
+import { Skeleton } from '@/core/common/presentation/components/ui/skeleton';
+import { useAppStore } from '@/core/common/presentation/state/store';
+import useDashboardTransactionsSummary from '@/features/dashboard/presentation/state/hooks/use-dashboard-transactions-summary';
 
 export function DashboardSpendByCategory() {
-  const { dashboardTransactionsSummary, dashboardStartDate, dashboardEndDate } = useAppStore();
+  const { dashboardTransactionsSummary, dashboardStartDate, dashboardEndDate } =
+    useAppStore();
   const { isGettingTransactionSummary } = useDashboardTransactionsSummary();
   const rawData = dashboardTransactionsSummary?.topSpendByCategory || [];
   const total = rawData.reduce((sum, item) => sum + item.amount, 0);
   const sectorData = rawData.map(item => ({
     sectorName: item.name,
-    adoptionRatePercentage: total > 0 ? Math.round((item.amount / total) * 100) : 0,
+    adoptionRatePercentage:
+      total > 0 ? Math.round((item.amount / total) * 100) : 0,
   }));
 
-   const start = moment(dashboardStartDate);
+  const start = moment(dashboardStartDate);
   const end = moment(dashboardEndDate);
 
   if (isGettingTransactionSummary) {
@@ -62,7 +63,7 @@ export function DashboardSpendByCategory() {
     <Card className="flex flex-col h-full">
       <CardHeader className="items-center pb-0">
         <CardTitle>Top Spend by Category</CardTitle>
-         <CardDescription>
+        <CardDescription>
           {start.format('DD MMM, YYYY')} - {end.format('DD MMM, YYYY')}
         </CardDescription>
       </CardHeader>
@@ -91,6 +92,3 @@ export function DashboardSpendByCategory() {
     </Card>
   );
 }
-
-
-

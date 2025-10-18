@@ -1,4 +1,4 @@
-import {TransactionType} from '@/features/transactions/domain/entity/enum/transaction-type.enum';
+import { TransactionType } from '@/features/transactions/domain/entity/enum/transaction-type.enum';
 
 export class TransactionsEntity {
   public id: number;

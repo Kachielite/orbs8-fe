@@ -1,26 +1,25 @@
 'use client';
 
 import moment from 'moment';
-import {Bar, BarChart, CartesianGrid, Legend, XAxis} from 'recharts';
+import { Bar, BarChart, CartesianGrid, Legend, XAxis } from 'recharts';
 
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
 } from '@/core/common/presentation/components/ui/card';
 import {
-    ChartConfig,
-    ChartContainer,
-    ChartTooltip,
-    ChartTooltipContent,
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
 } from '@/core/common/presentation/components/ui/chart';
-import {Skeleton} from '@/core/common/presentation/components/ui/skeleton';
-import {useAppStore} from '@/core/common/presentation/state/store';
-import useDashboardTransactionTypes
-    from '@/features/dashboard/presentation/state/hooks/use-dashboard-transaction-types';
+import { Skeleton } from '@/core/common/presentation/components/ui/skeleton';
+import { useAppStore } from '@/core/common/presentation/state/store';
+import useDashboardTransactionTypes from '@/features/dashboard/presentation/state/hooks/use-dashboard-transaction-types';
 
 const chartConfig = {
   debit: {
@@ -117,27 +116,30 @@ export function DashboardSpendByType() {
     {} as Record<string, { debit: number; credit: number }>
   );
 
-  const chartData = groupBy === 'day' ? (() => {
-    const monthStart = start.clone().startOf('month');
-    const monthEnd = start.clone().endOf('month');
-    const allDays = [];
-    let current = monthStart.clone();
-    while (current.isSameOrBefore(monthEnd)) {
-      allDays.push(current.format('YYYY-MM-DD'));
-      current.add(1, 'day');
-    }
-    return allDays.map(day => ({
-      month: day,
-      debit: grouped[day]?.debit || 0,
-      credit: grouped[day]?.credit || 0,
-    }));
-  })() : Object.keys(grouped)
-    .sort()
-    .map(key => ({
-      month: key,
-      debit: grouped[key].debit,
-      credit: grouped[key].credit,
-    }));
+  const chartData =
+    groupBy === 'day'
+      ? (() => {
+          const monthStart = start.clone().startOf('month');
+          const monthEnd = start.clone().endOf('month');
+          const allDays = [];
+          let current = monthStart.clone();
+          while (current.isSameOrBefore(monthEnd)) {
+            allDays.push(current.format('YYYY-MM-DD'));
+            current.add(1, 'day');
+          }
+          return allDays.map(day => ({
+            month: day,
+            debit: grouped[day]?.debit || 0,
+            credit: grouped[day]?.credit || 0,
+          }));
+        })()
+      : Object.keys(grouped)
+          .sort()
+          .map(key => ({
+            month: key,
+            debit: grouped[key].debit,
+            credit: grouped[key].credit,
+          }));
 
   if (isGettingTransactionsByType) {
     return <BarChartLoader />;
