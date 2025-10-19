@@ -1,4 +1,4 @@
-import { TransactionType } from '@/features/transactions/domain/entity/enum/transaction-type.enum';
+import {TransactionType} from '@/features/transactions/domain/entity/enum/transaction-type.enum';
 
 export class TransactionsEntity {
   public id: number;
@@ -49,28 +49,41 @@ export class TransactionsEntity {
 export class TransactionsSummaryEntity {
   public topSpendByCategory: TopTransactionsEntity[];
   public topIncomeByCategory: TopTransactionsEntity[];
-  public topSpendByCreditType: TopTransactionsEntity[];
-  public topSpendByDebitType: TopTransactionsEntity[];
   public totalSpend: number;
   public totalIncome: number;
   public totalTransactions: number;
+    public currentMonthSpend: number;
+    public currentMonthIncome: number;
+    public lastMonthSpend: number;
+    public lastMonthIncome: number;
+    public accountSummaries: accountSummaryEntity[];
+    public topMerchants: TopMerchantsEntity[];
+
 
   constructor(
     topSpendByCategory: TopTransactionsEntity[],
     topIncomeByCategory: TopTransactionsEntity[],
-    topSpendByCreditType: TopTransactionsEntity[],
-    topSpendByDebitType: TopTransactionsEntity[],
     totalSpend: number,
     totalIncome: number,
-    totalTransactions: number
+    totalTransactions: number,
+    currentMonthSpend: number,
+    currentMonthIncome: number,
+    lastMonthSpend: number,
+    lastMonthIncome: number,
+    accountSummaries: accountSummaryEntity[],
+    topMerchants: TopMerchantsEntity[]
   ) {
     this.topSpendByCategory = topSpendByCategory;
     this.topIncomeByCategory = topIncomeByCategory;
-    this.topSpendByCreditType = topSpendByCreditType;
-    this.topSpendByDebitType = topSpendByDebitType;
     this.totalSpend = totalSpend;
     this.totalIncome = totalIncome;
     this.totalTransactions = totalTransactions;
+      this.currentMonthSpend = currentMonthSpend;
+      this.currentMonthIncome = currentMonthIncome;
+      this.lastMonthSpend = lastMonthSpend;
+      this.lastMonthIncome = lastMonthIncome;
+      this.accountSummaries = accountSummaries;
+      this.topMerchants = topMerchants;
   }
 }
 
@@ -78,10 +91,41 @@ export class TopTransactionsEntity {
   public name: string;
   public amount: number;
   public percentage: number;
+    public trend: "↑" | "=" | "↓";
 
-  constructor(name: string, amount: number, percentage: number) {
+    constructor(name: string, amount: number, percentage: number, trend: "↑" | "=" | "↓") {
     this.name = name;
     this.amount = amount;
     this.percentage = percentage;
+        this.trend = trend;
   }
+}
+
+
+export class accountSummaryEntity {
+    public accountName: string;
+    public totalSpend: number;
+    public totalIncome: number;
+    public currentBalance: number;
+
+    constructor(accountName: string, totalSpend: number, totalIncome: number, currentBalance: number) {
+        this.accountName = accountName;
+        this.totalSpend = totalSpend;
+        this.totalIncome = totalIncome;
+        this.currentBalance = currentBalance;
+    }
+}
+
+export class TopMerchantsEntity {
+    public name: string;
+    public amount: number;
+    public percentage: number;
+    public trend: "↑" | "=" | "↓";
+
+    constructor(name: string, amount: number, percentage: number, trend: "↑" | "=" | "↓") {
+        this.name = name;
+        this.amount = amount;
+        this.percentage = percentage;
+        this.trend = trend;
+    }
 }
