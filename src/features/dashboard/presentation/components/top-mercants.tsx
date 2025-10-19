@@ -29,7 +29,7 @@ function TopMerchants() {
     }
 
     return (
-        <Card>
+        <Card className="flex flex-col h-full">
             <CardHeader>
                 <CardTitle>Top Transactions</CardTitle>
                 <CardDescription>

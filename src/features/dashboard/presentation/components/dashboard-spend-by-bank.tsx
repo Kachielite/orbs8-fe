@@ -1,7 +1,7 @@
 'use client';
 
 import moment from 'moment/moment';
-import {Bar, BarChart, XAxis, YAxis} from 'recharts';
+import {Bar, BarChart, XAxis} from 'recharts';
 
 import {
     Card,
@@ -108,38 +108,35 @@ export function DashboardSpendByBank() {
       </CardHeader>
           <CardContent className="flex-1 pb-0 min-h-0">
               <ChartContainer config={chartConfig} className="h-full w-full">
-          <BarChart
-            accessibilityLayer
-            data={chartData}
-            layout="vertical"
-            margin={{
-              left: 0,
-            }}
-          >
-            <YAxis
-                dataKey="bank"
-              type="category"
-              tickLine={false}
-              tickMargin={2}
-              axisLine={false}
-                tickFormatter={value => value.split(' ')[0]}
-            />
-              <XAxis type="number" hide/>
-              <ChartTooltip cursor content={<ChartTooltipContent/>}/>
-              <Bar
-                  dataKey="credit"
-                  fill="var(--color-credit)"
-                  layout="vertical"
-                  radius={2}
-              />
-              <Bar
-                  dataKey="debit"
-                  fill="var(--color-debit)"
-                  layout="vertical"
-                  radius={2}
-              />
-          </BarChart>
-        </ChartContainer>
+                  <BarChart accessibilityLayer data={chartData}>
+                      <XAxis
+                          dataKey="bank"
+                          tickLine={false}
+                          tickMargin={10}
+                          axisLine={false}
+                          tickFormatter={(value) => value.split(' ')[0]}
+                      />
+                      <Bar
+                          dataKey="credit"
+                          stackId="a"
+                          fill="var(--color-credit)"
+                          radius={[0, 0, 4, 4]}
+                      />
+                      <Bar
+                          dataKey="debit"
+                          stackId="a"
+                          fill="var(--color-debit)"
+                          radius={[4, 4, 0, 0]}
+                      />
+                      <ChartTooltip
+                          content={
+                              <ChartTooltipContent labelKey="bank" indicator="line"/>
+                          }
+                          cursor={false}
+                          defaultIndex={1}
+                      />
+                  </BarChart>
+              </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm w-full">
           <div className="flex items-center justify-center gap-4 w-full">

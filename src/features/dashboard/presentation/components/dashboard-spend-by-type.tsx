@@ -149,7 +149,7 @@ export function DashboardSpendByType() {
               </Tabs>
           </div>
       </CardHeader>
-        <CardContent className="flex-1 h-[75%]">
+        <CardContent className="flex-1 h-[70%]">
         <ChartContainer config={chartConfig} className="w-full h-full">
             <AreaChart accessibilityLayer data={chartData}>
             <CartesianGrid vertical={false} />

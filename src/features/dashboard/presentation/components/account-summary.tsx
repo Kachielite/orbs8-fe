@@ -29,7 +29,7 @@ function AccountSummary() {
     }
 
     return (
-        <Card>
+        <Card className="flex flex-col h-full">
             <CardHeader>
                 <CardTitle>Account Summaries</CardTitle>
                 <CardDescription>Overview of all accounts</CardDescription>
