@@ -37,7 +37,7 @@ function DashboardPage() {
                 <DashboardSpendByCategory/>
             </div>
         </div>
-      <div className="grid grid-cols-1 gap-4 min-h-0 xl:grid-cols-3 xl:items-stretch xl:grid-rows-1 xl:h-[500px]">
+        <div className="grid grid-cols-1 gap-4 min-h-0 xl:grid-cols-3 xl:items-stretch xl:grid-rows-1 xl:h-[600px]">
           <div className="flex flex-col h-full xl:col-span-2">
               <DashboardSpendByType/>
           </div>

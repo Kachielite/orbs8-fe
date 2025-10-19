@@ -132,8 +132,18 @@ export function DashboardSpendByBank() {
         </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm w-full">
+          <div className="flex items-center justify-center gap-4 w-full">
+              <div className="flex items-center gap-1.5">
+                  <div className="w-3 h-3 rounded-sm" style={{backgroundColor: 'var(--chart-2)'}}></div>
+                  <span className="text-xs text-muted-foreground">Credit</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                  <div className="w-3 h-3 rounded-sm" style={{backgroundColor: 'var(--chart-1)'}}></div>
+                  <span className="text-xs text-muted-foreground">Debit</span>
+              </div>
+          </div>
         <div className="text-muted-foreground leading-none w-full text-center">
-            Showing credit and debit spend by bank
+            Showing credit and debit transactions by bank
         </div>
       </CardFooter>
     </Card>

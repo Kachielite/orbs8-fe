@@ -33,7 +33,7 @@ function TopMerchants() {
                 <Table>
                     <TableHeader>
                         <TableRow>
-                            <TableHead>Merchant</TableHead>
+                            <TableHead>Description</TableHead>
                             <TableHead className="text-right">Amount</TableHead>
                             <TableHead className="text-right">% of Total</TableHead>
                         </TableRow>
