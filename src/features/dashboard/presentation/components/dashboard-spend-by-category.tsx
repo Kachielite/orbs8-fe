@@ -1,6 +1,6 @@
 import moment from 'moment/moment';
+import {Pie, PieChart} from "recharts";
 
-import {Badge} from '@/core/common/presentation/components/ui/badge';
 import {
     Card,
     CardContent,
@@ -9,53 +9,46 @@ import {
     CardHeader,
     CardTitle,
 } from '@/core/common/presentation/components/ui/card';
-import {Progress} from '@/core/common/presentation/components/ui/progress';
-import {Skeleton} from '@/core/common/presentation/components/ui/skeleton';
+import {
+    ChartConfig,
+    ChartContainer,
+    ChartTooltip,
+    ChartTooltipContent
+} from "@/core/common/presentation/components/ui/chart";
 import {useAppStore} from '@/core/common/presentation/state/store';
+import {PieChartLoader} from "@/features/dashboard/presentation/components/pie-chart-loader";
 import useDashboardTransactionsSummary
     from '@/features/dashboard/presentation/state/hooks/use-dashboard-transactions-summary';
 
 export function DashboardSpendByCategory() {
-  const { dashboardTransactionsSummary, dashboardStartDate, dashboardEndDate } =
+    const {dashboardTransactionsSummary, dashboardStartDate, dashboardEndDate, user} =
     useAppStore();
   const { isGettingTransactionSummary } = useDashboardTransactionsSummary();
   const rawData = dashboardTransactionsSummary?.topSpendByCategory || [];
-
-  console.log(rawData)
 
   const start = moment(dashboardStartDate);
   const end = moment(dashboardEndDate);
 
   if (isGettingTransactionSummary) {
-    return (
-      <Card className="flex flex-col h-full">
-        <CardHeader className="items-center pb-0">
-          <CardTitle>
-            <Skeleton className="h-6 w-40" />
-          </CardTitle>
-          <CardDescription>
-            <Skeleton className="h-4 w-32" />
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="flex-1 pb-0 min-h-0">
-          <div className="space-y-5 pt-4">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <div key={i} className="space-y-2">
-                <div className="flex justify-between items-center">
-                  <Skeleton className="h-4 w-24" />
-                  <Skeleton className="h-5 w-12" />
-                </div>
-                <Skeleton className="h-2 w-full" />
-              </div>
-            ))}
-          </div>
-        </CardContent>
-        <CardFooter className="flex-col gap-2 text-sm">
-          <Skeleton className="h-4 w-48" />
-        </CardFooter>
-      </Card>
-    );
+      return <PieChartLoader/>;
   }
+
+    const chartData = rawData.map((item, index) => ({
+        type: item.name,
+        percentage: item.percentage,
+        amount: item.amount,
+        fill: `var(--chart-${index + 1})`,
+    }));
+
+    const chartConfig = rawData.reduce((config, item, index) => {
+        config[item.name] = {
+            label: item.name,
+            color: `var(--chart-${index + 1})`,
+        };
+        return config;
+    }, {} as ChartConfig);
+
+
   return (
     <Card className="flex flex-col h-full">
       <CardHeader className="items-center pb-0">
@@ -64,19 +57,26 @@ export function DashboardSpendByCategory() {
           {start.format('DD MMM, YYYY')} - {end.format('DD MMM, YYYY')}
         </CardDescription>
       </CardHeader>
-      <CardContent className="flex-1 pb-0 min-h-0">
-        <div className="space-y-5 pt-4">
-          {rawData.map(item => (
-            <div key={item.name} className="space-y-2">
-              <div className="flex justify-between items-center">
-                <span className="text-sm font-medium text-foreground">
-                  {item.name}
-                </span>
-                <Badge variant="secondary" className="text-xs">
-                  {item.percentage}%
-                </Badge>
-              </div>
-              <Progress value={item.percentage} className="h-2" />
+        <CardContent className="flex-1 pb-0">
+            <ChartContainer
+                config={chartConfig}
+                className="mx-auto aspect-square max-h-[300px]"
+            >
+                <PieChart>
+                    <Pie data={chartData} dataKey="percentage" nameKey="type"/>
+                    <ChartTooltip content={<ChartTooltipContent hideLabel={false}/>}/>
+                </PieChart>
+            </ChartContainer>
+            <div className="flex justify-center gap-4 mt-4">
+                {chartData.map(item => (
+                    <div key={item.type} className="flex items-center gap-2">
+                        <div
+                            className="w-3 h-3 rounded"
+                            style={{backgroundColor: item.fill}}
+                        ></div>
+                        <span className="text-xs">
+                {chartConfig[item.type as keyof typeof chartConfig].label}: {user?.preferredCurrency || "USD"} {item?.amount?.toLocaleString() || 0}
+              </span>
             </div>
           ))}
         </div>

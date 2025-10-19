@@ -28,20 +28,20 @@ function DashboardPage() {
   return (
     <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
       <TransactionCards />
+        <div className="grid grid-cols-1 gap-4 min-h-0 xl:grid-cols-2 xl:items-stretch xl:grid-rows-1 xl:max-h-[600px]">
+            <div className="flex flex-col h-full xl:col-span-1">
+                <DashboardIncomeByCategory/>
+            </div>
+            <div className="flex flex-col h-full xl:col-span-1">
+                <DashboardSpendByCategory/>
+            </div>
+        </div>
       <div className="grid grid-cols-1 gap-4 min-h-0 xl:grid-cols-3 xl:items-stretch xl:grid-rows-1 xl:h-[500px]">
         <div className="flex flex-col h-full xl:col-span-1">
           <DashboardIncomeSpend />
         </div>
         <div className="flex flex-col h-full xl:col-span-2">
           <DashboardSpendByType />
-        </div>
-      </div>
-      <div className="grid grid-cols-1 gap-4 min-h-0 xl:grid-cols-2 xl:items-stretch xl:grid-rows-1 xl:max-h-[600px]">
-        <div className="flex flex-col h-full xl:col-span-1">
-          <DashboardIncomeByCategory />
-        </div>
-        <div className="flex flex-col h-full xl:col-span-1">
-          <DashboardSpendByCategory />
         </div>
       </div>
       <div className="grid grid-cols-1 gap-4 min-h-0 xl:grid-cols-2 xl:items-stretch xl:grid-rows-1 xl:h-[700px]">
