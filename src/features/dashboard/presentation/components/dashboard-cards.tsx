@@ -1,55 +1,67 @@
-import { Building2, Database, RefreshCcw, Wallet } from 'lucide-react';
-import moment from 'moment';
+import {CreditCard, DollarSign, Receipt, TrendingUp} from 'lucide-react';
 import React from 'react';
 
+import DashboardCard, {DashboardCardData} from "@/core/common/presentation/components/dashboard-card";
 import CardLoaders from '@/core/common/presentation/components/loaders/card-loader';
-import StatsCard, {
-  StatsCardData,
-} from '@/core/common/presentation/components/stats-card';
-import { useAppStore } from '@/core/common/presentation/state/store';
-import useGetAccountSummary from '@/features/accounts/presentation/state/hooks/use-get-account-summary';
-import useDashboardTransactionsSummary from '@/features/dashboard/presentation/state/hooks/use-dashboard-transactions-summary';
-import useGetSyncStatus from '@/features/email/presentation/state/hooks/use-get-sync-status';
+import {useAppStore} from '@/core/common/presentation/state/store';
+import useDashboardTransactionsSummary
+    from '@/features/dashboard/presentation/state/hooks/use-dashboard-transactions-summary';
 
 function TransactionCards() {
-  const { dashboardTransactionsSummary, syncStatus, user, accountSummary } =
+    const {dashboardTransactionsSummary, user,} =
     useAppStore();
-  const { isGettingAccountSummary } = useGetAccountSummary();
   const { isGettingTransactionSummary } = useDashboardTransactionsSummary();
-  const { isGettingEmailSyncStatus } = useGetSyncStatus();
 
-  const isLoading =
-    isGettingAccountSummary ||
-    isGettingTransactionSummary ||
-    isGettingEmailSyncStatus;
+    const isLoading = isGettingTransactionSummary;
 
-  const cardData: StatsCardData[] = [
+    const income = dashboardTransactionsSummary?.totalIncome || 0;
+    const spend = dashboardTransactionsSummary?.totalSpend || 0;
+    const currentMonthIncome = dashboardTransactionsSummary?.currentMonthIncome || 0;
+    const currentMonthSpend = dashboardTransactionsSummary?.currentMonthSpend || 0;
+    const lastMonthIncome = dashboardTransactionsSummary?.lastMonthIncome || 0;
+    const lastMonthSpend = dashboardTransactionsSummary?.lastMonthSpend || 0;
+
+    const netBalance = income - spend;
+    const spendChange = lastMonthSpend === 0 ? 0 : ((currentMonthSpend - lastMonthSpend) / lastMonthSpend) * 100;
+    const incomeChange = lastMonthIncome === 0 ? 0 : ((currentMonthIncome - lastMonthIncome) / lastMonthIncome) * 100;
+
+    const cardData: DashboardCardData[] = [
     {
-      name: 'Total Balance',
-      description: 'Sum of balances across all accounts (grouped by currency)',
-      count: `${user?.preferredCurrency || 'USD'} ${accountSummary?.totalBalance.toLocaleString() || 0}`,
-      icon: Wallet,
+        name: 'Total Income',
+        description: '',
+        count: income,
+        icon: DollarSign,
+        prefix: user?.preferredCurrency || '$',
+        change: incomeChange,
+        metricType: 'income',
+        valueColorType: 'neutral',
+        tooltip: 'All time total income across all accounts'
     },
     {
-      name: 'Total Transactions Synced',
-      description: 'Total number of transactions extracted from emails.',
-      count:
-        dashboardTransactionsSummary?.totalTransactions.toLocaleString() || 0,
-      icon: Database,
+        name: 'Total Spend',
+        description: '',
+        count: spend,
+        icon: CreditCard,
+        prefix: user?.preferredCurrency || '$',
+        change: spendChange,
+        metricType: 'spend',
+        valueColorType: 'neutral',
+        tooltip: 'All time total spend across all accounts'
     },
     {
-      name: 'Connected Banks',
-      description: 'Count of unique banks linked.',
-      count: accountSummary?.numberOfBanks || 0,
-      icon: Building2,
+        name: 'Net Balance',
+        description: 'Income minus spend',
+        count: netBalance,
+        icon: TrendingUp,
+        prefix: user?.preferredCurrency || '$',
+        valueColorType: 'balance',
     },
     {
-      name: 'Last Sync',
-      description: 'Show the last time your data was synced.',
-      count: syncStatus?.lastSyncAt
-        ? moment(syncStatus.lastSyncAt).format('DD/MM/YYYY')
-        : 'Never',
-      icon: RefreshCcw,
+        name: 'Transactions',
+        description: 'Total this period',
+        count: dashboardTransactionsSummary?.totalTransactions || 0,
+        icon: Receipt,
+        valueColorType: 'neutral',
     },
   ];
   return (
@@ -57,7 +69,7 @@ function TransactionCards() {
       {isLoading ? (
         <CardLoaders count={4} />
       ) : (
-        cardData.map((card, index) => <StatsCard key={index} card={card} />)
+          cardData.map((card, index) => <DashboardCard key={index} card={card}/>)
       )}
     </div>
   );
