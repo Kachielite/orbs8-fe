@@ -5,4 +5,3 @@ export enum SyncStatusEnum {
     COMPLETED = 'completed',
     FAILED = 'failed',
 }
-

@@ -1,18 +1,27 @@
 import moment from 'moment';
-import React from 'react'
+import React from 'react';
 
 import {SyncStatusEnum} from '@/core/common/domain/entity/enum/sync-status.enum';
+import {Badge} from '@/core/common/presentation/components/ui/badge';
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "@/core/common/presentation/components/ui/select";
-import {useAppStore} from "@/core/common/presentation/state/store";
+} from '@/core/common/presentation/components/ui/select';
+import {Skeleton} from '@/core/common/presentation/components/ui/skeleton';
+import {useAppStore} from '@/core/common/presentation/state/store';
+import ExchangeRate from '@/features/accounts/presentation/components/exchange-rate';
+import useGetSyncStatus from '@/features/email/presentation/state/hooks/use-get-sync-status';
 
 function DashboardHeader() {
-    const {setDashboardStartDate, setDashboardEndDate, syncStatus} = useAppStore();
+    const {setDashboardStartDate, setDashboardEndDate, syncStatus} =
+        useAppStore();
+    const {isGettingEmailSyncStatus} = useGetSyncStatus();
+
+    const status = syncStatus?.syncStatus || SyncStatusEnum.IDLE;
+    const lastSync = syncStatus?.lastSyncAt || 'Never';
 
     const getSyncStatusColor = (status: string) => {
         switch (status) {
@@ -89,16 +98,53 @@ function DashboardHeader() {
     };
 
     return (
-        <div className="flex flex-col md:flex-row items-center justify-between md:justify-between gap-4 md:gap-0 p-4">
-            <div className="flex items-center gap-4">
-                <span className="text-xs text-muted-foreground">Sync Status:</span>
-                <div className="flex items-center gap-2">
-                    <div
-                        className={`w-3 h-3 rounded-full ${getSyncStatusColor((syncStatus || SyncStatusEnum.IDLE) as string)}`}></div>
-                    <span
-                        className="text-sm font-medium">{getSyncStatusDisplay((syncStatus || SyncStatusEnum.IDLE) as string)}</span>
-                </div>
+        <div className="flex flex-wrap flex-row items-center justify-between p-4 gap-4">
+            <div className="flex flex-row items-center gap-4">
+                <Badge
+                    variant="secondary"
+                    className="flex items-center gap-1 text-sm px-3 py-1 font-medium
+                       rounded-2xl shadow-sm bg-white/10 backdrop-blur-sm
+                       border border-white/20 hover:shadow-md transition-all"
+                >
+                    <span className="text-xs text-muted-foreground">Sync Status:</span>
+                    <div className="flex items-center gap-2">
+                        {isGettingEmailSyncStatus ? (
+                            <>
+                                <Skeleton className="w-3 h-3 rounded-full"/>
+                                <Skeleton className="h-4 w-16"/>
+                            </>
+                        ) : (
+                            <>
+                                <div
+                                    className={`w-3 h-3 rounded-full ${getSyncStatusColor(status)}`}
+                                ></div>
+                                <span className="text-xs font-medium">
+                  {getSyncStatusDisplay(status)}
+                </span>
+                            </>
+                        )}
+                    </div>
+                </Badge>
+                <Badge
+                    variant="secondary"
+                    className="flex items-center gap-1 text-sm px-3 py-1 font-medium
+                       rounded-2xl shadow-sm bg-white/10 backdrop-blur-sm
+                       border border-white/20 hover:shadow-md transition-all"
+                >
+                    <span className="text-xs text-muted-foreground">Last Sync:</span>
+                    {isGettingEmailSyncStatus ? (
+                        <Skeleton className="h-4 w-24"/>
+                    ) : (
+                        <span className="text-xs">
+              {lastSync === 'Never'
+                  ? 'Never'
+                  : moment(lastSync).format('MMM DD, YYYY HH:mm')}
+            </span>
+                    )}
+                </Badge>
+                <ExchangeRate/>
             </div>
+
             <div className="flex items-center gap-4">
                 <span className="text-xs text-muted-foreground">Time Range:</span>
                 <Select onValueChange={handleTimeRangeChange} defaultValue="30">
@@ -116,7 +162,7 @@ function DashboardHeader() {
                 </Select>
             </div>
         </div>
-    )
+    );
 }
 
-export default DashboardHeader
+export default DashboardHeader;

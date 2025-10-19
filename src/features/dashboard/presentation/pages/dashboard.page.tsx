@@ -6,7 +6,7 @@ import {useAppStore} from '@/core/common/presentation/state/store';
 import useGetBanks from '@/features/bank/presentation/state/hooks/use-get-banks';
 import AccountSummary from '@/features/dashboard/presentation/components/account-summary';
 import TransactionCards from '@/features/dashboard/presentation/components/dashboard-cards';
-import DashboardHeader from "@/features/dashboard/presentation/components/dashboard-header";
+import DashboardHeader from '@/features/dashboard/presentation/components/dashboard-header';
 import {DashboardIncomeByCategory} from '@/features/dashboard/presentation/components/dashboard-income-by-category';
 import {DashboardSpendByBank} from '@/features/dashboard/presentation/components/dashboard-spend-by-bank';
 import {DashboardSpendByCategory} from '@/features/dashboard/presentation/components/dashboard-spend-by-category';
