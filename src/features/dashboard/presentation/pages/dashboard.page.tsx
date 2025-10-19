@@ -10,6 +10,7 @@ import {DashboardIncomeByCategory} from "@/features/dashboard/presentation/compo
 import {DashboardSpendByBank} from '@/features/dashboard/presentation/components/dashboard-spend-by-bank';
 import {DashboardSpendByCategory} from '@/features/dashboard/presentation/components/dashboard-spend-by-category';
 import {DashboardSpendByType} from '@/features/dashboard/presentation/components/dashboard-spend-by-type';
+import TopMerchants from "@/features/dashboard/presentation/components/top-mercants";
 import useGetUser from '@/features/user/presentation/state/hook/use-get-user';
 
 function DashboardPage() {
@@ -49,7 +50,7 @@ function DashboardPage() {
                 <AccountSummary/>
             </div>
             <div className="flex flex-col h-full xl:col-span-1">
-                <DashboardSpendByCategory/>
+                <TopMerchants/>
             </div>
         </div>
       <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min" />
