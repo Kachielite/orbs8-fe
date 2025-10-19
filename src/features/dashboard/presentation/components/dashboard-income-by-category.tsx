@@ -1,5 +1,5 @@
 import moment from 'moment/moment';
-import {Bar, BarChart, CartesianGrid, XAxis, YAxis} from "recharts";
+import {Bar, BarChart, CartesianGrid, XAxis} from "recharts";
 
 import {
     Card,
@@ -63,6 +63,7 @@ export function DashboardIncomeByCategory() {
 
     const chartData = rawData.map((item, index) => ({
         category: item.name,
+        categoryShort: item.name.length > 8 ? item.name.substring(0, 8) + '...' : item.name,
         percentage: item.percentage,
         amount: item.amount,
         fill: `var(--chart-${index + 1})`,
@@ -86,16 +87,29 @@ export function DashboardIncomeByCategory() {
       </CardHeader>
       <CardContent className="flex-1 pb-0 min-h-0">
           <ChartContainer config={chartConfig} className="h-full w-full">
-              <BarChart data={chartData} margin={{top: 20, right: 30, left: 20, bottom: 5}}>
+              <BarChart data={chartData} className="h-full w-full">
                   <CartesianGrid strokeDasharray="3 3"/>
-                  <XAxis dataKey="category"/>
-                  <YAxis/>
+                  <XAxis
+                      dataKey="categoryShort"
+                      tick={{fontSize: 12}}
+                  />
                   <ChartTooltip
                       content={<ChartTooltipContent
-                          formatter={(value, name) => [
-                              name === 'percentage' ? `${value}%` : `${user?.preferredCurrency || '$'} ${value}`,
-                              name === 'percentage' ? 'Percentage' : 'Amount'
-                          ]}
+                          formatter={(value, name, payload) => {
+                              if (name === 'percentage') {
+                                  return [
+                                      `${user?.preferredCurrency || '$'}${payload.payload.amount.toLocaleString()}`,
+                                      `${value}%`
+                                  ];
+                              }
+                              return [value, name];
+                          }}
+                          labelFormatter={(label, payload) => {
+                              if (payload && payload.length > 0) {
+                                  return payload[0].payload.category;
+                              }
+                              return label;
+                          }}
                       />}
                   />
                   <Bar dataKey="percentage" fill="hsl(var(--chart-1))"/>
