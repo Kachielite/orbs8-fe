@@ -1,5 +1,8 @@
+import {CreditCard} from 'lucide-react';
 import React from 'react';
 
+
+import EmptyState from '@/core/common/presentation/components/empty-state';
 import SmallTableLoader from '@/core/common/presentation/components/loaders/small-table-loader';
 import {
     Card,
@@ -28,6 +31,26 @@ function AccountSummary() {
         return <SmallTableLoader rows={5} columns={4}/>;
     }
 
+    const accountSummaries = dashboardTransactionsSummary?.accountSummaries || [];
+
+    if (accountSummaries.length === 0) {
+        return (
+            <Card className="flex flex-col h-full">
+                <CardHeader>
+                    <CardTitle>Account Summaries</CardTitle>
+                    <CardDescription>Overview of all accounts</CardDescription>
+                </CardHeader>
+                <CardContent className="flex-1 flex items-center justify-center">
+                    <EmptyState
+                        title="No account summaries available"
+                        description="There is no account summary available at the moment."
+                        icon={CreditCard}
+                    />
+                </CardContent>
+            </Card>
+        );
+    }
+
     return (
         <Card className="flex flex-col h-full">
             <CardHeader>
@@ -45,7 +68,7 @@ function AccountSummary() {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {dashboardTransactionsSummary?.accountSummaries.map(account => (
+                        {accountSummaries.map(account => (
                             <TableRow key={account.accountName}>
                                 <TableCell className="font-medium">
                                     {account.accountName}
