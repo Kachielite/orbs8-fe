@@ -21,10 +21,16 @@ import {Skeleton} from '@/core/common/presentation/components/ui/skeleton';
 import {useAppStore} from '@/core/common/presentation/state/store';
 import useDashboardTransactionsByBank
     from '@/features/dashboard/presentation/state/hooks/use-dashboard-transactions-by-bank';
+import {TransactionType} from '@/features/transactions/domain/entity/enum/transaction-type.enum';
 
 const chartConfig = {
-  visitors: {
-    label: 'Amount',
+    credit: {
+        label: 'Credit',
+        color: 'var(--chart-2)',
+    },
+    debit: {
+        label: 'Debit',
+        color: 'var(--chart-1)',
   },
 } satisfies ChartConfig;
 
@@ -66,21 +72,24 @@ export function DashboardSpendByBank() {
       (acc, item) => {
         const bank = item.bankName;
         if (!acc[bank]) {
-          acc[bank] = 0;
+            acc[bank] = {credit: 0, debit: 0};
         }
-        acc[bank] += item.transactions.reduce(
-          (total, transaction) => total + transaction.amount,
-          0
-        );
+          item.transactions.forEach(transaction => {
+              if (transaction.type === TransactionType.CREDIT) {
+                  acc[bank].credit += transaction.amount;
+              } else if (transaction.type === TransactionType.DEBIT) {
+                  acc[bank].debit += transaction.amount;
+              }
+          });
         return acc;
       },
-      {} as Record<string, number>
+        {} as Record<string, { credit: number; debit: number }>
     ) || {};
 
   const chartData = Object.keys(grouped).map(bank => ({
-    browser: bank,
-    visitors: grouped[bank],
-    fill: `var(--chart-${(Object.keys(grouped).indexOf(bank) % 5) + 1})`,
+      bank: bank,
+      credit: grouped[bank].credit,
+      debit: grouped[bank].debit,
   }));
 
   if (isGettingTransactionsByBank) {
@@ -92,7 +101,7 @@ export function DashboardSpendByBank() {
   return (
       <Card className="flex flex-col h-full">
       <CardHeader>
-        <CardTitle>Spend by Bank</CardTitle>
+          <CardTitle>Transaction by Bank</CardTitle>
         <CardDescription>
           {start.format('DD MMM, YYYY')} - {end.format('DD MMM, YYYY')}
         </CardDescription>
@@ -108,21 +117,23 @@ export function DashboardSpendByBank() {
             }}
           >
             <YAxis
-              dataKey="browser"
+                dataKey="bank"
               type="category"
               tickLine={false}
               tickMargin={2}
               axisLine={false}
+                tickFormatter={(value) => value.split(' ')[0]}
             />
-            <XAxis dataKey="visitors" type="number" hide />
-            <ChartTooltip cursor content={<ChartTooltipContent hideLabel />} />
-            <Bar dataKey="visitors" layout="vertical" radius={2} />
+              <XAxis type="number" hide/>
+              <ChartTooltip cursor content={<ChartTooltipContent/>}/>
+              <Bar dataKey="credit" fill="var(--color-credit)" layout="vertical" radius={2}/>
+              <Bar dataKey="debit" fill="var(--color-debit)" layout="vertical" radius={2}/>
           </BarChart>
         </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm w-full">
         <div className="text-muted-foreground leading-none w-full text-center">
-          Showing spend by bank
+            Showing credit and debit spend by bank
         </div>
       </CardFooter>
     </Card>

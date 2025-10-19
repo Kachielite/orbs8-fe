@@ -128,7 +128,7 @@ export function DashboardSpendByType() {
       <CardHeader className="h-fit">
           <div className="flex flex-row items-center justify-between">
               <div className="space-y-1">
-                  <CardTitle>Spend by Type</CardTitle>
+                  <CardTitle>Transaction by Type</CardTitle>
                   <CardDescription>
                       {start.format('DD MMM, YYYY')} - {end.format('DD MMM, YYYY')}
                   </CardDescription>
