@@ -98,7 +98,7 @@ function DashboardHeader() {
     };
 
     return (
-        <div className="flex flex-wrap flex-row items-center justify-between p-4 gap-4">
+        <div className="flex flex-wrap flex-row items-center justify-between gap-4">
             <div className="flex flex-row items-center gap-4">
                 <Badge
                     variant="secondary"
