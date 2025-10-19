@@ -59,7 +59,6 @@ export class TransactionsSummaryEntity {
     public accountSummaries: accountSummaryEntity[];
     public topMerchants: TopMerchantsEntity[];
 
-
   constructor(
     topSpendByCategory: TopTransactionsEntity[],
     topIncomeByCategory: TopTransactionsEntity[],
@@ -91,9 +90,14 @@ export class TopTransactionsEntity {
   public name: string;
   public amount: number;
   public percentage: number;
-    public trend: "↑" | "=" | "↓";
+    public trend: '↑' | '=' | '↓';
 
-    constructor(name: string, amount: number, percentage: number, trend: "↑" | "=" | "↓") {
+    constructor(
+        name: string,
+        amount: number,
+        percentage: number,
+        trend: '↑' | '=' | '↓'
+    ) {
     this.name = name;
     this.amount = amount;
     this.percentage = percentage;
@@ -101,14 +105,18 @@ export class TopTransactionsEntity {
   }
 }
 
-
 export class accountSummaryEntity {
     public accountName: string;
     public totalSpend: number;
     public totalIncome: number;
     public currentBalance: number;
 
-    constructor(accountName: string, totalSpend: number, totalIncome: number, currentBalance: number) {
+    constructor(
+        accountName: string,
+        totalSpend: number,
+        totalIncome: number,
+        currentBalance: number
+    ) {
         this.accountName = accountName;
         this.totalSpend = totalSpend;
         this.totalIncome = totalIncome;
@@ -120,9 +128,14 @@ export class TopMerchantsEntity {
     public name: string;
     public amount: number;
     public percentage: number;
-    public trend: "↑" | "=" | "↓";
+    public trend: '↑' | '=' | '↓';
 
-    constructor(name: string, amount: number, percentage: number, trend: "↑" | "=" | "↓") {
+    constructor(
+        name: string,
+        amount: number,
+        percentage: number,
+        trend: '↑' | '=' | '↓'
+    ) {
         this.name = name;
         this.amount = amount;
         this.percentage = percentage;

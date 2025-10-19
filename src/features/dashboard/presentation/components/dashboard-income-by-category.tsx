@@ -1,5 +1,5 @@
 import moment from 'moment/moment';
-import {Bar, BarChart, CartesianGrid, XAxis} from "recharts";
+import {Bar, BarChart, CartesianGrid, XAxis} from 'recharts';
 
 import {
     Card,
@@ -13,19 +13,22 @@ import {
     ChartConfig,
     ChartContainer,
     ChartTooltip,
-    ChartTooltipContent
-} from "@/core/common/presentation/components/ui/chart";
+    ChartTooltipContent,
+} from '@/core/common/presentation/components/ui/chart';
 import {Skeleton} from '@/core/common/presentation/components/ui/skeleton';
 import {useAppStore} from '@/core/common/presentation/state/store';
 import useDashboardTransactionsSummary
     from '@/features/dashboard/presentation/state/hooks/use-dashboard-transactions-summary';
 
 export function DashboardIncomeByCategory() {
-    const {dashboardTransactionsSummary, dashboardStartDate, dashboardEndDate, user} =
-    useAppStore();
+    const {
+        dashboardTransactionsSummary,
+        dashboardStartDate,
+        dashboardEndDate,
+        user,
+    } = useAppStore();
   const { isGettingTransactionSummary } = useDashboardTransactionsSummary();
   const rawData = dashboardTransactionsSummary?.topIncomeByCategory || [];
-
 
   const start = moment(dashboardStartDate);
   const end = moment(dashboardEndDate);
@@ -63,7 +66,8 @@ export function DashboardIncomeByCategory() {
 
     const chartData = rawData.map((item, index) => ({
         category: item.name,
-        categoryShort: item.name.length > 8 ? item.name.substring(0, 8) + '...' : item.name,
+        categoryShort:
+            item.name.length > 8 ? item.name.substring(0, 8) + '...' : item.name,
         percentage: item.percentage,
         amount: item.amount,
         fill: `var(--chart-${index + 1})`,
@@ -89,28 +93,27 @@ export function DashboardIncomeByCategory() {
           <ChartContainer config={chartConfig} className="h-full w-full">
               <BarChart data={chartData} className="h-full w-full">
                   <CartesianGrid strokeDasharray="3 3"/>
-                  <XAxis
-                      dataKey="categoryShort"
-                      tick={{fontSize: 12}}
-                  />
+                  <XAxis dataKey="categoryShort" tick={{fontSize: 12}}/>
                   <ChartTooltip
-                      content={<ChartTooltipContent
-                          formatter={(value, name, payload) => {
-                              if (name === 'percentage') {
-                                  return [
-                                      `${user?.preferredCurrency || '$'}${payload.payload.amount.toLocaleString()}`,
-                                      `${value}%`
-                                  ];
-                              }
-                              return [value, name];
-                          }}
-                          labelFormatter={(label, payload) => {
-                              if (payload && payload.length > 0) {
-                                  return payload[0].payload.category;
-                              }
-                              return label;
-                          }}
-                      />}
+                      content={
+                          <ChartTooltipContent
+                              formatter={(value, name, payload) => {
+                                  if (name === 'percentage') {
+                                      return [
+                                          `${user?.preferredCurrency || '$'}${payload.payload.amount.toLocaleString()}`,
+                                          `${value}%`,
+                                      ];
+                                  }
+                                  return [value, name];
+                              }}
+                              labelFormatter={(label, payload) => {
+                                  if (payload && payload.length > 0) {
+                                      return payload[0].payload.category;
+                                  }
+                                  return label;
+                              }}
+                          />
+                      }
                   />
                   <Bar dataKey="percentage" fill="hsl(var(--chart-1))"/>
               </BarChart>

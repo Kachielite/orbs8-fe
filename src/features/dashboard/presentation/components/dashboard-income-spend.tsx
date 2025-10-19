@@ -38,7 +38,7 @@ export function DashboardIncomeSpend() {
     dashboardTransactionsSummary,
     transactionStartDate,
     transactionEndDate,
-      user
+      user,
   } = useAppStore();
   const { isGettingTransactionSummary } = useDashboardTransactionsSummary();
   const { totalIncome, totalSpend } = dashboardTransactionsSummary || {};
@@ -48,8 +48,18 @@ export function DashboardIncomeSpend() {
   const spendPercentage = total > 0 ? ((totalSpend || 0) / total) * 100 : 0;
 
   const chartData = [
-    { type: 'income', amount: totalIncome,  percentage: incomePercentage, fill: 'var(--chart-1)' },
-    { type: 'spend', amount: totalSpend, percentage: spendPercentage, fill: 'var(--chart-2)' },
+      {
+          type: 'income',
+          amount: totalIncome,
+          percentage: incomePercentage,
+          fill: 'var(--chart-1)',
+      },
+      {
+          type: 'spend',
+          amount: totalSpend,
+          percentage: spendPercentage,
+          fill: 'var(--chart-2)',
+      },
   ];
 
   const start = moment(transactionStartDate).format('DD MMM, YYYY');
@@ -85,7 +95,9 @@ export function DashboardIncomeSpend() {
                 style={{ backgroundColor: item.fill }}
               ></div>
               <span className="text-xs">
-                {chartConfig[item.type as keyof typeof chartConfig].label}: {user?.preferredCurrency || "USD"} {item?.amount?.toLocaleString() || 0}
+                {chartConfig[item.type as keyof typeof chartConfig].label}:{' '}
+                  {user?.preferredCurrency || 'USD'}{' '}
+                  {item?.amount?.toLocaleString() || 0}
               </span>
             </div>
           ))}

@@ -1,22 +1,27 @@
-import React from 'react'
+import React from 'react';
 
-import SmallTableLoader from "@/core/common/presentation/components/loaders/small-table-loader";
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/core/common/presentation/components/ui/card";
+import SmallTableLoader from '@/core/common/presentation/components/loaders/small-table-loader';
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from '@/core/common/presentation/components/ui/card';
 import {
     Table,
     TableBody,
     TableCell,
     TableHead,
     TableHeader,
-    TableRow
-} from "@/core/common/presentation/components/ui/table";
-import {useAppStore} from "@/core/common/presentation/state/store";
+    TableRow,
+} from '@/core/common/presentation/components/ui/table';
+import {useAppStore} from '@/core/common/presentation/state/store';
 import useDashboardTransactionsByBank
-    from "@/features/dashboard/presentation/state/hooks/use-dashboard-transactions-by-bank";
+    from '@/features/dashboard/presentation/state/hooks/use-dashboard-transactions-by-bank';
 
 function TopMerchants() {
-    const {dashboardTransactionsSummary,} =
-        useAppStore();
+    const {dashboardTransactionsSummary} = useAppStore();
     const {isGettingTransactionsByBank} = useDashboardTransactionsByBank();
 
     if (isGettingTransactionsByBank) {
@@ -27,7 +32,9 @@ function TopMerchants() {
         <Card>
             <CardHeader>
                 <CardTitle>Top Transactions</CardTitle>
-                <CardDescription>Most frequent transaction destinations</CardDescription>
+                <CardDescription>
+                    Most frequent transaction destinations
+                </CardDescription>
             </CardHeader>
             <CardContent>
                 <Table>
@@ -39,20 +46,27 @@ function TopMerchants() {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {dashboardTransactionsSummary?.topMerchants.map((merchant) => (
+                        {dashboardTransactionsSummary?.topMerchants.map(merchant => (
                             <TableRow key={merchant.name}>
-                                <TableCell className="font-medium max-w-[200px] truncate" title={merchant.name}>
+                                <TableCell
+                                    className="font-medium max-w-[200px] truncate"
+                                    title={merchant.name}
+                                >
                                     {merchant.name}
                                 </TableCell>
-                                <TableCell className="text-right">${merchant.amount.toLocaleString()}</TableCell>
-                                <TableCell className="text-right">{merchant.percentage}%</TableCell>
+                                <TableCell className="text-right">
+                                    ${merchant.amount.toLocaleString()}
+                                </TableCell>
+                                <TableCell className="text-right">
+                                    {merchant.percentage}%
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
             </CardContent>
         </Card>
-    )
+    );
 }
 
-export default TopMerchants
+export default TopMerchants;

@@ -100,7 +100,7 @@ export class TransactionSummaryModel extends TransactionsSummaryEntity {
         json.lastMonthSpend,
         json.lastMonthIncome,
         json.accountSummaries,
-        json.topMerchants,
+        json.topMerchants
     );
   }
 }

@@ -19,7 +19,7 @@ import {
     ChartTooltipContent,
 } from '@/core/common/presentation/components/ui/chart';
 import {Skeleton} from '@/core/common/presentation/components/ui/skeleton';
-import {Tabs, TabsList, TabsTrigger} from '@/core/common/presentation/components/ui/tabs';
+import {Tabs, TabsList, TabsTrigger,} from '@/core/common/presentation/components/ui/tabs';
 import {useAppStore} from '@/core/common/presentation/state/store';
 import useDashboardTransactionTypes
     from '@/features/dashboard/presentation/state/hooks/use-dashboard-transaction-types';
@@ -77,7 +77,9 @@ export function DashboardSpendByType() {
   const { dashboardTransactionsByTypes, dashboardStartDate, dashboardEndDate } =
     useAppStore();
   const { isGettingTransactionsByType } = useDashboardTransactionTypes();
-    const [transactionType, setTransactionType] = useState<'all' | 'credit' | 'debit'>('all');
+    const [transactionType, setTransactionType] = useState<
+        'all' | 'credit' | 'debit'
+    >('all');
 
   const start = moment(dashboardStartDate);
   const end = moment(dashboardEndDate);
@@ -133,8 +135,12 @@ export function DashboardSpendByType() {
                       {start.format('DD MMM, YYYY')} - {end.format('DD MMM, YYYY')}
                   </CardDescription>
               </div>
-              <Tabs value={transactionType}
-                    onValueChange={(value) => setTransactionType(value as 'all' | 'credit' | 'debit')}>
+              <Tabs
+                  value={transactionType}
+                  onValueChange={value =>
+                      setTransactionType(value as 'all' | 'credit' | 'debit')
+                  }
+              >
                   <TabsList>
                       <TabsTrigger value="all">All</TabsTrigger>
                       <TabsTrigger value="credit">Credit</TabsTrigger>
@@ -196,22 +202,33 @@ export function DashboardSpendByType() {
               {transactionType === 'all' && (
                   <>
                       <div className="flex items-center gap-1.5">
-                          <div className="w-3 h-3 rounded-sm" style={{backgroundColor: 'var(--chart-3)'}}></div>
+                          <div
+                              className="w-3 h-3 rounded-sm"
+                              style={{backgroundColor: 'var(--chart-3)'}}
+                          ></div>
                           <span className="text-xs text-muted-foreground">Total</span>
                       </div>
                       <div className="flex items-center gap-1.5">
-                          <div className="w-3 h-3 rounded-sm" style={{backgroundColor: 'var(--chart-1'}}></div>
+                          <div
+                              className="w-3 h-3 rounded-sm"
+                              style={{backgroundColor: 'var(--chart-1'}}
+                          ></div>
                           <span className="text-xs text-muted-foreground">Debit</span>
                       </div>
                       <div className="flex items-center gap-1.5">
-                          <div className="w-3 h-3 rounded-sm" style={{backgroundColor: 'var(--chart-2)'}}></div>
+                          <div
+                              className="w-3 h-3 rounded-sm"
+                              style={{backgroundColor: 'var(--chart-2)'}}
+                          ></div>
                           <span className="text-xs text-muted-foreground">Credit</span>
                       </div>
                   </>
               )}
           </div>
         <div className="text-muted-foreground leading-none text-center w-full">
-            Showing spend by {transactionType === 'all' ? 'debit and credit' : transactionType} over time
+            Showing spend by{' '}
+            {transactionType === 'all' ? 'debit and credit' : transactionType}{' '}
+            over time
         </div>
       </CardFooter>
     </Card>

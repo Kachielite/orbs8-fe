@@ -122,23 +122,39 @@ export function DashboardSpendByBank() {
               tickLine={false}
               tickMargin={2}
               axisLine={false}
-                tickFormatter={(value) => value.split(' ')[0]}
+                tickFormatter={value => value.split(' ')[0]}
             />
               <XAxis type="number" hide/>
               <ChartTooltip cursor content={<ChartTooltipContent/>}/>
-              <Bar dataKey="credit" fill="var(--color-credit)" layout="vertical" radius={2}/>
-              <Bar dataKey="debit" fill="var(--color-debit)" layout="vertical" radius={2}/>
+              <Bar
+                  dataKey="credit"
+                  fill="var(--color-credit)"
+                  layout="vertical"
+                  radius={2}
+              />
+              <Bar
+                  dataKey="debit"
+                  fill="var(--color-debit)"
+                  layout="vertical"
+                  radius={2}
+              />
           </BarChart>
         </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm w-full">
           <div className="flex items-center justify-center gap-4 w-full">
               <div className="flex items-center gap-1.5">
-                  <div className="w-3 h-3 rounded-sm" style={{backgroundColor: 'var(--chart-2)'}}></div>
+                  <div
+                      className="w-3 h-3 rounded-sm"
+                      style={{backgroundColor: 'var(--chart-2)'}}
+                  ></div>
                   <span className="text-xs text-muted-foreground">Credit</span>
               </div>
               <div className="flex items-center gap-1.5">
-                  <div className="w-3 h-3 rounded-sm" style={{backgroundColor: 'var(--chart-1)'}}></div>
+                  <div
+                      className="w-3 h-3 rounded-sm"
+                      style={{backgroundColor: 'var(--chart-1)'}}
+                  ></div>
                   <span className="text-xs text-muted-foreground">Debit</span>
               </div>
           </div>

@@ -1,29 +1,36 @@
 import {CreditCard, DollarSign, Receipt, TrendingUp} from 'lucide-react';
 import React from 'react';
 
-import DashboardCard, {DashboardCardData} from "@/core/common/presentation/components/dashboard-card";
+import DashboardCard, {DashboardCardData,} from '@/core/common/presentation/components/dashboard-card';
 import CardLoaders from '@/core/common/presentation/components/loaders/card-loader';
 import {useAppStore} from '@/core/common/presentation/state/store';
 import useDashboardTransactionsSummary
     from '@/features/dashboard/presentation/state/hooks/use-dashboard-transactions-summary';
 
 function TransactionCards() {
-    const {dashboardTransactionsSummary, user,} =
-    useAppStore();
+    const {dashboardTransactionsSummary, user} = useAppStore();
   const { isGettingTransactionSummary } = useDashboardTransactionsSummary();
 
     const isLoading = isGettingTransactionSummary;
 
     const income = dashboardTransactionsSummary?.totalIncome || 0;
     const spend = dashboardTransactionsSummary?.totalSpend || 0;
-    const currentMonthIncome = dashboardTransactionsSummary?.currentMonthIncome || 0;
-    const currentMonthSpend = dashboardTransactionsSummary?.currentMonthSpend || 0;
+    const currentMonthIncome =
+        dashboardTransactionsSummary?.currentMonthIncome || 0;
+    const currentMonthSpend =
+        dashboardTransactionsSummary?.currentMonthSpend || 0;
     const lastMonthIncome = dashboardTransactionsSummary?.lastMonthIncome || 0;
     const lastMonthSpend = dashboardTransactionsSummary?.lastMonthSpend || 0;
 
     const netBalance = income - spend;
-    const spendChange = lastMonthSpend === 0 ? 0 : ((currentMonthSpend - lastMonthSpend) / lastMonthSpend) * 100;
-    const incomeChange = lastMonthIncome === 0 ? 0 : ((currentMonthIncome - lastMonthIncome) / lastMonthIncome) * 100;
+    const spendChange =
+        lastMonthSpend === 0
+            ? 0
+            : ((currentMonthSpend - lastMonthSpend) / lastMonthSpend) * 100;
+    const incomeChange =
+        lastMonthIncome === 0
+            ? 0
+            : ((currentMonthIncome - lastMonthIncome) / lastMonthIncome) * 100;
 
     const cardData: DashboardCardData[] = [
     {
@@ -35,7 +42,7 @@ function TransactionCards() {
         change: incomeChange,
         metricType: 'income',
         valueColorType: 'neutral',
-        tooltip: 'All time total income across all accounts'
+        tooltip: 'All time total income across all accounts',
     },
     {
         name: 'Total Spend',
@@ -46,7 +53,7 @@ function TransactionCards() {
         change: spendChange,
         metricType: 'spend',
         valueColorType: 'neutral',
-        tooltip: 'All time total spend across all accounts'
+        tooltip: 'All time total spend across all accounts',
     },
     {
         name: 'Net Balance',

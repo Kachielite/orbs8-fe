@@ -1,22 +1,27 @@
-import React from 'react'
+import React from 'react';
 
-import SmallTableLoader from "@/core/common/presentation/components/loaders/small-table-loader";
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/core/common/presentation/components/ui/card";
+import SmallTableLoader from '@/core/common/presentation/components/loaders/small-table-loader';
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from '@/core/common/presentation/components/ui/card';
 import {
     Table,
     TableBody,
     TableCell,
     TableHead,
     TableHeader,
-    TableRow
-} from "@/core/common/presentation/components/ui/table";
-import {useAppStore} from "@/core/common/presentation/state/store";
+    TableRow,
+} from '@/core/common/presentation/components/ui/table';
+import {useAppStore} from '@/core/common/presentation/state/store';
 import useDashboardTransactionsByBank
-    from "@/features/dashboard/presentation/state/hooks/use-dashboard-transactions-by-bank";
+    from '@/features/dashboard/presentation/state/hooks/use-dashboard-transactions-by-bank';
 
 function AccountSummary() {
-    const {dashboardTransactionsSummary,} =
-        useAppStore();
+    const {dashboardTransactionsSummary} = useAppStore();
     const {isGettingTransactionsByBank} = useDashboardTransactionsByBank();
 
     if (isGettingTransactionsByBank) {
@@ -40,22 +45,27 @@ function AccountSummary() {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {dashboardTransactionsSummary?.accountSummaries.map((account) => (
+                        {dashboardTransactionsSummary?.accountSummaries.map(account => (
                             <TableRow key={account.accountName}>
-                                <TableCell className="font-medium">{account.accountName}</TableCell>
-                                <TableCell
-                                    className="text-right text-red-600">${account.totalSpend.toLocaleString()}</TableCell>
-                                <TableCell
-                                    className="text-right text-green-600">${account.totalIncome.toLocaleString()}</TableCell>
-                                <TableCell
-                                    className="text-right font-semibold">${account.currentBalance.toLocaleString()}</TableCell>
+                                <TableCell className="font-medium">
+                                    {account.accountName}
+                                </TableCell>
+                                <TableCell className="text-right text-red-600">
+                                    ${account.totalSpend.toLocaleString()}
+                                </TableCell>
+                                <TableCell className="text-right text-green-600">
+                                    ${account.totalIncome.toLocaleString()}
+                                </TableCell>
+                                <TableCell className="text-right font-semibold">
+                                    ${account.currentBalance.toLocaleString()}
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
             </CardContent>
         </Card>
-    )
+    );
 }
 
-export default AccountSummary
+export default AccountSummary;

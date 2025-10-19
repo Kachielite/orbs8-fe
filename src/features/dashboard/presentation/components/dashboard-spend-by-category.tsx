@@ -1,5 +1,5 @@
 import moment from 'moment/moment';
-import {Pie, PieChart} from "recharts";
+import {Pie, PieChart} from 'recharts';
 
 import {
     Card,
@@ -13,16 +13,20 @@ import {
     ChartConfig,
     ChartContainer,
     ChartTooltip,
-    ChartTooltipContent
-} from "@/core/common/presentation/components/ui/chart";
+    ChartTooltipContent,
+} from '@/core/common/presentation/components/ui/chart';
 import {useAppStore} from '@/core/common/presentation/state/store';
-import {PieChartLoader} from "@/features/dashboard/presentation/components/pie-chart-loader";
+import {PieChartLoader} from '@/features/dashboard/presentation/components/pie-chart-loader';
 import useDashboardTransactionsSummary
     from '@/features/dashboard/presentation/state/hooks/use-dashboard-transactions-summary';
 
 export function DashboardSpendByCategory() {
-    const {dashboardTransactionsSummary, dashboardStartDate, dashboardEndDate, user} =
-    useAppStore();
+    const {
+        dashboardTransactionsSummary,
+        dashboardStartDate,
+        dashboardEndDate,
+        user,
+    } = useAppStore();
   const { isGettingTransactionSummary } = useDashboardTransactionsSummary();
   const rawData = dashboardTransactionsSummary?.topSpendByCategory || [];
 
@@ -47,7 +51,6 @@ export function DashboardSpendByCategory() {
         };
         return config;
     }, {} as ChartConfig);
-
 
   return (
     <Card className="flex flex-col h-full">
@@ -75,7 +78,9 @@ export function DashboardSpendByCategory() {
                             style={{backgroundColor: item.fill}}
                         ></div>
                         <span className="text-xs">
-                {chartConfig[item.type as keyof typeof chartConfig].label}: {user?.preferredCurrency || "USD"} {item?.amount?.toLocaleString() || 0}
+                {chartConfig[item.type as keyof typeof chartConfig].label}:{' '}
+                            {user?.preferredCurrency || 'USD'}{' '}
+                            {item?.amount?.toLocaleString() || 0}
               </span>
             </div>
           ))}

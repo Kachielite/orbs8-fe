@@ -25,13 +25,22 @@ export type DashboardCardData = {
 function DashboardCard({card}: { card: DashboardCardData }) {
     const isPositiveGood = card.metricType === 'income';
     const isPositiveBad = card.metricType === 'spend';
-    const changeColor = card.change !== undefined ? (
-        (card.change > 0 && isPositiveGood) || (card.change < 0 && isPositiveBad) ? 'text-green-600' :
-            (card.change > 0 && isPositiveBad) || (card.change < 0 && isPositiveGood) ? 'text-red-600' : 'text-muted-foreground'
-    ) : 'text-muted-foreground';
-    const valueColor = card.valueColorType === 'balance' && typeof card.count === 'number' ? (
-        card.count > 0 ? 'text-green-600' : 'text-red-600'
-    ) : '';
+    const changeColor =
+        card.change !== undefined
+            ? (card.change > 0 && isPositiveGood) ||
+            (card.change < 0 && isPositiveBad)
+                ? 'text-green-600'
+                : (card.change > 0 && isPositiveBad) ||
+                (card.change < 0 && isPositiveGood)
+                    ? 'text-red-600'
+                    : 'text-muted-foreground'
+            : 'text-muted-foreground';
+    const valueColor =
+        card.valueColorType === 'balance' && typeof card.count === 'number'
+            ? card.count > 0
+                ? 'text-green-600'
+                : 'text-red-600'
+            : '';
 
     return (
         <Card className="@container/card">
@@ -62,8 +71,10 @@ function DashboardCard({card}: { card: DashboardCardData }) {
             </CardHeader>
             <CardContent className="flex flex-row justify-between items-center gap-4">
                 <CardDescription
-                    className={`text-2xl text-foreground font-semibold tabular-nums @[250px]/card:text-3xl ${valueColor}`}>
-                    {card.prefix || ''}{" "}{typeof card.count === 'number'
+                    className={`text-2xl text-foreground font-semibold tabular-nums @[250px]/card:text-3xl ${valueColor}`}
+                >
+                    {card.prefix || ''}{' '}
+                    {typeof card.count === 'number'
                         ? card.count.toLocaleString('en-US')
                         : card.count}
                 </CardDescription>
@@ -72,11 +83,14 @@ function DashboardCard({card}: { card: DashboardCardData }) {
             <CardFooter className="flex-col items-start gap-1.5 text-sm">
                 {card.change !== undefined ? (
                     <p className="text-muted-foreground flex items-center gap-1">
-                        {card.change > 0 ? <ArrowUpRight className={`h-3 w-3 ${changeColor}`}/> :
-                            <ArrowDownRight className={`h-3 w-3 ${changeColor}`}/>}
+                        {card.change > 0 ? (
+                            <ArrowUpRight className={`h-3 w-3 ${changeColor}`}/>
+                        ) : (
+                            <ArrowDownRight className={`h-3 w-3 ${changeColor}`}/>
+                        )}
                         <span className={changeColor}>
-                            {Math.abs(card.change).toFixed(1)}% from last month
-                        </span>
+              {Math.abs(card.change).toFixed(1)}% from last month
+            </span>
                     </p>
                 ) : (
                     <div className="text-muted-foreground">{card.description}</div>
