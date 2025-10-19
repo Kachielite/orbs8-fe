@@ -1,25 +1,28 @@
 'use client';
 
 import moment from 'moment';
-import { Bar, BarChart, CartesianGrid, Legend, XAxis } from 'recharts';
+import {useState} from 'react';
+import {Area, AreaChart, CartesianGrid, XAxis} from 'recharts';
 
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
 } from '@/core/common/presentation/components/ui/card';
 import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
+    ChartConfig,
+    ChartContainer,
+    ChartTooltip,
+    ChartTooltipContent,
 } from '@/core/common/presentation/components/ui/chart';
-import { Skeleton } from '@/core/common/presentation/components/ui/skeleton';
-import { useAppStore } from '@/core/common/presentation/state/store';
-import useDashboardTransactionTypes from '@/features/dashboard/presentation/state/hooks/use-dashboard-transaction-types';
+import {Skeleton} from '@/core/common/presentation/components/ui/skeleton';
+import {Tabs, TabsList, TabsTrigger} from '@/core/common/presentation/components/ui/tabs';
+import {useAppStore} from '@/core/common/presentation/state/store';
+import useDashboardTransactionTypes
+    from '@/features/dashboard/presentation/state/hooks/use-dashboard-transaction-types';
 
 const chartConfig = {
   debit: {
@@ -29,6 +32,10 @@ const chartConfig = {
   credit: {
     label: 'Credit',
     color: 'var(--chart-2)',
+  },
+    total: {
+        label: 'Total',
+        color: 'var(--chart-3)',
   },
 } satisfies ChartConfig;
 
@@ -70,18 +77,12 @@ export function DashboardSpendByType() {
   const { dashboardTransactionsByTypes, dashboardStartDate, dashboardEndDate } =
     useAppStore();
   const { isGettingTransactionsByType } = useDashboardTransactionTypes();
+    const [transactionType, setTransactionType] = useState<'all' | 'credit' | 'debit'>('all');
 
   const start = moment(dashboardStartDate);
   const end = moment(dashboardEndDate);
-  const diffMonths = end.diff(start, 'months');
 
-  let groupBy = 'month';
-  if (diffMonths === 0) {
-    groupBy = 'day';
-  } else if (diffMonths <= 3) {
-    groupBy = 'week';
-  }
-
+    // Combine credit and debit transactions
   const allTransactions = [
     ...(dashboardTransactionsByTypes?.credit?.map(item => ({
       transactionDate: item.transactionDate,
@@ -95,17 +96,10 @@ export function DashboardSpendByType() {
     })) || []),
   ];
 
+    // Group by exact date without grouping by week/month
   const grouped = allTransactions.reduce(
     (acc, item) => {
-      const date = moment(item.transactionDate);
-      let key;
-      if (groupBy === 'day') {
-        key = date.format('YYYY-MM-DD');
-      } else if (groupBy === 'week') {
-        key = date.startOf('week').format('YYYY-MM-DD');
-      } else {
-        key = date.format('YYYY-MM');
-      }
+        const key = moment(item.transactionDate).format('YYYY-MM-DD');
       if (!acc[key]) {
         acc[key] = { debit: 0, credit: 0 };
       }
@@ -116,30 +110,14 @@ export function DashboardSpendByType() {
     {} as Record<string, { debit: number; credit: number }>
   );
 
-  const chartData =
-    groupBy === 'day'
-      ? (() => {
-          const monthStart = start.clone().startOf('month');
-          const monthEnd = start.clone().endOf('month');
-          const allDays = [];
-          let current = monthStart.clone();
-          while (current.isSameOrBefore(monthEnd)) {
-            allDays.push(current.format('YYYY-MM-DD'));
-            current.add(1, 'day');
-          }
-          return allDays.map(day => ({
-            month: day,
-            debit: grouped[day]?.debit || 0,
-            credit: grouped[day]?.credit || 0,
-          }));
-        })()
-      : Object.keys(grouped)
-          .sort()
-          .map(key => ({
-            month: key,
+    const chartData = Object.keys(grouped)
+        .sort()
+        .map(key => ({
+            date: key,
             debit: grouped[key].debit,
             credit: grouped[key].credit,
-          }));
+            total: grouped[key].debit + grouped[key].credit,
+        }));
 
   if (isGettingTransactionsByType) {
     return <BarChartLoader />;
@@ -148,39 +126,74 @@ export function DashboardSpendByType() {
   return (
     <Card className="flex flex-col h-full">
       <CardHeader className="h-fit">
-        <CardTitle>Spend by Type</CardTitle>
-        <CardDescription>
-          {start.format('DD MMM, YYYY')} - {end.format('DD MMM, YYYY')}
-        </CardDescription>
+          <div className="flex flex-row items-center justify-between">
+              <div className="space-y-1">
+                  <CardTitle>Spend by Type</CardTitle>
+                  <CardDescription>
+                      {start.format('DD MMM, YYYY')} - {end.format('DD MMM, YYYY')}
+                  </CardDescription>
+              </div>
+              <Tabs value={transactionType}
+                    onValueChange={(value) => setTransactionType(value as 'all' | 'credit' | 'debit')}>
+                  <TabsList>
+                      <TabsTrigger value="all">All</TabsTrigger>
+                      <TabsTrigger value="credit">Credit</TabsTrigger>
+                      <TabsTrigger value="debit">Debit</TabsTrigger>
+                  </TabsList>
+              </Tabs>
+          </div>
       </CardHeader>
       <CardContent className="flex-1 h-[80%]">
         <ChartContainer config={chartConfig} className="w-full h-full">
-          <BarChart accessibilityLayer data={chartData}>
+            <AreaChart accessibilityLayer data={chartData}>
             <CartesianGrid vertical={false} />
             <XAxis
-              dataKey="month"
+                dataKey="date"
               tickLine={false}
               tickMargin={10}
               axisLine={false}
-              tickFormatter={value => {
-                if (groupBy === 'day') return moment(value).format('DD');
-                if (groupBy === 'week') return `W${moment(value).week()}`;
-                return moment(value).format('MMM');
-              }}
+                tickFormatter={value => moment(value).format('MMM DD')}
             />
             <ChartTooltip
               cursor={false}
-              content={<ChartTooltipContent indicator="dashed" />}
+              content={<ChartTooltipContent indicator="dot"/>}
             />
-            <Bar dataKey="debit" fill="var(--color-debit)" radius={4} />
-            <Bar dataKey="credit" fill="var(--color-credit)" radius={4} />
-            <Legend />
-          </BarChart>
+                {transactionType === 'all' && (
+                    <Area
+                        dataKey="total"
+                        type="monotone"
+                        fill="var(--color-total)"
+                        fillOpacity={0.4}
+                        stroke="var(--color-total)"
+                        stackId="a"
+                    />
+                )}
+                {(transactionType === 'all' || transactionType === 'debit') && (
+                    <Area
+                        dataKey="debit"
+                        type="monotone"
+                        fill="var(--color-debit)"
+                        fillOpacity={0.4}
+                        stroke="var(--color-debit)"
+                        stackId={transactionType === 'all' ? 'b' : 'a'}
+                    />
+                )}
+                {(transactionType === 'all' || transactionType === 'credit') && (
+                    <Area
+                        dataKey="credit"
+                        type="monotone"
+                        fill="var(--color-credit)"
+                        fillOpacity={0.4}
+                        stroke="var(--color-credit)"
+                        stackId={transactionType === 'all' ? 'b' : 'a'}
+                    />
+                )}
+            </AreaChart>
         </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm w-full h-fit">
         <div className="text-muted-foreground leading-none text-center w-full">
-          Showing spend by debit and credit over time
+            Showing spend by {transactionType === 'all' ? 'debit and credit' : transactionType} over time
         </div>
       </CardFooter>
     </Card>

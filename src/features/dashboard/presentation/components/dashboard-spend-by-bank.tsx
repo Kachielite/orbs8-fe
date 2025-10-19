@@ -1,25 +1,26 @@
 'use client';
 
 import moment from 'moment/moment';
-import { Bar, BarChart, XAxis, YAxis } from 'recharts';
+import {Bar, BarChart, XAxis, YAxis} from 'recharts';
 
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
 } from '@/core/common/presentation/components/ui/card';
 import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
+    ChartConfig,
+    ChartContainer,
+    ChartTooltip,
+    ChartTooltipContent,
 } from '@/core/common/presentation/components/ui/chart';
-import { Skeleton } from '@/core/common/presentation/components/ui/skeleton';
-import { useAppStore } from '@/core/common/presentation/state/store';
-import useDashboardTransactionsByBank from '@/features/dashboard/presentation/state/hooks/use-dashboard-transactions-by-bank';
+import {Skeleton} from '@/core/common/presentation/components/ui/skeleton';
+import {useAppStore} from '@/core/common/presentation/state/store';
+import useDashboardTransactionsByBank
+    from '@/features/dashboard/presentation/state/hooks/use-dashboard-transactions-by-bank';
 
 const chartConfig = {
   visitors: {
@@ -89,15 +90,15 @@ export function DashboardSpendByBank() {
   const end = moment(dashboardEndDate);
 
   return (
-    <Card>
+      <Card className="flex flex-col h-full">
       <CardHeader>
         <CardTitle>Spend by Bank</CardTitle>
         <CardDescription>
           {start.format('DD MMM, YYYY')} - {end.format('DD MMM, YYYY')}
         </CardDescription>
       </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig}>
+          <CardContent className="flex-1 pb-0 min-h-0">
+              <ChartContainer config={chartConfig} className="h-full w-full">
           <BarChart
             accessibilityLayer
             data={chartData}

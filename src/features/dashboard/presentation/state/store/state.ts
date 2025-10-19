@@ -6,6 +6,6 @@ export const initialDashboardState = {
   dashboardRecentTransactions: null,
   dashboardTransactionsByTypes: null,
   dashboardSpendingByBanks: null,
-  dashboardStartDate: moment().startOf('month').format('YYYY-MM-DD'),
-  dashboardEndDate: moment().endOf('month').format('YYYY-MM-DD'),
+    dashboardStartDate: moment().subtract(30, 'days').format('YYYY-MM-DD'),
+    dashboardEndDate: moment().format('YYYY-MM-DD'),
 };

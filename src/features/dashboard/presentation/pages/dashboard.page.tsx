@@ -6,7 +6,6 @@ import {useAppStore} from '@/core/common/presentation/state/store';
 import useGetBanks from '@/features/bank/presentation/state/hooks/use-get-banks';
 import TransactionCards from '@/features/dashboard/presentation/components/dashboard-cards';
 import {DashboardIncomeByCategory} from "@/features/dashboard/presentation/components/dashboard-income-by-category";
-import {DashboardIncomeSpend} from '@/features/dashboard/presentation/components/dashboard-income-spend';
 import {DashboardSpendByBank} from '@/features/dashboard/presentation/components/dashboard-spend-by-bank';
 import {DashboardSpendByCategory} from '@/features/dashboard/presentation/components/dashboard-spend-by-category';
 import {DashboardSpendByType} from '@/features/dashboard/presentation/components/dashboard-spend-by-type';
@@ -37,11 +36,11 @@ function DashboardPage() {
             </div>
         </div>
       <div className="grid grid-cols-1 gap-4 min-h-0 xl:grid-cols-3 xl:items-stretch xl:grid-rows-1 xl:h-[500px]">
+          <div className="flex flex-col h-full xl:col-span-2">
+              <DashboardSpendByType/>
+          </div>
         <div className="flex flex-col h-full xl:col-span-1">
-          <DashboardIncomeSpend />
-        </div>
-        <div className="flex flex-col h-full xl:col-span-2">
-          <DashboardSpendByType />
+            <DashboardSpendByBank/>
         </div>
       </div>
       <div className="grid grid-cols-1 gap-4 min-h-0 xl:grid-cols-2 xl:items-stretch xl:grid-rows-1 xl:h-[700px]">
