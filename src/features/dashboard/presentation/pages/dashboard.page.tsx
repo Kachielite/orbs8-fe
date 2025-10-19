@@ -10,6 +10,7 @@ import {DashboardIncomeByCategory} from "@/features/dashboard/presentation/compo
 import {DashboardSpendByBank} from '@/features/dashboard/presentation/components/dashboard-spend-by-bank';
 import {DashboardSpendByCategory} from '@/features/dashboard/presentation/components/dashboard-spend-by-category';
 import {DashboardSpendByType} from '@/features/dashboard/presentation/components/dashboard-spend-by-type';
+import RecentTransactions from "@/features/dashboard/presentation/components/recent-transactions";
 import TopMerchants from "@/features/dashboard/presentation/components/top-mercants";
 import useGetUser from '@/features/user/presentation/state/hook/use-get-user';
 
@@ -53,7 +54,7 @@ function DashboardPage() {
                 <TopMerchants/>
             </div>
         </div>
-      <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min" />
+        <RecentTransactions/>
     </div>
   );
 }
