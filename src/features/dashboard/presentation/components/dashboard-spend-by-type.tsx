@@ -33,10 +33,6 @@ const chartConfig = {
     label: 'Credit',
     color: 'var(--chart-2)',
   },
-    total: {
-        label: 'Total',
-        color: 'var(--chart-3)',
-  },
 } satisfies ChartConfig;
 
 function BarChartLoader() {
@@ -164,16 +160,6 @@ export function DashboardSpendByType() {
               cursor={false}
               content={<ChartTooltipContent indicator="dot"/>}
             />
-                {transactionType === 'all' && (
-                    <Area
-                        dataKey="total"
-                        type="monotone"
-                        fill="var(--color-total)"
-                        fillOpacity={1}
-                        stroke="var(--color-total)"
-                        stackId="a"
-                    />
-                )}
                 {(transactionType === 'all' || transactionType === 'debit') && (
                     <Area
                         dataKey="debit"
@@ -201,13 +187,6 @@ export function DashboardSpendByType() {
           <div className="flex items-center justify-center gap-4 w-full">
               {transactionType === 'all' && (
                   <>
-                      <div className="flex items-center gap-1.5">
-                          <div
-                              className="w-3 h-3 rounded-sm"
-                              style={{backgroundColor: 'var(--chart-3)'}}
-                          ></div>
-                          <span className="text-xs text-muted-foreground">Total</span>
-                      </div>
                       <div className="flex items-center gap-1.5">
                           <div
                               className="w-3 h-3 rounded-sm"
