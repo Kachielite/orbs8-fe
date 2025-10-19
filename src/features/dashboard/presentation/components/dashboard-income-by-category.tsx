@@ -1,6 +1,8 @@
+import {TrendingUp} from "lucide-react";
 import moment from 'moment/moment';
 import {Bar, BarChart, CartesianGrid, XAxis} from 'recharts';
 
+import EmptyState from '@/core/common/presentation/components/empty-state';
 import {
     Card,
     CardContent,
@@ -90,40 +92,52 @@ export function DashboardIncomeByCategory() {
         </CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0 min-h-0">
-          <ChartContainer config={chartConfig} className="h-full w-full">
-              <BarChart data={chartData} className="h-full w-full">
-                  <CartesianGrid strokeDasharray="3 3"/>
-                  <XAxis dataKey="categoryShort" tick={{fontSize: 12}}/>
-                  <ChartTooltip
-                      content={
-                          <ChartTooltipContent
-                              formatter={(value, name, payload) => {
-                                  if (name === 'percentage') {
-                                      return [
-                                          `${user?.preferredCurrency || '$'}${payload.payload.amount.toLocaleString()}`,
-                                          `${value}%`,
-                                      ];
-                                  }
-                                  return [value, name];
-                              }}
-                              labelFormatter={(label, payload) => {
-                                  if (payload && payload.length > 0) {
-                                      return payload[0].payload.category;
-                                  }
-                                  return label;
-                              }}
-                          />
-                      }
+          {rawData.length === 0 ? (
+              <div className="flex items-center justify-center h-full">
+                  <EmptyState
+                      title="No Income Data"
+                      description="No data to display at the moment"
+                      icon={TrendingUp}
                   />
-                  <Bar dataKey="percentage" fill="hsl(var(--chart-1))"/>
-              </BarChart>
-          </ChartContainer>
+              </div>
+          ) : (
+              <ChartContainer config={chartConfig} className="h-full w-full">
+                  <BarChart data={chartData} className="h-full w-full">
+                      <CartesianGrid strokeDasharray="3 3"/>
+                      <XAxis dataKey="categoryShort" tick={{fontSize: 12}}/>
+                      <ChartTooltip
+                          content={
+                              <ChartTooltipContent
+                                  formatter={(value, name, payload) => {
+                                      if (name === 'percentage') {
+                                          return [
+                                              `${user?.preferredCurrency || '$'}${payload.payload.amount.toLocaleString()}`,
+                                              `${value}%`,
+                                          ];
+                                      }
+                                      return [value, name];
+                                  }}
+                                  labelFormatter={(label, payload) => {
+                                      if (payload && payload.length > 0) {
+                                          return payload[0].payload.category;
+                                      }
+                                      return label;
+                                  }}
+                              />
+                          }
+                      />
+                      <Bar dataKey="percentage" fill="hsl(var(--chart-1))"/>
+                  </BarChart>
+              </ChartContainer>
+          )}
       </CardContent>
-      <CardFooter className="flex-col gap-2 text-sm">
-        <div className="text-muted-foreground leading-none">
-          Showing total income by category
-        </div>
-      </CardFooter>
+        {rawData.length > 0 && (
+            <CardFooter className="flex-col gap-2 text-sm">
+                <div className="text-muted-foreground leading-none">
+                    Showing total income by category
+                </div>
+            </CardFooter>
+        )}
     </Card>
   );
 }

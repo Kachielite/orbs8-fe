@@ -1,5 +1,7 @@
+import {ShoppingBag} from "lucide-react";
 import React from 'react';
 
+import EmptyState from '@/core/common/presentation/components/empty-state';
 import SmallTableLoader from '@/core/common/presentation/components/loaders/small-table-loader';
 import {
     Card,
@@ -38,30 +40,46 @@ function TopMerchants() {
             </CardHeader>
             <CardContent>
                 <Table>
-                    <TableHeader>
-                        <TableRow>
-                            <TableHead>Description</TableHead>
-                            <TableHead className="text-right">Amount</TableHead>
-                            <TableHead className="text-right">% of Total</TableHead>
-                        </TableRow>
-                    </TableHeader>
+                    {(dashboardTransactionsSummary?.topMerchants?.length ?? 0) > 0 && (
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead>Description</TableHead>
+                                <TableHead className="text-right">Amount</TableHead>
+                                <TableHead className="text-right">% of Total</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                    )}
                     <TableBody>
-                        {dashboardTransactionsSummary?.topMerchants.map(merchant => (
-                            <TableRow key={merchant.name}>
-                                <TableCell
-                                    className="font-medium max-w-[200px] truncate"
-                                    title={merchant.name}
-                                >
-                                    {merchant.name}
-                                </TableCell>
-                                <TableCell className="text-right">
-                                    ${merchant.amount.toLocaleString()}
-                                </TableCell>
-                                <TableCell className="text-right">
-                                    {merchant.percentage}%
+                        {(dashboardTransactionsSummary?.topMerchants?.length ?? 0) === 0 ? (
+                            <TableRow>
+                                <TableCell colSpan={3}>
+                                    <div className="py-10">
+                                        <EmptyState
+                                            icon={ShoppingBag}
+                                            title="No transactions found"
+                                            description="You haven't made any transactions to display here yet."
+                                        />
+                                    </div>
                                 </TableCell>
                             </TableRow>
-                        ))}
+                        ) : (
+                            dashboardTransactionsSummary?.topMerchants.map(merchant => (
+                                <TableRow key={merchant.name}>
+                                    <TableCell
+                                        className="font-medium max-w-[200px] truncate"
+                                        title={merchant.name}
+                                    >
+                                        {merchant.name}
+                                    </TableCell>
+                                    <TableCell className="text-right">
+                                        ${merchant.amount.toLocaleString()}
+                                    </TableCell>
+                                    <TableCell className="text-right">
+                                        {merchant.percentage}%
+                                    </TableCell>
+                                </TableRow>
+                            ))
+                        )}
                     </TableBody>
                 </Table>
             </CardContent>

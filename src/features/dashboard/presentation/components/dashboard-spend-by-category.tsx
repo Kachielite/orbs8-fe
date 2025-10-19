@@ -1,6 +1,8 @@
+import {PieChart} from "lucide-react";
 import moment from 'moment/moment';
-import {Pie, PieChart} from 'recharts';
+import {Pie, PieChart as RechartsPieChart} from 'recharts';
 
+import EmptyState from '@/core/common/presentation/components/empty-state';
 import {
     Card,
     CardContent,
@@ -61,36 +63,50 @@ export function DashboardSpendByCategory() {
         </CardDescription>
       </CardHeader>
         <CardContent className="flex-1 pb-0">
-            <ChartContainer
-                config={chartConfig}
-                className="mx-auto aspect-square max-h-[350px]"
-            >
-                <PieChart>
-                    <Pie data={chartData} dataKey="percentage" nameKey="type"/>
-                    <ChartTooltip content={<ChartTooltipContent hideLabel={false}/>}/>
-                </PieChart>
-            </ChartContainer>
-            <div className="flex flex-wrap flex-row justify-center gap-4 mt-4">
-                {chartData.map(item => (
-                    <div key={item.type} className="flex items-center gap-2">
-                        <div
-                            className="w-3 h-3 rounded shrink-0"
-                            style={{backgroundColor: item.fill}}
-                        ></div>
-                        <span className="text-xs">
-                {chartConfig[item.type as keyof typeof chartConfig].label}:{' '}
-                            {user?.preferredCurrency || 'USD'}{' '}
-                            {item?.amount?.toLocaleString() || 0}
-              </span>
-            </div>
-          ))}
-        </div>
-      </CardContent>
-      <CardFooter className="flex-col gap-2 text-sm">
-        <div className="text-muted-foreground leading-none">
-          Showing total spend by category
-        </div>
-      </CardFooter>
+            {chartData.length === 0 || chartData.every(item => item.percentage === 0 && item.amount === 0) ? (
+                <div className="flex items-center justify-center h-full">
+                    <EmptyState
+                        title="No Category Data"
+                        description="No data to display at the moment"
+                        icon={PieChart}
+                    />
+                </div>
+            ) : (
+                <>
+                    <ChartContainer
+                        config={chartConfig}
+                        className="mx-auto aspect-square max-h-[350px]"
+                    >
+                        <RechartsPieChart>
+                            <Pie data={chartData} dataKey="percentage" nameKey="type"/>
+                            <ChartTooltip content={<ChartTooltipContent hideLabel={false}/>}/>
+                        </RechartsPieChart>
+                    </ChartContainer>
+                    <div className="flex flex-wrap flex-row justify-center gap-4 mt-4">
+                        {chartData.map(item => (
+                            <div key={item.type} className="flex items-center gap-2">
+                                <div
+                                    className="w-3 h-3 rounded shrink-0"
+                                    style={{backgroundColor: item.fill}}
+                                ></div>
+                                <span className="text-xs">
+                    {chartConfig[item.type as keyof typeof chartConfig].label}:{' '}
+                                    {user?.preferredCurrency || 'USD'}{' '}
+                                    {item?.amount?.toLocaleString() || 0}
+                  </span>
+                            </div>
+                        ))}
+                    </div>
+                </>
+            )}
+        </CardContent>
+        {!(chartData.length === 0 || chartData.every(item => item.percentage === 0 && item.amount === 0)) && (
+            <CardFooter className="flex-col gap-2 text-sm">
+                <div className="text-muted-foreground leading-none">
+                    Showing total spend by category
+                </div>
+            </CardFooter>
+        )}
     </Card>
   );
 }

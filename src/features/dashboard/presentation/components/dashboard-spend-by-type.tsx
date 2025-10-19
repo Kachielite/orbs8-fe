@@ -1,9 +1,11 @@
 'use client';
 
+import {TrendingUp} from "lucide-react";
 import moment from 'moment';
 import {useState} from 'react';
 import {Area, AreaChart, CartesianGrid, XAxis} from 'recharts';
 
+import EmptyState from '@/core/common/presentation/components/empty-state';
 import {
     Card,
     CardContent,
@@ -131,85 +133,99 @@ export function DashboardSpendByType() {
                       {start.format('DD MMM, YYYY')} - {end.format('DD MMM, YYYY')}
                   </CardDescription>
               </div>
-              <Tabs
-                  value={transactionType}
-                  onValueChange={value =>
-                      setTransactionType(value as 'all' | 'credit' | 'debit')
-                  }
-              >
-                  <TabsList>
-                      <TabsTrigger value="all">All</TabsTrigger>
-                      <TabsTrigger value="credit">Credit</TabsTrigger>
-                      <TabsTrigger value="debit">Debit</TabsTrigger>
-                  </TabsList>
-              </Tabs>
+              {!(chartData.length === 0 || chartData.every(item => item.debit === 0 && item.credit === 0)) && (
+                  <Tabs
+                      value={transactionType}
+                      onValueChange={value =>
+                          setTransactionType(value as 'all' | 'credit' | 'debit')
+                      }
+                  >
+                      <TabsList>
+                          <TabsTrigger value="all">All</TabsTrigger>
+                          <TabsTrigger value="credit">Credit</TabsTrigger>
+                          <TabsTrigger value="debit">Debit</TabsTrigger>
+                      </TabsList>
+                  </Tabs>
+              )}
           </div>
       </CardHeader>
         <CardContent className="flex-1 h-[70%]">
-        <ChartContainer config={chartConfig} className="w-full h-full">
-            <AreaChart accessibilityLayer data={chartData}>
-            <CartesianGrid vertical={false} />
-            <XAxis
-                dataKey="date"
-              tickLine={false}
-              tickMargin={10}
-              axisLine={false}
-                tickFormatter={value => moment(value).format('MMM DD')}
-            />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent indicator="dot"/>}
-            />
-                {(transactionType === 'all' || transactionType === 'debit') && (
-                    <Area
-                        dataKey="debit"
-                        type="monotone"
-                        fill="var(--color-debit)"
-                        fillOpacity={1}
-                        stroke="var(--color-debit)"
-                        stackId={transactionType === 'all' ? 'b' : 'a'}
+            {chartData.length === 0 || chartData.every(item => item.debit === 0 && item.credit === 0) ? (
+                <div className="flex items-center justify-center h-full">
+                    <EmptyState
+                        title="No Transaction Data"
+                        description="No data to display at the moment"
+                        icon={TrendingUp}
                     />
-                )}
-                {(transactionType === 'all' || transactionType === 'credit') && (
-                    <Area
-                        dataKey="credit"
-                        type="monotone"
-                        fill="var(--color-credit)"
-                        fillOpacity={1}
-                        stroke="var(--color-credit)"
-                        stackId={transactionType === 'all' ? 'b' : 'a'}
-                    />
-                )}
-            </AreaChart>
-        </ChartContainer>
-      </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm w-full h-fit">
-          <div className="flex items-center justify-center gap-4 w-full">
-              {transactionType === 'all' && (
-                  <>
-                      <div className="flex items-center gap-1.5">
-                          <div
-                              className="w-3 h-3 rounded-sm"
-                              style={{backgroundColor: 'var(--chart-1'}}
-                          ></div>
-                          <span className="text-xs text-muted-foreground">Debit</span>
-                      </div>
-                      <div className="flex items-center gap-1.5">
-                          <div
-                              className="w-3 h-3 rounded-sm"
-                              style={{backgroundColor: 'var(--chart-2)'}}
-                          ></div>
-                          <span className="text-xs text-muted-foreground">Credit</span>
-                      </div>
-                  </>
-              )}
-          </div>
-        <div className="text-muted-foreground leading-none text-center w-full">
-            Showing spend by{' '}
-            {transactionType === 'all' ? 'debit and credit' : transactionType}{' '}
-            over time
-        </div>
-      </CardFooter>
+                </div>
+            ) : (
+                <ChartContainer config={chartConfig} className="w-full h-full">
+                    <AreaChart accessibilityLayer data={chartData}>
+                        <CartesianGrid vertical={false}/>
+                        <XAxis
+                            dataKey="date"
+                            tickLine={false}
+                            tickMargin={10}
+                            axisLine={false}
+                            tickFormatter={value => moment(value).format('MMM DD')}
+                        />
+                        <ChartTooltip
+                            cursor={false}
+                            content={<ChartTooltipContent indicator="dot"/>}
+                        />
+                        {(transactionType === 'all' || transactionType === 'debit') && (
+                            <Area
+                                dataKey="debit"
+                                type="monotone"
+                                fill="var(--color-debit)"
+                                fillOpacity={1}
+                                stroke="var(--color-debit)"
+                                stackId={transactionType === 'all' ? 'b' : 'a'}
+                            />
+                        )}
+                        {(transactionType === 'all' || transactionType === 'credit') && (
+                            <Area
+                                dataKey="credit"
+                                type="monotone"
+                                fill="var(--color-credit)"
+                                fillOpacity={1}
+                                stroke="var(--color-credit)"
+                                stackId={transactionType === 'all' ? 'b' : 'a'}
+                            />
+                        )}
+                    </AreaChart>
+                </ChartContainer>
+            )}
+        </CardContent>
+        {!(chartData.length === 0 || chartData.every(item => item.debit === 0 && item.credit === 0)) && (
+            <CardFooter className="flex-col items-start gap-2 text-sm w-full h-fit">
+                <div className="flex items-center justify-center gap-4 w-full">
+                    {transactionType === 'all' && (
+                        <>
+                            <div className="flex items-center gap-1.5">
+                                <div
+                                    className="w-3 h-3 rounded-sm"
+                                    style={{backgroundColor: 'var(--chart-1'}}
+                                ></div>
+                                <span className="text-xs text-muted-foreground">Debit</span>
+                            </div>
+                            <div className="flex items-center gap-1.5">
+                                <div
+                                    className="w-3 h-3 rounded-sm"
+                                    style={{backgroundColor: 'var(--chart-2)'}}
+                                ></div>
+                                <span className="text-xs text-muted-foreground">Credit</span>
+                            </div>
+                        </>
+                    )}
+                </div>
+                <div className="text-muted-foreground leading-none text-center w-full">
+                    Showing spend by{' '}
+                    {transactionType === 'all' ? 'debit and credit' : transactionType}{' '}
+                    over time
+                </div>
+            </CardFooter>
+        )}
     </Card>
   );
 }

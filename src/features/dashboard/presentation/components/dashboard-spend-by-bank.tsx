@@ -1,8 +1,10 @@
 'use client';
 
+import {Building} from "lucide-react";
 import moment from 'moment/moment';
 import {Bar, BarChart, XAxis} from 'recharts';
 
+import EmptyState from '@/core/common/presentation/components/empty-state';
 import {
     Card,
     CardContent,
@@ -107,58 +109,70 @@ export function DashboardSpendByBank() {
         </CardDescription>
       </CardHeader>
           <CardContent className="flex-1 pb-0 min-h-0">
-              <ChartContainer config={chartConfig} className="h-full w-full">
-                  <BarChart accessibilityLayer data={chartData}>
-                      <XAxis
-                          dataKey="bank"
-                          tickLine={false}
-                          tickMargin={10}
-                          axisLine={false}
-                          tickFormatter={(value) => value.split(' ')[0]}
+              {chartData.length === 0 || chartData.every(item => item.credit === 0 && item.debit === 0) ? (
+                  <div className="flex items-center justify-center h-full">
+                      <EmptyState
+                          title="No Bank Data"
+                          description="No data to display at the moment"
+                          icon={Building}
                       />
-                      <Bar
-                          dataKey="credit"
-                          stackId="a"
-                          fill="var(--color-credit)"
-                          radius={[0, 0, 4, 4]}
-                      />
-                      <Bar
-                          dataKey="debit"
-                          stackId="a"
-                          fill="var(--color-debit)"
-                          radius={[4, 4, 0, 0]}
-                      />
-                      <ChartTooltip
-                          content={
-                              <ChartTooltipContent labelKey="bank" indicator="line"/>
-                          }
-                          cursor={false}
-                          defaultIndex={1}
-                      />
-                  </BarChart>
-              </ChartContainer>
+                  </div>
+              ) : (
+                  <ChartContainer config={chartConfig} className="h-full w-full">
+                      <BarChart accessibilityLayer data={chartData}>
+                          <XAxis
+                              dataKey="bank"
+                              tickLine={false}
+                              tickMargin={10}
+                              axisLine={false}
+                              tickFormatter={(value) => value.split(' ')[0]}
+                          />
+                          <Bar
+                              dataKey="credit"
+                              stackId="a"
+                              fill="var(--color-credit)"
+                              radius={[0, 0, 4, 4]}
+                          />
+                          <Bar
+                              dataKey="debit"
+                              stackId="a"
+                              fill="var(--color-debit)"
+                              radius={[4, 4, 0, 0]}
+                          />
+                          <ChartTooltip
+                              content={
+                                  <ChartTooltipContent labelKey="bank" indicator="line"/>
+                              }
+                              cursor={false}
+                              defaultIndex={1}
+                          />
+                      </BarChart>
+                  </ChartContainer>
+              )}
       </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm w-full">
-          <div className="flex items-center justify-center gap-4 w-full">
-              <div className="flex items-center gap-1.5">
-                  <div
-                      className="w-3 h-3 rounded-sm"
-                      style={{backgroundColor: 'var(--chart-2)'}}
-                  ></div>
-                  <span className="text-xs text-muted-foreground">Credit</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                  <div
-                      className="w-3 h-3 rounded-sm"
-                      style={{backgroundColor: 'var(--chart-1)'}}
-                  ></div>
-                  <span className="text-xs text-muted-foreground">Debit</span>
-              </div>
-          </div>
-        <div className="text-muted-foreground leading-none w-full text-center">
-            Showing credit and debit transactions by bank
-        </div>
-      </CardFooter>
+          {chartData.length > 0 && !chartData.every(item => item.credit === 0 && item.debit === 0) && (
+              <CardFooter className="flex-col items-start gap-2 text-sm w-full">
+                  <div className="flex items-center justify-center gap-4 w-full">
+                      <div className="flex items-center gap-1.5">
+                          <div
+                              className="w-3 h-3 rounded-sm"
+                              style={{backgroundColor: 'var(--chart-2)'}}
+                          ></div>
+                          <span className="text-xs text-muted-foreground">Credit</span>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                          <div
+                              className="w-3 h-3 rounded-sm"
+                              style={{backgroundColor: 'var(--chart-1)'}}
+                          ></div>
+                          <span className="text-xs text-muted-foreground">Debit</span>
+                      </div>
+                  </div>
+                  <div className="text-muted-foreground leading-none w-full text-center">
+                      Showing credit and debit transactions by bank
+                  </div>
+              </CardFooter>
+          )}
     </Card>
   );
 }

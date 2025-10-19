@@ -3,6 +3,7 @@
 import moment from 'moment';
 import {Pie, PieChart} from 'recharts';
 
+import EmptyState from '@/core/common/presentation/components/empty-state';
 import {
     Card,
     CardContent,
@@ -78,36 +79,50 @@ export function DashboardIncomeSpend() {
         </CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
-        <ChartContainer
-          config={chartConfig}
-          className="mx-auto aspect-square max-h-[300px]"
-        >
-          <PieChart>
-            <Pie data={chartData} dataKey="percentage" nameKey="type" />
-            <ChartTooltip content={<ChartTooltipContent hideLabel={false} />} />
-          </PieChart>
-        </ChartContainer>
-        <div className="flex justify-center gap-4 mt-4">
-          {chartData.map(item => (
-            <div key={item.type} className="flex items-center gap-2">
-              <div
-                className="w-3 h-3 rounded"
-                style={{ backgroundColor: item.fill }}
-              ></div>
-              <span className="text-xs">
-                {chartConfig[item.type as keyof typeof chartConfig].label}:{' '}
-                  {user?.preferredCurrency || 'USD'}{' '}
-                  {item?.amount?.toLocaleString() || 0}
-              </span>
-            </div>
-          ))}
-        </div>
+          {total === 0 ? (
+              <div className="flex items-center justify-center h-full">
+                  <EmptyState
+                      title="No Income/Spend Data"
+                      description="No data to display at the moment"
+                      icon={TrendingUp}
+                  />
+              </div>
+          ) : (
+              <>
+                  <ChartContainer
+                      config={chartConfig}
+                      className="mx-auto aspect-square max-h-[300px]"
+                  >
+                      <PieChart>
+                          <Pie data={chartData} dataKey="percentage" nameKey="type"/>
+                          <ChartTooltip content={<ChartTooltipContent hideLabel={false}/>}/>
+                      </PieChart>
+                  </ChartContainer>
+                  <div className="flex justify-center gap-4 mt-4">
+                      {chartData.map(item => (
+                          <div key={item.type} className="flex items-center gap-2">
+                              <div
+                                  className="w-3 h-3 rounded"
+                                  style={{backgroundColor: item.fill}}
+                              ></div>
+                              <span className="text-xs">
+                    {chartConfig[item.type as keyof typeof chartConfig].label}:{' '}
+                                  {user?.preferredCurrency || 'USD'}{' '}
+                                  {item?.amount?.toLocaleString() || 0}
+                  </span>
+                          </div>
+                      ))}
+                  </div>
+              </>
+          )}
       </CardContent>
-      <CardFooter className="flex-col gap-2 text-sm">
-        <div className="text-muted-foreground leading-none">
-          Showing total income vs total spend
-        </div>
-      </CardFooter>
+        {total > 0 && (
+            <CardFooter className="flex-col gap-2 text-sm">
+                <div className="text-muted-foreground leading-none">
+                    Showing total income vs total spend
+                </div>
+            </CardFooter>
+        )}
     </Card>
   );
 }
