@@ -125,13 +125,37 @@ npm run format:check  # Check formatting
 - `GET  /auth/request-reset-password` — Send reset link
 - `POST /auth/verify-token` — Verify reset token
 - `POST /auth/reset-password` — Set new password
+- `GET  /auth/me` — Get user profile
 
-**Gmail Connector:**
+**Email Endpoints:**
 
 - `GET  /email/get-auth` — Get OAuth URL
 - `POST /email/get-token` — Exchange OAuth code
 - `GET  /email/sync-status` — Sync status
 - `POST /email/manual-sync` — Trigger sync
+
+**Transaction Endpoints:**
+
+- `GET  /transaction` — Get transactions with query params
+- `GET  /transaction/{id}` — Get transaction by ID
+- `PUT  /transaction/{id}` — Update transaction
+- `GET  /transaction/summary` — Get transaction summary
+
+**Account Endpoints:**
+
+- `GET  /account` — Get accounts
+- `GET  /account/{id}` — Get account by ID
+- `GET  /account/summary` — Get account summary
+
+**Bank Endpoints:**
+
+- `GET  /bank` — Get banks
+- `GET  /bank/{id}` — Get bank by ID
+
+**Category Endpoints:**
+
+- `GET  /category` — Get categories
+- `GET  /category/{id}` — Get category by ID
 
 ---
 

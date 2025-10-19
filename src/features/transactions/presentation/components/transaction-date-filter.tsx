@@ -1,15 +1,15 @@
-import {Calendar} from 'lucide-react';
+import { Calendar } from 'lucide-react';
 import moment from 'moment';
-import React, {useEffect, useMemo, useState} from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
-import {Button} from '@/core/common/presentation/components/ui/button';
+import { Button } from '@/core/common/presentation/components/ui/button';
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
 } from '@/core/common/presentation/components/ui/dropdown-menu';
-import {Input} from '@/core/common/presentation/components/ui/input';
-import {useAppStore} from '@/core/common/presentation/state/store';
+import { Input } from '@/core/common/presentation/components/ui/input';
+import { useAppStore } from '@/core/common/presentation/state/store';
 
 const TransactionDateFilter: React.FC = () => {
   const {
@@ -21,7 +21,9 @@ const TransactionDateFilter: React.FC = () => {
 
   // Local temporary values while the popover is open
   const [open, setOpen] = useState(false);
-  const [tempStart, setTempStart] = useState<string>(transactionStartDate ?? '');
+  const [tempStart, setTempStart] = useState<string>(
+    transactionStartDate ?? ''
+  );
   const [tempEnd, setTempEnd] = useState<string>(transactionEndDate ?? '');
 
   // When the popover opens, seed temp values from the store
@@ -43,8 +45,8 @@ const TransactionDateFilter: React.FC = () => {
   };
 
   const handleResetTemp = () => {
-      const defaultStart = moment().startOf('month').format('YYYY-MM-DD');
-      const defaultEnd = moment().endOf('month').format('YYYY-MM-DD');
+    const defaultStart = moment().startOf('month').format('YYYY-MM-DD');
+    const defaultEnd = moment().endOf('month').format('YYYY-MM-DD');
     setTempStart(defaultStart);
     setTempEnd(defaultEnd);
     setTransactionStartDate(defaultStart);
@@ -91,7 +93,7 @@ const TransactionDateFilter: React.FC = () => {
   };
 
   return (
-    <DropdownMenu open={open} onOpenChange={(val) => setOpen(val)}>
+    <DropdownMenu open={open} onOpenChange={val => setOpen(val)}>
       <DropdownMenuTrigger asChild>
         <Button variant="outline" size="sm" className="mr-2">
           <Calendar className="h-4 w-4" />
@@ -117,7 +119,9 @@ const TransactionDateFilter: React.FC = () => {
           />
 
           {!isRangeValid && (
-            <div className="text-xs text-destructive">Start date must be before end date.</div>
+            <div className="text-xs text-destructive">
+              Start date must be before end date.
+            </div>
           )}
 
           <div className="flex justify-end pt-1 space-x-2">
@@ -127,7 +131,12 @@ const TransactionDateFilter: React.FC = () => {
             <Button variant="ghost" size="sm" onClick={handleResetTemp}>
               Reset
             </Button>
-            <Button variant="default" size="sm" onClick={handleApply} disabled={!isRangeValid}>
+            <Button
+              variant="default"
+              size="sm"
+              onClick={handleApply}
+              disabled={!isRangeValid}
+            >
               Apply
             </Button>
           </div>

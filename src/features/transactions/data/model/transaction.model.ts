@@ -1,5 +1,7 @@
 import {TransactionType} from '@/features/transactions/domain/entity/enum/transaction-type.enum';
 import {
+    accountSummaryEntity,
+    TopMerchantsEntity,
     TopTransactionsEntity,
     TransactionsEntity,
     TransactionsSummaryEntity,
@@ -60,30 +62,45 @@ export class TransactionModel extends TransactionsEntity {
 export class TransactionSummaryModel extends TransactionsSummaryEntity {
   constructor(
     public topSpendByCategory: TopTransactionsEntity[],
-    public topSpendByCreditType: TopTransactionsEntity[],
-    public topSpendByDebitType: TopTransactionsEntity[],
+    public topIncomeByCategory: TopTransactionsEntity[],
     public totalSpend: number,
     public totalIncome: number,
-    public totalTransactions: number
+    public totalTransactions: number,
+    public currentMonthSpend: number,
+    public currentMonthIncome: number,
+    public lastMonthSpend: number,
+    public lastMonthIncome: number,
+    public accountSummaries: accountSummaryEntity[],
+    public topMerchants: TopMerchantsEntity[]
   ) {
     super(
       topSpendByCategory,
-      topSpendByCreditType,
-      topSpendByDebitType,
+      topIncomeByCategory,
       totalSpend,
       totalIncome,
-      totalTransactions
+        totalTransactions,
+        currentMonthSpend,
+        currentMonthIncome,
+        lastMonthSpend,
+        lastMonthIncome,
+        accountSummaries,
+        topMerchants
     );
   }
 
   static fromJSON(json: TransactionsSummaryEntity): TransactionSummaryModel {
     return new TransactionSummaryModel(
       json.topSpendByCategory,
-      json.topSpendByCreditType,
-      json.topSpendByDebitType,
+      json.topIncomeByCategory,
       json.totalSpend,
       json.totalIncome,
-      json.totalTransactions
+        json.totalTransactions,
+        json.currentMonthSpend,
+        json.currentMonthIncome,
+        json.lastMonthSpend,
+        json.lastMonthIncome,
+        json.accountSummaries,
+        json.topMerchants
     );
   }
 }
