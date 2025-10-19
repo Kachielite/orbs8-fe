@@ -1,4 +1,5 @@
 import {ArrowDownRight, ArrowUpRight, Info, LucideIcon} from 'lucide-react';
+import moment from 'moment';
 
 import {
     Card,
@@ -9,6 +10,7 @@ import {
     CardTitle,
 } from '@/core/common/presentation/components/ui/card';
 import {Tooltip, TooltipContent, TooltipTrigger,} from '@/core/common/presentation/components/ui/tooltip';
+import {useAppStore} from "@/core/common/presentation/state/store";
 
 export type DashboardCardData = {
     name: string;
@@ -23,6 +25,7 @@ export type DashboardCardData = {
 };
 
 function DashboardCard({card}: { card: DashboardCardData }) {
+    const {dashboardStartDate, dashboardEndDate} = useAppStore();
     const isPositiveGood = card.metricType === 'income';
     const isPositiveBad = card.metricType === 'spend';
     const changeColor =
@@ -41,6 +44,21 @@ function DashboardCard({card}: { card: DashboardCardData }) {
                 ? 'text-green-600'
                 : 'text-red-600'
             : '';
+
+    // Calculate the time period text
+    const getTimePeriodText = () => {
+        const start = moment(dashboardStartDate);
+        const end = moment(dashboardEndDate);
+        const daysDiff = end.diff(start, 'days');
+
+        if (daysDiff <= 7) return 'previous 7 days';
+        if (daysDiff <= 14) return 'previous 14 days';
+        if (daysDiff <= 30) return 'previous 30 days';
+        if (daysDiff <= 60) return 'previous 60 days';
+        if (daysDiff <= 120) return 'previous 120 days';
+        if (daysDiff <= 365) return 'previous year';
+        return 'previous period';
+    };
 
     return (
         <Card className="@container/card">
@@ -89,8 +107,11 @@ function DashboardCard({card}: { card: DashboardCardData }) {
                             <ArrowDownRight className={`h-3 w-3 ${changeColor}`}/>
                         )}
                         <span className={changeColor}>
-              {Math.abs(card.change).toFixed(1)}% from last month
-            </span>
+                            {card.change === 0
+                                ? `No change in ${getTimePeriodText()}`
+                                : `${Math.abs(card.change).toFixed(1)}% from ${getTimePeriodText()}`
+                            }
+                        </span>
                     </p>
                 ) : (
                     <div className="text-muted-foreground">{card.description}</div>
