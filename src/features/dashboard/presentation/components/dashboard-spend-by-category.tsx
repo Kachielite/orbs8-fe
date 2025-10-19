@@ -67,11 +67,11 @@ export function DashboardSpendByCategory() {
                     <ChartTooltip content={<ChartTooltipContent hideLabel={false}/>}/>
                 </PieChart>
             </ChartContainer>
-            <div className="flex justify-center gap-4 mt-4">
+            <div className="flex flex-wrap flex-row justify-center gap-4 mt-4">
                 {chartData.map(item => (
                     <div key={item.type} className="flex items-center gap-2">
                         <div
-                            className="w-3 h-3 rounded"
+                            className="w-3 h-3 rounded shrink-0"
                             style={{backgroundColor: item.fill}}
                         ></div>
                         <span className="text-xs">
