@@ -163,7 +163,7 @@ export function DashboardSpendByType() {
                         dataKey="total"
                         type="monotone"
                         fill="var(--color-total)"
-                        fillOpacity={0.4}
+                        fillOpacity={1}
                         stroke="var(--color-total)"
                         stackId="a"
                     />
@@ -173,7 +173,7 @@ export function DashboardSpendByType() {
                         dataKey="debit"
                         type="monotone"
                         fill="var(--color-debit)"
-                        fillOpacity={0.4}
+                        fillOpacity={1}
                         stroke="var(--color-debit)"
                         stackId={transactionType === 'all' ? 'b' : 'a'}
                     />
@@ -183,7 +183,7 @@ export function DashboardSpendByType() {
                         dataKey="credit"
                         type="monotone"
                         fill="var(--color-credit)"
-                        fillOpacity={0.4}
+                        fillOpacity={1}
                         stroke="var(--color-credit)"
                         stackId={transactionType === 'all' ? 'b' : 'a'}
                     />
