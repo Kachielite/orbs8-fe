@@ -33,7 +33,6 @@ const useGetNotifications = () => {
         }
     };
 
-    console.log("isRead: ", isRead)
 
     const query = useMemo<INotificationQuery>(
         () => ({

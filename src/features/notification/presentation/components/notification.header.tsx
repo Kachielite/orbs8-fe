@@ -10,7 +10,7 @@ function NotificationHeader() {
     const {isMarkingAsRead, markAllAsReadHandler} = useMarkAllAsRead();
     return (
         <div className="mb-8">
-            <div className="flex items-center justify-between mb-2">
+            <div className="flex flex-col lg:flex-row gap-2 items-center justify-between mb-2">
                 <div className="flex items-center gap-3">
                     <div className="p-2 bg-primary/10 rounded-lg">
                         <Bell className="h-6 w-6 text-primary"/>

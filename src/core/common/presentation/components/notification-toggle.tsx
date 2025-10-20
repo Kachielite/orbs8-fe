@@ -1,31 +1,33 @@
-import { Bell } from 'lucide-react';
+import {Bell} from 'lucide-react';
 import React from 'react';
+import {useNavigate} from 'react-router-dom';
 
-import { Button } from '@/core/common/presentation/components/ui/button';
+import EmptyState from '@/core/common/presentation/components/empty-state';
+import {Button} from '@/core/common/presentation/components/ui/button';
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
 } from '@/core/common/presentation/components/ui/dropdown-menu';
+import {NotificationEntity} from '@/features/notification/domain/entity/notification.entity';
+import {NotificationCardMini} from '@/features/notification/presentation/components/notification.card-mini';
+import useGetNotifications from "@/features/notification/presentation/state/hooks/use-get-notifications";
 
 function NotificationToggle() {
-  const notifications = [
-    {
-      id: 1,
-      title: 'New transaction received',
-      message: 'You have received $500 from John Doe',
-    },
-    {
-      id: 2,
-      title: 'Account update',
-      message: 'Your account balance has been updated',
-    },
-    { id: 3, title: 'Security alert', message: 'Unusual login detected' },
-  ];
-  const unreadCount = notifications.length; // For demo, all are unread
+    const {notifications} = useGetNotifications();
+    const navigate = useNavigate();
+
+    // notifications from the hook are paginated: Pagination<NotificationEntity>
+    const notificationsList: NotificationEntity[] = notifications?.data ?? [];
+
+    // only unread notifications
+    const unreadNotifications = notificationsList.filter(n => !n.isRead);
+    const unreadCount = unreadNotifications.length;
+    const visibleNotifications = unreadNotifications.slice(0, 6);
+    const moreCount = Math.max(0, unreadNotifications.length - visibleNotifications.length);
 
   return (
     <DropdownMenu>
@@ -43,20 +45,31 @@ function NotificationToggle() {
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>Notifications</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        {notifications.map(notification => (
-          <DropdownMenuItem
-            key={notification.id}
-            className="flex flex-col items-start p-4"
-          >
-            <div className="font-medium">{notification.title}</div>
-            <div className="text-sm text-muted-foreground">
-              {notification.message}
-            </div>
+          {visibleNotifications.map(notification => (
+              <DropdownMenuItem key={notification.id} className="p-0">
+                  <NotificationCardMini notification={notification}/>
+              </DropdownMenuItem>
+          ))}
+          {moreCount > 0 && (
+              <DropdownMenuItem className="justify-center text-sm text-muted-foreground"
+                                onClick={() => navigate('/notifications')}>
+                  +{moreCount} more
+              </DropdownMenuItem>
+          )}
+
+          {unreadNotifications.length === 0 && (
+              <div className="p-4 w-[20rem]">
+                  <EmptyState
+                      title="No new notifications"
+                      description="You're all caught up"
+                  />
+              </div>
+          )}
+
+          <DropdownMenuSeparator/>
+          <DropdownMenuItem className="justify-center font-medium" onClick={() => navigate('/notifications')}>
+              View all
           </DropdownMenuItem>
-        ))}
-        {notifications.length === 0 && (
-          <DropdownMenuItem disabled>No new notifications</DropdownMenuItem>
-        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );
