@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useMemo, useState} from 'react';
 import {useQuery} from 'react-query';
 import {toast} from 'sonner';
 
@@ -11,12 +11,13 @@ const useGetNotifications = () => {
     const {setNotifications} = useAppStore();
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(10);
-    const [isRead, setIsRead] = useState(false);
+    const [isRead, setIsRead] = useState<boolean | undefined>(undefined);
 
     const handleUpdateQuery = (
         type: string,
         value: boolean | number | undefined
     ) => {
+        console.log("type: ", type)
         switch (type) {
             case 'page':
                 setPage(Number(value));
@@ -25,22 +26,25 @@ const useGetNotifications = () => {
                 setLimit(Number(value));
                 break;
             case 'isRead':
-                setIsRead(Boolean(value));
+                setIsRead(value as boolean | undefined);
                 break;
             default:
                 break;
         }
     };
 
-    const query: INotificationQuery = {
-        page,
-        limit,
-        ...(isRead && {
+    console.log("isRead: ", isRead)
+
+    const query = useMemo<INotificationQuery>(
+        () => ({
+            page,
+            limit,
             isRead,
         }),
-    };
+        [page, limit, isRead]
+    );
 
-    const {isLoading} = useQuery(
+    const {data, isLoading, error} = useQuery(
         ['notifications', query],
         () => getNotificationsEffect(query),
         {
@@ -55,7 +59,9 @@ const useGetNotifications = () => {
     );
 
     return {
+        notifications: data,
         isLoadingNotifications: isLoading,
+        notificationsError: error,
         handleUpdateQuery,
     };
 };

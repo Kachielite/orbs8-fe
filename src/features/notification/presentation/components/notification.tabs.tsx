@@ -14,7 +14,7 @@ function NotificationTabs({
             handleUpdateQuery('isRead', undefined);
             setActiveTab('all');
         } else if (value === 'unread') {
-            handleUpdateQuery('type', false);
+            handleUpdateQuery('isRead', false);
             setActiveTab('unread');
         }
     }
