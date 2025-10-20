@@ -17,7 +17,6 @@ const useGetNotifications = () => {
         type: string,
         value: boolean | number | undefined
     ) => {
-        console.log("type: ", type)
         switch (type) {
             case 'page':
                 setPage(Number(value));

@@ -13,7 +13,7 @@ function NotificationHeader() {
             <div className="flex flex-col lg:flex-row gap-2 items-center justify-between mb-2">
                 <div className="flex items-center gap-3">
                     <div className="p-2 bg-primary/10 rounded-lg">
-                        <Bell className="h-6 w-6 text-primary"/>
+                        <Bell className="h-6 w-6"/>
                     </div>
                     <div>
                         <h1 className="text-3xl font-bold text-foreground">

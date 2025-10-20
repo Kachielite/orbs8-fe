@@ -1,16 +1,16 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import {useLocation} from 'react-router-dom';
 
-import { ModeToggle } from '@/core/common/presentation/components/mode-toggle';
+import {ModeToggle} from '@/core/common/presentation/components/mode-toggle';
 import NotificationToggle from '@/core/common/presentation/components/notification-toggle';
 import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbList,
-  BreadcrumbPage,
+    Breadcrumb,
+    BreadcrumbItem,
+    BreadcrumbList,
+    BreadcrumbPage,
 } from '@/core/common/presentation/components/ui/breadcrumb';
-import { Separator } from '@/core/common/presentation/components/ui/separator';
-import { SidebarTrigger } from '@/core/common/presentation/components/ui/sidebar';
+import {Separator} from '@/core/common/presentation/components/ui/separator';
+import {SidebarTrigger} from '@/core/common/presentation/components/ui/sidebar';
 
 function SideHeader() {
   const location = useLocation();
@@ -28,7 +28,7 @@ function SideHeader() {
       case '/settings':
         return 'Settings';
       default:
-        return 'Dashboard';
+          return null;
     }
   };
 

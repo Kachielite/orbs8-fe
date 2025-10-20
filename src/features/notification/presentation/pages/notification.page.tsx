@@ -86,19 +86,18 @@ function NotificationPage() {
 
                                             return pageItems.map((p, idx) =>
                                                 typeof p === 'number' ? (
-                                                    <button
+                                                    <Button
                                                         key={p}
-                                                        onClick={() => p !== currentPage && handleUpdateQuery('page', p)}
+                                                        variant={p === currentPage ? 'default' : 'outline'}
+                                                        size="sm"
+                                                        onClick={p === currentPage ? undefined : () => handleUpdateQuery('page', p)}
                                                         aria-current={p === currentPage ? 'page' : undefined}
                                                         tabIndex={p === currentPage ? -1 : 0}
-                                                        className={`px-3 py-1 rounded text-sm border ${
-                                                            p === currentPage
-                                                                ? 'bg-primary text-white border-primary cursor-default'
-                                                                : 'bg-background text-foreground border-border hover:shadow'
-                                                        }`}
+                                                        className={p === currentPage ? 'cursor-default' : ''}
+                                                        type="button"
                                                     >
                                                         {p}
-                                                    </button>
+                                                    </Button>
                                                 ) : (
                                                     <span key={`dot-${idx}`} className="px-2 text-sm">
                                                         {p}
