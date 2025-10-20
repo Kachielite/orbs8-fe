@@ -1,10 +1,10 @@
-import { createBrowserRouter } from 'react-router-dom';
+import {createBrowserRouter} from 'react-router-dom';
 
 import AuthLayout from '@/core/common/presentation/components/layouts/auth.layout';
 import DashboardLayout from '@/core/common/presentation/components/layouts/dashboard.layout';
 import ErrorPage from '@/core/common/presentation/pages/error.page';
 import NotFoundPage from '@/core/common/presentation/pages/not-found.page';
-import { protectedLoader, publicOnlyLoader } from '@/core/route/auth-utils';
+import {protectedLoader, publicOnlyLoader} from '@/core/route/auth-utils';
 import AccountsPage from '@/features/accounts/presentation/pages/accounts.page';
 import ForgetPasswordPage from '@/features/authentication/presentation/pages/forget-password.page';
 import LoginPage from '@/features/authentication/presentation/pages/login.page';
@@ -13,6 +13,7 @@ import ResetPasswordPage from '@/features/authentication/presentation/pages/rese
 import DashboardPage from '@/features/dashboard/presentation/pages/dashboard.page';
 import LinkEmailPage from '@/features/email/presentation/pages/link-email.page';
 import InsightsPage from '@/features/insights/presentation/pages/insights.page';
+import NotificationPage from '@/features/notification/presentation/pages/notification.page';
 import SettingsPage from '@/features/settings/presentation/pages/settings.page';
 import TransactionsPage from '@/features/transactions/presentation/pages/transactions.page';
 
@@ -85,6 +86,11 @@ export const router = createBrowserRouter([
             element: <SettingsPage />,
             errorElement: <ErrorPage />,
           },
+            {
+                path: '/notifications',
+                element: <NotificationPage/>,
+                errorElement: <ErrorPage/>,
+            },
         ],
       },
     ],

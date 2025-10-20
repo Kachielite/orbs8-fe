@@ -1,4 +1,4 @@
-import {ShoppingBag} from "lucide-react";
+import {ShoppingBag} from 'lucide-react';
 import React from 'react';
 
 import EmptyState from '@/core/common/presentation/components/empty-state';

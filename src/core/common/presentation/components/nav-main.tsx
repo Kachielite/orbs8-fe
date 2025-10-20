@@ -25,13 +25,14 @@ export function NavMain({
           {items.map(item => {
               const isActive = location.pathname === item.url;
               return (
-                  <SidebarMenuItem key={item.title} onClick={() => navigate(item.url)}>
+                  <SidebarMenuItem
+                      key={item.title}
+                      onClick={() => navigate(item.url)}
+                  >
                       <SidebarMenuButton
                           tooltip={item.title}
                           className={
-                              isActive
-                                  ? 'bg-sidebar-primary text-white font-semibold'
-                                  : ''
+                              isActive ? 'bg-sidebar-primary text-white font-semibold' : ''
                           }
                       >
                           {item.icon && <item.icon/>}

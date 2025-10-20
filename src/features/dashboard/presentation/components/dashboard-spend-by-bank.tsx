@@ -1,6 +1,6 @@
 'use client';
 
-import {Building} from "lucide-react";
+import {Building} from 'lucide-react';
 import moment from 'moment/moment';
 import {Bar, BarChart, XAxis} from 'recharts';
 
@@ -109,7 +109,8 @@ export function DashboardSpendByBank() {
         </CardDescription>
       </CardHeader>
           <CardContent className="flex-1 pb-0 min-h-0">
-              {chartData.length === 0 || chartData.every(item => item.credit === 0 && item.debit === 0) ? (
+              {chartData.length === 0 ||
+              chartData.every(item => item.credit === 0 && item.debit === 0) ? (
                   <div className="flex items-center justify-center h-full">
                       <EmptyState
                           title="No Bank Data"
@@ -125,7 +126,7 @@ export function DashboardSpendByBank() {
                               tickLine={false}
                               tickMargin={10}
                               axisLine={false}
-                              tickFormatter={(value) => value.split(' ')[0]}
+                              tickFormatter={value => value.split(' ')[0]}
                           />
                           <Bar
                               dataKey="credit"
@@ -150,29 +151,30 @@ export function DashboardSpendByBank() {
                   </ChartContainer>
               )}
       </CardContent>
-          {chartData.length > 0 && !chartData.every(item => item.credit === 0 && item.debit === 0) && (
-              <CardFooter className="flex-col items-start gap-2 text-sm w-full">
-                  <div className="flex items-center justify-center gap-4 w-full">
-                      <div className="flex items-center gap-1.5">
-                          <div
-                              className="w-3 h-3 rounded-sm"
-                              style={{backgroundColor: 'var(--chart-2)'}}
-                          ></div>
-                          <span className="text-xs text-muted-foreground">Credit</span>
+          {chartData.length > 0 &&
+              !chartData.every(item => item.credit === 0 && item.debit === 0) && (
+                  <CardFooter className="flex-col items-start gap-2 text-sm w-full">
+                      <div className="flex items-center justify-center gap-4 w-full">
+                          <div className="flex items-center gap-1.5">
+                              <div
+                                  className="w-3 h-3 rounded-sm"
+                                  style={{backgroundColor: 'var(--chart-2)'}}
+                              ></div>
+                              <span className="text-xs text-muted-foreground">Credit</span>
+                          </div>
+                          <div className="flex items-center gap-1.5">
+                              <div
+                                  className="w-3 h-3 rounded-sm"
+                                  style={{backgroundColor: 'var(--chart-1)'}}
+                              ></div>
+                              <span className="text-xs text-muted-foreground">Debit</span>
+                          </div>
                       </div>
-                      <div className="flex items-center gap-1.5">
-                          <div
-                              className="w-3 h-3 rounded-sm"
-                              style={{backgroundColor: 'var(--chart-1)'}}
-                          ></div>
-                          <span className="text-xs text-muted-foreground">Debit</span>
+                      <div className="text-muted-foreground leading-none w-full text-center">
+                          Showing credit and debit transactions by bank
                       </div>
-                  </div>
-                  <div className="text-muted-foreground leading-none w-full text-center">
-                      Showing credit and debit transactions by bank
-                  </div>
-              </CardFooter>
-          )}
+                  </CardFooter>
+              )}
     </Card>
   );
 }

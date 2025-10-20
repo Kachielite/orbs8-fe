@@ -1,4 +1,4 @@
-import {Receipt} from "lucide-react";
+import {Receipt} from 'lucide-react';
 import moment from 'moment';
 import React from 'react';
 import {useNavigate} from 'react-router-dom';
@@ -89,11 +89,11 @@ function RecentTransactions() {
                                         ${tx.amount.toLocaleString()}
                                     </TableCell>
                                     <TableCell className="text-center">
-                  <span
+                    <span
                       className={`px-2 py-1 rounded-full text-xs ${tx.type === 'credit' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}
-                  >
-                    {tx.type}
-                  </span>
+                    >
+                      {tx.type}
+                    </span>
                                     </TableCell>
                                 </TableRow>
                             ))}

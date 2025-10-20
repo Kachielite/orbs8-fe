@@ -1,4 +1,4 @@
-import {PieChart} from "lucide-react";
+import {PieChart} from 'lucide-react';
 import moment from 'moment/moment';
 import {Pie, PieChart as RechartsPieChart} from 'recharts';
 
@@ -63,7 +63,8 @@ export function DashboardSpendByCategory() {
         </CardDescription>
       </CardHeader>
         <CardContent className="flex-1 pb-0">
-            {chartData.length === 0 || chartData.every(item => item.percentage === 0 && item.amount === 0) ? (
+            {chartData.length === 0 ||
+            chartData.every(item => item.percentage === 0 && item.amount === 0) ? (
                 <div className="flex items-center justify-center h-full">
                     <EmptyState
                         title="No Category Data"
@@ -79,7 +80,9 @@ export function DashboardSpendByCategory() {
                     >
                         <RechartsPieChart>
                             <Pie data={chartData} dataKey="percentage" nameKey="type"/>
-                            <ChartTooltip content={<ChartTooltipContent hideLabel={false}/>}/>
+                            <ChartTooltip
+                                content={<ChartTooltipContent hideLabel={false}/>}
+                            />
                         </RechartsPieChart>
                     </ChartContainer>
                     <div className="flex flex-wrap flex-row justify-center gap-4 mt-4">
@@ -100,7 +103,10 @@ export function DashboardSpendByCategory() {
                 </>
             )}
         </CardContent>
-        {!(chartData.length === 0 || chartData.every(item => item.percentage === 0 && item.amount === 0)) && (
+        {!(
+            chartData.length === 0 ||
+            chartData.every(item => item.percentage === 0 && item.amount === 0)
+        ) && (
             <CardFooter className="flex-col gap-2 text-sm">
                 <div className="text-muted-foreground leading-none">
                     Showing total spend by category

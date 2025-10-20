@@ -1,7 +1,6 @@
 import {CreditCard} from 'lucide-react';
 import React from 'react';
 
-
 import EmptyState from '@/core/common/presentation/components/empty-state';
 import SmallTableLoader from '@/core/common/presentation/components/loaders/small-table-loader';
 import {
