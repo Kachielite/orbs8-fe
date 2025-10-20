@@ -18,9 +18,7 @@ export class MarkAsRead implements UseCase<string, MarkAsReadParam> {
     ) {
     }
 
-    async execute(
-        params: MarkAsReadParam
-    ): Promise<Either<Failure, string>> {
+    async execute(params: MarkAsReadParam): Promise<Either<Failure, string>> {
         return await this.notificationRepository.markAsRead(params.id);
     }
 }

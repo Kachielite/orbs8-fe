@@ -1,4 +1,4 @@
-import {NotificationType} from "@/features/notification/domain/entity/enum/notification-type.enum";
+import {NotificationType} from '@/features/notification/domain/entity/enum/notification-type.enum';
 
 export class NotificationEntity {
     public id: number;

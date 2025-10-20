@@ -1,11 +1,11 @@
-import {inject, injectable} from "tsyringe";
+import {inject, injectable} from 'tsyringe';
 
-import {BASE_URL} from "@/core/constants/env.constants";
-import extractErrorNetwork from "@/core/helpers/extract-error-network";
-import CustomAxios from "@/core/network/custom-axios";
-import {INotificationQuery} from "@/features/notification/domain/entity/interface/notification.interface";
+import {BASE_URL} from '@/core/constants/env.constants';
+import extractErrorNetwork from '@/core/helpers/extract-error-network';
+import CustomAxios from '@/core/network/custom-axios';
+import {INotificationQuery} from '@/features/notification/domain/entity/interface/notification.interface';
 
-injectable()
+injectable();
 
 export class NotificationNetwork {
     private readonly path = `${BASE_URL}/notification`;
@@ -27,10 +27,10 @@ export class NotificationNetwork {
             let url = `${this.path}?page=${query.page}&limit=${query.limit}`;
 
             if (query.isRead) {
-                url += `&isRead=${query.isRead}`
+                url += `&isRead=${query.isRead}`;
             }
             const response = await this.axios.getInstance().get(url, {
-                params: query
+                params: query,
             });
             return response.data;
         } catch (error) {

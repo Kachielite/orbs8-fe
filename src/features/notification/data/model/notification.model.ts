@@ -1,5 +1,5 @@
-import {NotificationType} from "@/features/notification/domain/entity/enum/notification-type.enum";
-import {NotificationEntity} from "@/features/notification/domain/entity/notification.entity";
+import {NotificationType} from '@/features/notification/domain/entity/enum/notification-type.enum';
+import {NotificationEntity} from '@/features/notification/domain/entity/notification.entity';
 
 export class NotificationModel extends NotificationEntity {
     constructor(
@@ -8,11 +8,10 @@ export class NotificationModel extends NotificationEntity {
         public description: string,
         public type: NotificationType,
         public isRead: boolean,
-        public date: string,
+        public date: string
     ) {
         super({id, title, description, type, isRead, date});
     }
-
 
     static fromJSON(data: NotificationEntity) {
         return new NotificationModel(
@@ -21,7 +20,7 @@ export class NotificationModel extends NotificationEntity {
             data.description,
             data.type,
             data.isRead,
-            data.date,
+            data.date
         );
     }
 }

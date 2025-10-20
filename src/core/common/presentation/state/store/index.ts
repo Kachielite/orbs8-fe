@@ -13,8 +13,8 @@ import {createDashboardSlice} from '@/features/dashboard/presentation/state/stor
 import {DashboardSlice} from '@/features/dashboard/presentation/state/store/types';
 import {createEmailSlice} from '@/features/email/presentation/state/store/slice';
 import {EmailSlice} from '@/features/email/presentation/state/store/type';
-import {createNotificationSlice} from "@/features/notification/presentation/state/store/slice";
-import {NotificationSlice} from "@/features/notification/presentation/state/store/types";
+import {createNotificationSlice} from '@/features/notification/presentation/state/store/slice';
+import {NotificationSlice} from '@/features/notification/presentation/state/store/types';
 import {createTransactionSlice} from '@/features/transactions/presentation/state/store/slice';
 import {TransactionSlice} from '@/features/transactions/presentation/state/store/types';
 import {createUserSlice} from '@/features/user/presentation/state/store/slice';
@@ -27,7 +27,8 @@ type AppState = AuthSlice &
   TransactionSlice &
   CategorySlice &
   BankSlice &
-    DashboardSlice & NotificationSlice;
+    DashboardSlice &
+    NotificationSlice;
 
 export const useAppStore = create<AppState>()(
   persist(
@@ -40,7 +41,7 @@ export const useAppStore = create<AppState>()(
       ...createCategorySlice(...a),
       ...createBankSlice(...a),
       ...createDashboardSlice(...a),
-        ...(createNotificationSlice(...a)),
+        ...createNotificationSlice(...a),
     }),
     {
       name: 'auth-data', // unique name

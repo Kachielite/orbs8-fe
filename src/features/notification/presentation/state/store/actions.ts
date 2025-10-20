@@ -11,5 +11,6 @@ export const createNotificationActions: StateCreator<
     Pick<NotificationSlice, 'setNotification' | 'setNotifications'>
 > = set => ({
     setNotification: (notification: NotificationEntity) => set({notification}),
-    setNotifications: (notifications: Pagination<NotificationEntity>) => set({notifications}),
+    setNotifications: (notifications: Pagination<NotificationEntity>) =>
+        set({notifications}),
 });

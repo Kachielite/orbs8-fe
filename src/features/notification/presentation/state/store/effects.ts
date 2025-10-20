@@ -29,7 +29,11 @@ export const getNotificationsEffect = async (query: INotificationQuery) => {
         new GetNotificationsParam(query)
     );
 
-    return fold<Failure, Pagination<NotificationEntity>, Pagination<NotificationEntity>>(
+    return fold<
+        Failure,
+        Pagination<NotificationEntity>,
+        Pagination<NotificationEntity>
+    >(
         failure => {
             throw failure;
         },

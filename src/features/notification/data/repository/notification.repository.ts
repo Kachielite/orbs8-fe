@@ -17,21 +17,32 @@ export class NotificationRepository implements INotificationRepository {
     ) {
     }
 
-    async getNotification(id: number): Promise<Either<Failure, NotificationEntity>> {
+    async getNotification(
+        id: number
+    ): Promise<Either<Failure, NotificationEntity>> {
         try {
             const response = await this.notificationDataSource.getNotification(id);
             return right(response);
         } catch (error) {
-            throw extractErrorRepository(error, 'NotificationRepository:getNotification');
+            throw extractErrorRepository(
+                error,
+                'NotificationRepository:getNotification'
+            );
         }
     }
 
-    async getNotifications(query: INotificationQuery): Promise<Either<Failure, Pagination<NotificationEntity>>> {
+    async getNotifications(
+        query: INotificationQuery
+    ): Promise<Either<Failure, Pagination<NotificationEntity>>> {
         try {
-            const response = await this.notificationDataSource.getNotifications(query);
+            const response =
+                await this.notificationDataSource.getNotifications(query);
             return right(response);
         } catch (error) {
-            throw extractErrorRepository(error, 'NotificationRepository:getNotifications');
+            throw extractErrorRepository(
+                error,
+                'NotificationRepository:getNotifications'
+            );
         }
     }
 

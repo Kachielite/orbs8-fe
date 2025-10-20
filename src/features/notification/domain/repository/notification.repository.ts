@@ -8,7 +8,9 @@ import {NotificationEntity} from '@/features/notification/domain/entity/notifica
 export interface INotificationRepository {
     getNotification(id: number): Promise<Either<Failure, NotificationEntity>>;
 
-    getNotifications(query: INotificationQuery): Promise<Either<Failure, Pagination<NotificationEntity>>>;
+    getNotifications(
+        query: INotificationQuery
+    ): Promise<Either<Failure, Pagination<NotificationEntity>>>;
 
     markAsRead(id: number): Promise<Either<Failure, string>>;
 }

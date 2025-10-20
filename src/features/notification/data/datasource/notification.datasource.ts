@@ -1,15 +1,17 @@
-import {inject, injectable} from "tsyringe";
+import {inject, injectable} from 'tsyringe';
 
-import extractErrorDatasource from "@/core/helpers/extract-error-datasource";
-import {Pagination} from "@/core/interfaces/pagination.interface";
-import {NotificationNetwork} from "@/features/notification/data/datasource/notification.network";
-import {NotificationModel} from "@/features/notification/data/model/notification.model";
-import {INotificationQuery} from "@/features/notification/domain/entity/interface/notification.interface";
+import extractErrorDatasource from '@/core/helpers/extract-error-datasource';
+import {Pagination} from '@/core/interfaces/pagination.interface';
+import {NotificationNetwork} from '@/features/notification/data/datasource/notification.network';
+import {NotificationModel} from '@/features/notification/data/model/notification.model';
+import {INotificationQuery} from '@/features/notification/domain/entity/interface/notification.interface';
 
 export interface INotificationDataSource {
     getNotification(id: number): Promise<NotificationModel>;
 
-    getNotifications(query: INotificationQuery): Promise<Pagination<NotificationModel>>;
+    getNotifications(
+        query: INotificationQuery
+    ): Promise<Pagination<NotificationModel>>;
 
     markAsRead(id: number): Promise<string>;
 }
@@ -29,11 +31,16 @@ export class NotificationDataSource implements INotificationDataSource {
             const response = await this.notificationNetwork.getNotification(id);
             return NotificationModel.fromJSON(response);
         } catch (error) {
-            return extractErrorDatasource(error, 'NotificationDataSource:getNotification');
+            return extractErrorDatasource(
+                error,
+                'NotificationDataSource:getNotification'
+            );
         }
     }
 
-    async getNotifications(query: INotificationQuery): Promise<Pagination<NotificationModel>> {
+    async getNotifications(
+        query: INotificationQuery
+    ): Promise<Pagination<NotificationModel>> {
         try {
             const response = await this.notificationNetwork.getNotifications(query);
             return {
@@ -47,7 +54,10 @@ export class NotificationDataSource implements INotificationDataSource {
                 hasPreviousPage: response.hasPreviousPage,
             };
         } catch (error) {
-            return extractErrorDatasource(error, 'NotificationDataSource:getNotifications');
+            return extractErrorDatasource(
+                error,
+                'NotificationDataSource:getNotifications'
+            );
         }
     }
 
