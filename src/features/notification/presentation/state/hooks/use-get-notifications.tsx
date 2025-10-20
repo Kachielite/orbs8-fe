@@ -63,6 +63,7 @@ const useGetNotifications = () => {
         isLoadingNotifications: isLoading,
         notificationsError: error,
         handleUpdateQuery,
+        query,
     };
 };
 
