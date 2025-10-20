@@ -46,7 +46,7 @@ export class NotificationDataSource implements INotificationDataSource {
         try {
             const response = await this.notificationNetwork.getNotifications(query);
             return {
-                data: response.items.map((notification: NotificationModel) =>
+                data: response.data.map((notification: NotificationModel) =>
                     NotificationModel.fromJSON(notification)
                 ),
                 total: response.total,

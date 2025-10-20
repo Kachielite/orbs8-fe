@@ -15,7 +15,7 @@ const useGetNotifications = () => {
 
     const handleUpdateQuery = (
         type: string,
-        value: string | number | undefined
+        value: boolean | number | undefined
     ) => {
         switch (type) {
             case 'page':

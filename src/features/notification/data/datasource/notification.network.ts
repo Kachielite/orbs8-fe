@@ -5,8 +5,7 @@ import extractErrorNetwork from '@/core/helpers/extract-error-network';
 import CustomAxios from '@/core/network/custom-axios';
 import {INotificationQuery} from '@/features/notification/domain/entity/interface/notification.interface';
 
-injectable();
-
+@injectable()
 export class NotificationNetwork {
     private readonly path = `${BASE_URL}/notification`;
 
@@ -26,12 +25,10 @@ export class NotificationNetwork {
         try {
             let url = `${this.path}?page=${query.page}&limit=${query.limit}`;
 
-            if (query.isRead) {
+            if (query.isRead !== undefined) {
                 url += `&isRead=${query.isRead}`;
             }
-            const response = await this.axios.getInstance().get(url, {
-                params: query,
-            });
+            const response = await this.axios.getInstance().get(url);
             return response.data;
         } catch (error) {
             throw extractErrorNetwork(error, 'NotificationNetwork:getNotifications');
