@@ -1,5 +1,6 @@
 import React from 'react';
 
+import EmptyState from '@/core/common/presentation/components/empty-state';
 import {Button} from '@/core/common/presentation/components/ui/button';
 import {ScrollArea} from "@/core/common/presentation/components/ui/scroll-area";
 import {useAppStore} from "@/core/common/presentation/state/store";
@@ -31,83 +32,94 @@ function NotificationPage() {
                 <NotificationCardLoader count={6}/>
             ) : (
                 <>
-                    <ScrollArea className="h-[calc(95vh-280px)]">
-                        {notifications?.data.map(notification => (
-                            <NotificationCard key={notification.id} notification={notification}/>
-                        ))}
-                    </ScrollArea>
-
-                    {/* Pagination controls */}
-                    <div className="flex items-center justify-between mt-2">
-                        <div className="text-xs lg:text-sm text-muted-foreground">
-                            {total === 0
-                                ? 'No notifications'
-                                : `Showing ${start} - ${end} of ${total}`}
+                    {total === 0 ? (
+                        <div className="p-4 flex-1 flex flex-col items-center justify-center">
+                            <EmptyState
+                                title="No notifications"
+                                description="You're all caught up"
+                            />
                         </div>
+                    ) : (
+                        <>
+                            <ScrollArea className="h-[calc(95vh-280px)]">
+                                {notifications?.data.map(notification => (
+                                    <NotificationCard key={notification.id} notification={notification}/>
+                                ))}
+                            </ScrollArea>
 
-                        <div className="flex items-center space-x-2">
-                            <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={goToPrevious}
-                                disabled={currentPage <= 1 || total === 0}
-                            >
-                                Prev
-                            </Button>
+                            {/* Pagination controls */}
+                            <div className="flex items-center justify-between mt-2">
+                                <div className="text-xs lg:text-sm text-muted-foreground">
+                                    {total === 0
+                                        ? 'No notifications'
+                                        : `Showing ${start} - ${end} of ${total}`}
+                                </div>
 
-                            <div className="flex items-center space-x-1">
-                                {(() => {
-                                    const pageItems: (number | string)[] = [];
-                                    const delta = 2;
-                                    const left = Math.max(1, currentPage - delta);
-                                    const right = Math.min(totalPages, currentPage + delta);
+                                <div className="flex items-center space-x-2">
+                                    <Button
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={goToPrevious}
+                                        disabled={currentPage <= 1 || total === 0}
+                                    >
+                                        Prev
+                                    </Button>
 
-                                    if (left > 1) {
-                                        pageItems.push(1);
-                                        if (left > 2) pageItems.push('...');
-                                    }
+                                    <div className="flex items-center space-x-1">
+                                        {(() => {
+                                            const pageItems: (number | string)[] = [];
+                                            const delta = 2;
+                                            const left = Math.max(1, currentPage - delta);
+                                            const right = Math.min(totalPages, currentPage + delta);
 
-                                    for (let p = left; p <= right; p++) pageItems.push(p);
+                                            if (left > 1) {
+                                                pageItems.push(1);
+                                                if (left > 2) pageItems.push('...');
+                                            }
 
-                                    if (right < totalPages) {
-                                        if (right < totalPages - 1) pageItems.push('...');
-                                        pageItems.push(totalPages);
-                                    }
+                                            for (let p = left; p <= right; p++) pageItems.push(p);
 
-                                    return pageItems.map((p, idx) =>
-                                        typeof p === 'number' ? (
-                                            <button
-                                                key={p}
-                                                onClick={() => p !== currentPage && handleUpdateQuery('page', p)}
-                                                aria-current={p === currentPage ? 'page' : undefined}
-                                                tabIndex={p === currentPage ? -1 : 0}
-                                                className={`px-3 py-1 rounded text-sm border ${
-                                                    p === currentPage
-                                                        ? 'bg-primary text-white border-primary cursor-default'
-                                                        : 'bg-background text-foreground border-border hover:shadow'
-                                                }`}
-                                            >
-                                                {p}
-                                            </button>
-                                        ) : (
-                                            <span key={`dot-${idx}`} className="px-2 text-sm">
-                                                {p}
-                                            </span>
-                                        )
-                                    );
-                                })()}
+                                            if (right < totalPages) {
+                                                if (right < totalPages - 1) pageItems.push('...');
+                                                pageItems.push(totalPages);
+                                            }
+
+                                            return pageItems.map((p, idx) =>
+                                                typeof p === 'number' ? (
+                                                    <button
+                                                        key={p}
+                                                        onClick={() => p !== currentPage && handleUpdateQuery('page', p)}
+                                                        aria-current={p === currentPage ? 'page' : undefined}
+                                                        tabIndex={p === currentPage ? -1 : 0}
+                                                        className={`px-3 py-1 rounded text-sm border ${
+                                                            p === currentPage
+                                                                ? 'bg-primary text-white border-primary cursor-default'
+                                                                : 'bg-background text-foreground border-border hover:shadow'
+                                                        }`}
+                                                    >
+                                                        {p}
+                                                    </button>
+                                                ) : (
+                                                    <span key={`dot-${idx}`} className="px-2 text-sm">
+                                                        {p}
+                                                    </span>
+                                                )
+                                            );
+                                        })()}
+                                    </div>
+
+                                    <Button
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={goToNext}
+                                        disabled={currentPage >= totalPages || total === 0}
+                                    >
+                                        Next
+                                    </Button>
+                                </div>
                             </div>
-
-                            <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={goToNext}
-                                disabled={currentPage >= totalPages || total === 0}
-                            >
-                                Next
-                            </Button>
-                        </div>
-                    </div>
+                        </>
+                    )}
                 </>
             )}
         </div>

@@ -26,8 +26,9 @@ export const NotificationCardMini = ({notification}: NotificationCardMiniProps) 
     return (
         <Card
             className={cn(
-                'w-full p-3 transition-all hover:shadow-md mb-2 rounded-none',
-                notification.isRead ? 'bg-card opacity-80' : 'bg-card border-l-4'
+                // match main NotificationCard spacing + hover
+                'w-full p-4 transition-all hover:shadow-md mb-2',
+                notification.isRead ? 'bg-card opacity-70' : 'bg-card border-l-4'
             )}
             style={{
                 borderLeftColor: notification.isRead
@@ -37,11 +38,11 @@ export const NotificationCardMini = ({notification}: NotificationCardMiniProps) 
         >
             <div className="flex items-center gap-3">
                 <div
-                    className="p-2 rounded-full shrink-0"
+                    className={cn('p-2 rounded-full shrink-0', notification.type === NotificationType.SYNC_PROGRESS && 'animate-pulse')}
                     style={{backgroundColor: `hsl(var(--notification-${config.color.split('-')[1]}) / 0.1)`}}
                 >
                     <Icon
-                        className={cn('h-2.5 w-2.5', notification.type === NotificationType.SYNC_PROGRESS && 'animate-spin')}
+                        className={cn('h-5 w-5', notification.type === NotificationType.SYNC_PROGRESS && 'animate-spin')}
                         style={{color: `hsl(var(--notification-${config.color.split('-')[1]}))`}}
                     />
                 </div>
@@ -49,11 +50,12 @@ export const NotificationCardMini = ({notification}: NotificationCardMiniProps) 
                 <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between gap-2">
                         <div
-                            className={cn('text-xs font-medium truncate', notification.isRead ? 'text-muted-foreground' : 'text-foreground')}>
+                            className={cn('text-sm font-semibold truncate', notification.isRead ? 'text-muted-foreground' : 'text-foreground')}>
                             {notification.title}
                         </div>
+
                         <div className="flex items-center gap-1 text-xs text-muted-foreground shrink-0">
-                            <Clock className="h-2 w-2"/>
+                            <Clock className="h-3 w-3"/>
                             <span>{timeAgo}</span>
                         </div>
                     </div>

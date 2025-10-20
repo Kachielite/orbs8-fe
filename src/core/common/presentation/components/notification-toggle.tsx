@@ -42,7 +42,7 @@ function NotificationToggle() {
           <span className="sr-only">Toggle Notification</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+        <DropdownMenuContent align="end" className="w-[20rem]">
         <DropdownMenuLabel>Notifications</DropdownMenuLabel>
         <DropdownMenuSeparator />
           {visibleNotifications.map(notification => (
