@@ -75,7 +75,10 @@ export class NotificationDataSource implements INotificationDataSource {
         try {
             return await this.notificationNetwork.markAllAsRead();
         } catch (error) {
-            return extractErrorDatasource(error, 'NotificationDataSource:markAllAsRead');
+            return extractErrorDatasource(
+                error,
+                'NotificationDataSource:markAllAsRead'
+            );
         }
     }
 }

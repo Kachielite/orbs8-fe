@@ -1,8 +1,7 @@
-import {Bell, CheckCheck} from "lucide-react";
-import React from 'react'
+import {Bell, CheckCheck} from 'lucide-react';
+import React from 'react';
 
-import {Button} from "@/core/common/presentation/components/ui/button";
-
+import {Button} from '@/core/common/presentation/components/ui/button';
 
 function NotificationHeader() {
     return (
@@ -13,18 +12,23 @@ function NotificationHeader() {
                         <Bell className="h-6 w-6 text-primary"/>
                     </div>
                     <div>
-                        <h1 className="text-3xl font-bold text-foreground">Notifications</h1>
+                        <h1 className="text-3xl font-bold text-foreground">
+                            Notifications
+                        </h1>
                     </div>
                 </div>
 
-
-                <Button onClick={() => console.log("clicked")} variant="outline" size="sm">
+                <Button
+                    onClick={() => console.log('clicked')}
+                    variant="outline"
+                    size="sm"
+                >
                     <CheckCheck className="h-4 w-4 mr-2"/>
                     Mark all as read
                 </Button>
             </div>
         </div>
-    )
+    );
 }
 
-export default NotificationHeader
+export default NotificationHeader;

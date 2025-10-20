@@ -1,6 +1,6 @@
 import React from 'react';
 
-import NotificationHeader from "@/features/notification/presentation/components/notification.header";
+import NotificationHeader from '@/features/notification/presentation/components/notification.header';
 
 function NotificationPage() {
     return (

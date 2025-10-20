@@ -49,7 +49,9 @@ export class NotificationNetwork {
 
     public async markAllAsRead() {
         try {
-            const response = await this.axios.getInstance().put(`${this.path}/mark-all-as-read`);
+            const response = await this.axios
+                .getInstance()
+                .put(`${this.path}/mark-all-as-read`);
             return response.data;
         } catch (error) {
             throw extractErrorNetwork(error, 'NotificationNetwork:markAllAsRead');

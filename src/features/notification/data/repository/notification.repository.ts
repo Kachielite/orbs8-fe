@@ -60,7 +60,10 @@ export class NotificationRepository implements INotificationRepository {
             const response = await this.notificationDataSource.markAllAsRead();
             return right(response);
         } catch (error) {
-            throw extractErrorRepository(error, 'NotificationRepository:markAllAsRead');
+            throw extractErrorRepository(
+                error,
+                'NotificationRepository:markAllAsRead'
+            );
         }
     }
 }

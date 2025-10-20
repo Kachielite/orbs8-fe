@@ -1,10 +1,9 @@
-import {Either} from "fp-ts/Either";
-import {inject, injectable} from "tsyringe";
+import {Either} from 'fp-ts/Either';
+import {inject, injectable} from 'tsyringe';
 
-import {Failure} from "@/core/errors/failure.error";
-import {NoParams, UseCase} from "@/core/use-case";
-import type {INotificationRepository} from "@/features/notification/domain/repository/notification.repository";
-
+import {Failure} from '@/core/errors/failure.error';
+import {NoParams, UseCase} from '@/core/use-case';
+import type {INotificationRepository} from '@/features/notification/domain/repository/notification.repository';
 
 @injectable()
 export class MarkAllAsRead implements UseCase<string, NoParams> {

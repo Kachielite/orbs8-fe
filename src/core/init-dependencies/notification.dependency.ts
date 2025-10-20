@@ -9,7 +9,7 @@ import {NotificationRepository} from '@/features/notification/data/repository/no
 import {INotificationRepository} from '@/features/notification/domain/repository/notification.repository';
 import {GetNotification} from '@/features/notification/domain/use-case/get-notification';
 import {GetNotifications} from '@/features/notification/domain/use-case/get-notifications';
-import {MarkAllAsRead} from "@/features/notification/domain/use-case/mark-all-as-read";
+import {MarkAllAsRead} from '@/features/notification/domain/use-case/mark-all-as-read';
 import {MarkAsRead} from '@/features/notification/domain/use-case/mark-as-read';
 
 export function configureNotificationContainer() {
