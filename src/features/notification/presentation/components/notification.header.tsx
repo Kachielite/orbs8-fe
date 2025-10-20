@@ -1,9 +1,13 @@
 import {Bell, CheckCheck} from 'lucide-react';
-import React from 'react';
+import React, {useState} from 'react';
 
+import {CustomAlertDialogue} from '@/core/common/presentation/components/dialogue/custom-alert-dialogue';
 import {Button} from '@/core/common/presentation/components/ui/button';
+import useMarkAllAsRead from '@/features/notification/presentation/state/hooks/use-mark-all-as-read';
 
 function NotificationHeader() {
+    const [showDialogue, setShowDialogue] = useState(false);
+    const {isMarkingAsRead, markAllAsReadHandler} = useMarkAllAsRead();
     return (
         <div className="mb-8">
             <div className="flex items-center justify-between mb-2">
@@ -19,7 +23,7 @@ function NotificationHeader() {
                 </div>
 
                 <Button
-                    onClick={() => console.log('clicked')}
+                    onClick={() => setShowDialogue(true)}
                     variant="outline"
                     size="sm"
                 >
@@ -27,6 +31,14 @@ function NotificationHeader() {
                     Mark all as read
                 </Button>
             </div>
+            <CustomAlertDialogue
+                title="Mark All as Read"
+                description="Are you sure you want to mark all notifications as read?"
+                actionIsLoading={isMarkingAsRead}
+                visibility={showDialogue}
+                setVisibility={setShowDialogue}
+                action={markAllAsReadHandler}
+            />
         </div>
     );
 }

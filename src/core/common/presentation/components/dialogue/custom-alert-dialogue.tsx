@@ -1,12 +1,12 @@
 import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
 } from '@/core/common/presentation/components/ui/alert-dialog';
 
 export function CustomAlertDialogue({
@@ -17,6 +17,7 @@ export function CustomAlertDialogue({
   action,
   cancelText = 'Cancel',
   actionText = 'Continue',
+                                        actionIsLoading = false,
 }: {
   title: string;
   description: string;
@@ -35,10 +36,19 @@ export function CustomAlertDialogue({
           <AlertDialogDescription>{description}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel onClick={() => setVisibility(false)}>
+            <AlertDialogCancel
+                disabled={actionIsLoading}
+                onClick={() => setVisibility(false)}
+            >
             {cancelText}
           </AlertDialogCancel>
-          <AlertDialogAction onClick={action}>{actionText}</AlertDialogAction>
+            <AlertDialogAction
+                onClick={action}
+                disabled={actionIsLoading}
+                className="text-white"
+            >
+                {actionIsLoading ? 'Loading...' : actionText}
+            </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
