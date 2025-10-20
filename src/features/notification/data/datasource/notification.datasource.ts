@@ -14,6 +14,8 @@ export interface INotificationDataSource {
     ): Promise<Pagination<NotificationModel>>;
 
     markAsRead(id: number): Promise<string>;
+
+    markAllAsRead(): Promise<string>;
 }
 
 @injectable()
@@ -66,6 +68,14 @@ export class NotificationDataSource implements INotificationDataSource {
             return await this.notificationNetwork.markAsRead(id);
         } catch (error) {
             return extractErrorDatasource(error, 'NotificationDataSource:markAsRead');
+        }
+    }
+
+    async markAllAsRead(): Promise<string> {
+        try {
+            return await this.notificationNetwork.markAllAsRead();
+        } catch (error) {
+            return extractErrorDatasource(error, 'NotificationDataSource:markAllAsRead');
         }
     }
 }

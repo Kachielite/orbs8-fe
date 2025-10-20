@@ -13,4 +13,6 @@ export interface INotificationRepository {
     ): Promise<Either<Failure, Pagination<NotificationEntity>>>;
 
     markAsRead(id: number): Promise<Either<Failure, string>>;
+
+    markAllAsRead(): Promise<Either<Failure, string>>;
 }
