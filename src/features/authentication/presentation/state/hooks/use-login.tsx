@@ -1,20 +1,18 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { useMutation } from 'react-query';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'sonner';
+import {zodResolver} from '@hookform/resolvers/zod';
+import {useForm} from 'react-hook-form';
+import {useMutation} from 'react-query';
+import {useNavigate} from 'react-router-dom';
+import {toast} from 'sonner';
 
-import { useAppStore } from '@/core/common/presentation/state/store';
-import { extractErrorHooks } from '@/core/helpers/extract-error-hooks';
-import { loginEffect } from '@/features/authentication/presentation/state/store/effect';
-import {
-  loginSchema,
-  LoginSchemaType,
-} from '@/features/authentication/presentation/validation/auth.validation';
+import {useAppStore} from '@/core/common/presentation/state/store';
+import {extractErrorHooks} from '@/core/helpers/extract-error-hooks';
+import {loginEffect} from '@/features/authentication/presentation/state/store/effect';
+import {loginSchema, LoginSchemaType,} from '@/features/authentication/presentation/validation/auth.validation';
+import {getUserEffect} from '@/features/user/presentation/state/store/effects';
 
 const useLogin = () => {
   const navigate = useNavigate();
-  const { setAuth } = useAppStore();
+    const {setAuth, setUser} = useAppStore();
 
   const loginForm = useForm<LoginSchemaType>({
     resolver: zodResolver(loginSchema),
@@ -34,9 +32,21 @@ const useLogin = () => {
       });
     },
     {
-      onSuccess: data => {
+        onSuccess: async data => {
         setAuth(data);
-        navigate('/');
+            try {
+                const user = await getUserEffect();
+                setUser(user);
+                if (!user.emailLinked) {
+                    navigate('/link-email');
+                } else {
+                    navigate('/');
+                }
+            } catch (error) {
+                const errorMessage = extractErrorHooks(error, 'useLogin');
+                toast.error('Failed to fetch user data: ' + errorMessage);
+                // Perhaps navigate to login or handle
+            }
       },
       onError: error => {
         const errorMessage = extractErrorHooks(error, 'useLogin');

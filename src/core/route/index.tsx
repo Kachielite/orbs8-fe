@@ -48,7 +48,11 @@ export const router = createBrowserRouter([
         loader: publicOnlyLoader,
         errorElement: <ErrorPage />,
       },
-
+        {
+            path: '/link-email',
+            element: <LinkEmailPage/>,
+            errorElement: <ErrorPage/>,
+        },
       // // Protected routes
       {
         path: '/',
@@ -59,11 +63,6 @@ export const router = createBrowserRouter([
           {
             path: '',
             element: <DashboardPage />,
-            errorElement: <ErrorPage />,
-          },
-          {
-            path: '/link-email',
-            element: <LinkEmailPage />,
             errorElement: <ErrorPage />,
           },
           {
