@@ -59,7 +59,7 @@ function NotificationToggle() {
           )}
 
           {unreadNotifications.length === 0 && (
-              <div className="p-4 w-[20rem]">
+              <div className="p-4 w-[20rem] mx-auto">
                   <EmptyState
                       title="No new notifications"
                       description="You're all caught up"

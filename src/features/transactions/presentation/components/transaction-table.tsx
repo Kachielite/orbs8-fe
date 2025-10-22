@@ -1,17 +1,17 @@
-import { ChevronDown, ChevronsUpDown, ChevronUp } from 'lucide-react';
+import {ChevronDown, ChevronsUpDown, ChevronUp} from 'lucide-react';
 import moment from 'moment';
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 
 import ColumnToggleDropdown from '@/core/common/presentation/components/column-toggle-dropdown';
 import TableSkeleton from '@/core/common/presentation/components/loaders/table-skeleton';
-import { Button } from '@/core/common/presentation/components/ui/button';
-import { Input } from '@/core/common/presentation/components/ui/input';
+import {Button} from '@/core/common/presentation/components/ui/button';
+import {Input} from '@/core/common/presentation/components/ui/input';
 import * as TableUI from '@/core/common/presentation/components/ui/table';
-import { useAppStore } from '@/core/common/presentation/state/store';
+import {useAppStore} from '@/core/common/presentation/state/store';
 import useGetAccounts from '@/features/accounts/presentation/state/hooks/use-get-accounts';
 import useGetBanks from '@/features/bank/presentation/state/hooks/use-get-banks';
 import useGetCategories from '@/features/category/presentation/state/hooks/use-get-categories';
-import { TransactionModel } from '@/features/transactions/data/model/transaction.model';
+import {TransactionModel} from '@/features/transactions/data/model/transaction.model';
 import TransactionDateFilter from '@/features/transactions/presentation/components/transaction-date-filter';
 import TransactionFilter from '@/features/transactions/presentation/components/transaction-filter';
 import TransactionUpdate from '@/features/transactions/presentation/components/transaction-update';
@@ -41,8 +41,8 @@ function TransactionTable() {
   const { isGettingCategories } = useGetCategories();
 
   const columns = [
+      {key: 'transactionID', label: 'Transaction ID'},
     { key: 'description', label: 'Description' },
-    { key: 'transactionID', label: 'Transaction ID' },
     { key: 'amount', label: `Amount (${user?.preferredCurrency || 'USD'})` },
     { key: 'type', label: 'Type' },
     { key: 'category', label: 'Category' },
@@ -154,7 +154,7 @@ function TransactionTable() {
         </div>
       </div>
       <TableUI.Table className="border border-border">
-        <TableUI.TableHeader className="bg-muted">
+          <TableUI.TableHeader className="bg-primary">
           <TableUI.TableRow>
             {columns
               .filter(col => visibleColumns.includes(col.key))
@@ -178,7 +178,7 @@ function TransactionTable() {
                         tabIndex={0}
                         onClick={() => toggleSort(field)}
                         onKeyDown={e => handleHeaderKeyDown(e, field)}
-                        className="flex items-center cursor-pointer select-none"
+                        className="flex items-center cursor-pointer select-none text-white text-center"
                         aria-pressed={active}
                         aria-label={`Sort by ${col.label}`}
                       >
@@ -200,7 +200,7 @@ function TransactionTable() {
                 return (
                   <TableUI.TableHead
                     key={col.key}
-                    className="border-r border-border last:border-r-0"
+                    className="border-r border-border last:border-r-0 text-white text-center"
                   >
                     {col.label}
                   </TableUI.TableHead>
