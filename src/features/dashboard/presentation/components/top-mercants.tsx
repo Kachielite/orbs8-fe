@@ -39,13 +39,13 @@ function TopMerchants() {
                 </CardDescription>
             </CardHeader>
             <CardContent>
-                <Table>
+                <Table className="border border-spacing-0">
                     {(dashboardTransactionsSummary?.topMerchants?.length ?? 0) > 0 && (
-                        <TableHeader>
+                        <TableHeader className="bg-primary text-white">
                             <TableRow>
-                                <TableHead>Description</TableHead>
-                                <TableHead className="text-right">Amount</TableHead>
-                                <TableHead className="text-right">% of Total</TableHead>
+                                <TableHead className="border-r text-center">Description</TableHead>
+                                <TableHead className="text-center">Amount</TableHead>
+                                <TableHead className="text-center">% of Total</TableHead>
                             </TableRow>
                         </TableHeader>
                     )}
@@ -66,15 +66,15 @@ function TopMerchants() {
                             dashboardTransactionsSummary?.topMerchants.map(merchant => (
                                 <TableRow key={merchant.name}>
                                     <TableCell
-                                        className="font-medium max-w-[200px] truncate"
+                                        className="font-medium max-w-[200px] truncate border-r"
                                         title={merchant.name}
                                     >
                                         {merchant.name}
                                     </TableCell>
-                                    <TableCell className="text-right">
+                                    <TableCell className="text-center border-r">
                                         ${merchant.amount.toLocaleString()}
                                     </TableCell>
-                                    <TableCell className="text-right">
+                                    <TableCell className="border-r text-center">
                                         {merchant.percentage}%
                                     </TableCell>
                                 </TableRow>

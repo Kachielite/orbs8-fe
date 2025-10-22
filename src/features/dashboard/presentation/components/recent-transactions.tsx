@@ -52,7 +52,7 @@ function RecentTransactions() {
                         />
                     </div>
                 ) : (
-                    <Table className="border border-spacing-0 rounded-lg">
+                    <Table className="border border-spacing-0">
                         <TableHeader>
                             <TableRow noHover className="bg-primary">
                                 <TableHead className="border-r text-center text-white">Date</TableHead>

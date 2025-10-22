@@ -57,28 +57,28 @@ function AccountSummary() {
                 <CardDescription>Overview of all accounts</CardDescription>
             </CardHeader>
             <CardContent>
-                <Table>
-                    <TableHeader>
+                <Table className="border border-spacing-0">
+                    <TableHeader className="bg-primary text-white">
                         <TableRow>
-                            <TableHead>Account</TableHead>
-                            <TableHead className="text-right">Spend</TableHead>
-                            <TableHead className="text-right">Income</TableHead>
-                            <TableHead className="text-right">Balance</TableHead>
+                            <TableHead className="text-center border-r">Account</TableHead>
+                            <TableHead className="text-center border-r">Spend</TableHead>
+                            <TableHead className="text-center border-r">Income</TableHead>
+                            <TableHead className="text-center border-r">Balance</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                         {accountSummaries.map(account => (
                             <TableRow key={account.accountName}>
-                                <TableCell className="font-medium">
+                                <TableCell className="font-medium text-center border-r">
                                     {account.accountName}
                                 </TableCell>
-                                <TableCell className="text-right text-red-600">
+                                <TableCell className="text-center border-r text-red-600">
                                     ${account.totalSpend.toLocaleString()}
                                 </TableCell>
-                                <TableCell className="text-right text-green-600">
+                                <TableCell className="text-center border-r text-green-600">
                                     ${account.totalIncome.toLocaleString()}
                                 </TableCell>
-                                <TableCell className="text-right font-semibold">
+                                <TableCell className="text-center border-r font-semibold">
                                     ${account.currentBalance.toLocaleString()}
                                 </TableCell>
                             </TableRow>
