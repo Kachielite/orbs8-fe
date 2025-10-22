@@ -1,7 +1,10 @@
+import {Landmark} from 'lucide-react';
 import React, {useState} from 'react';
 
 import ColumnToggleDropdown from '@/core/common/presentation/components/column-toggle-dropdown';
+import EmptyState from '@/core/common/presentation/components/empty-state';
 import TableSkeleton from '@/core/common/presentation/components/loaders/table-skeleton';
+import {Card, CardContent} from '@/core/common/presentation/components/ui/card';
 import {
     Table,
     TableBody,
@@ -43,61 +46,75 @@ function AccountTable() {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
-          <div/>
-        <ColumnToggleDropdown
-          columns={columns}
-          visibleColumns={visibleColumns}
-          onToggleColumn={toggleColumn}
-        />
-      </div>
-      <Table className="border border-border">
-          <TableHeader className="bg-primary">
-          <TableRow>
-            {columns
-              .filter(col => visibleColumns.includes(col.key))
-              .map(col => (
-                <TableHead
-                  key={col.key}
-                  className="border-r border-border last:border-r-0 text-white"
-                >
-                  {col.label}
-                </TableHead>
-              ))}
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {filteredAccounts.map(account => (
-            <TableRow key={account.id} className="border-b-2 border-border">
-              {visibleColumns.includes('accountName') && (
-                <TableCell className="border-r border-border last:border-r-0">
-                  {account.accountName}
-                </TableCell>
-              )}
-              {visibleColumns.includes('accountNumber') && (
-                <TableCell className="border-r border-border last:border-r-0">
-                  {account.accountNumber}
-                </TableCell>
-              )}
-              {visibleColumns.includes('bankName') && (
-                <TableCell className="border-r border-border last:border-r-0">
-                  {account.bankName}
-                </TableCell>
-              )}
-              {visibleColumns.includes('currency') && (
-                <TableCell className="border-r border-border last:border-r-0">
-                  {account.currencyName}
-                </TableCell>
-              )}
-              {visibleColumns.includes('balance') && (
-                <TableCell className="border-r border-border last:border-r-0">
-                  {account.currentBalance.toLocaleString('en-US')}
-                </TableCell>
-              )}
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+        {filteredAccounts.length === 0 ? (
+            <Card>
+                <CardContent className="flex items-center justify-center h-64">
+                    <EmptyState
+                        title="No Accounts"
+                        description="No accounts to display at the moment"
+                        icon={Landmark}
+                    />
+                </CardContent>
+            </Card>
+        ) : (
+            <>
+                <div className="flex items-center justify-between">
+                    <div/>
+                    <ColumnToggleDropdown
+                        columns={columns}
+                        visibleColumns={visibleColumns}
+                        onToggleColumn={toggleColumn}
+                    />
+                </div>
+                <Table className="border border-border">
+                    <TableHeader className="bg-primary">
+                        <TableRow>
+                            {columns
+                                .filter(col => visibleColumns.includes(col.key))
+                                .map(col => (
+                                    <TableHead
+                                        key={col.key}
+                                        className="border-r border-border last:border-r-0 text-white"
+                                    >
+                                        {col.label}
+                                    </TableHead>
+                                ))}
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {filteredAccounts.map(account => (
+                            <TableRow key={account.id} className="border-b-2 border-border">
+                                {visibleColumns.includes('accountName') && (
+                                    <TableCell className="border-r border-border last:border-r-0">
+                                        {account.accountName}
+                                    </TableCell>
+                                )}
+                                {visibleColumns.includes('accountNumber') && (
+                                    <TableCell className="border-r border-border last:border-r-0">
+                                        {account.accountNumber}
+                                    </TableCell>
+                                )}
+                                {visibleColumns.includes('bankName') && (
+                                    <TableCell className="border-r border-border last:border-r-0">
+                                        {account.bankName}
+                                    </TableCell>
+                                )}
+                                {visibleColumns.includes('currency') && (
+                                    <TableCell className="border-r border-border last:border-r-0">
+                                        {account.currencyName}
+                                    </TableCell>
+                                )}
+                                {visibleColumns.includes('balance') && (
+                                    <TableCell className="border-r border-border last:border-r-0">
+                                        {account.currentBalance.toLocaleString('en-US')}
+                                    </TableCell>
+                                )}
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </>
+        )}
     </div>
   );
 }
