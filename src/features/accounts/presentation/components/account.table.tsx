@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 
 import ColumnToggleDropdown from '@/core/common/presentation/components/column-toggle-dropdown';
 import TableSkeleton from '@/core/common/presentation/components/loaders/table-skeleton';
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
 } from '@/core/common/presentation/components/ui/table';
 
 import useGetAccounts from '../state/hooks/use-get-accounts';
@@ -44,7 +44,7 @@ function AccountTable() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold">Accounts</h2>
+          <div/>
         <ColumnToggleDropdown
           columns={columns}
           visibleColumns={visibleColumns}
@@ -52,14 +52,14 @@ function AccountTable() {
         />
       </div>
       <Table className="border border-border">
-        <TableHeader className="bg-muted">
+          <TableHeader className="bg-primary">
           <TableRow>
             {columns
               .filter(col => visibleColumns.includes(col.key))
               .map(col => (
                 <TableHead
                   key={col.key}
-                  className="border-r border-border last:border-r-0"
+                  className="border-r border-border last:border-r-0 text-white"
                 >
                   {col.label}
                 </TableHead>

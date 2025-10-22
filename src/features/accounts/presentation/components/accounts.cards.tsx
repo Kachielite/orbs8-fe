@@ -1,11 +1,9 @@
-import { FileUser, Landmark, Wallet } from 'lucide-react';
+import {Building2, FileUser, Wallet} from 'lucide-react';
 import React from 'react';
 
 import CardLoaders from '@/core/common/presentation/components/loaders/card-loader';
-import StatsCard, {
-  StatsCardData,
-} from '@/core/common/presentation/components/stats-card';
-import { useAppStore } from '@/core/common/presentation/state/store';
+import StatsCard, {StatsCardData,} from '@/core/common/presentation/components/stats-card';
+import {useAppStore} from '@/core/common/presentation/state/store';
 import useGetAccountSummary from '@/features/accounts/presentation/state/hooks/use-get-account-summary';
 
 function AccountsCards() {
@@ -29,7 +27,7 @@ function AccountsCards() {
       name: 'Number of Banks',
       description: 'Banks your accounts are connected to',
       count: accountSummary?.numberOfBanks || 0,
-      icon: Landmark,
+        icon: Building2,
     },
   ];
 
