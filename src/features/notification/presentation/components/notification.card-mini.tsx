@@ -50,8 +50,8 @@ export const NotificationCardMini = ({notification}: NotificationCardMiniProps) 
                 <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between gap-2">
                         <div
-                            className={cn('text-sm font-semibold truncate', notification.isRead ? 'text-muted-foreground' : 'text-foreground')}>
-                            {notification.title}
+                            className={cn('text-sm text-wrap ', notification.isRead ? 'text-muted-foreground' : 'text-foreground')}>
+                            {notification.description}
                         </div>
 
                         <div className="flex items-center gap-1 text-xs text-muted-foreground shrink-0">

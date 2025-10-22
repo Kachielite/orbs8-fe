@@ -35,7 +35,8 @@ function NotificationToggle() {
         <Button variant="outline" size="icon" className="size-7 relative">
           <Bell className="h-[1.2rem] w-[1.2rem]" />
           {unreadCount > 0 && (
-            <span className="absolute -top-1 -right-1 h-4 w-4 flex items-center justify-center p-0 text-xs bg-red-500 text-white rounded-full">
+              <span
+                  className="absolute -top-1 -right-1 h-4 w-4 p-1 flex items-center justify-center text-[0.6rem] bg-red-500 text-white rounded-full">
               {unreadCount}
             </span>
           )}
