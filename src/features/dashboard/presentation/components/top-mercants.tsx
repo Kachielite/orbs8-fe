@@ -41,11 +41,11 @@ function TopMerchants() {
             <CardContent>
                 <Table className="border border-spacing-0">
                     {(dashboardTransactionsSummary?.topMerchants?.length ?? 0) > 0 && (
-                        <TableHeader className="bg-primary text-white">
+                        <TableHeader className="bg-primary">
                             <TableRow>
-                                <TableHead className="border-r text-center">Description</TableHead>
-                                <TableHead className="text-center">Amount</TableHead>
-                                <TableHead className="text-center">% of Total</TableHead>
+                                <TableHead className="border-r text-center text-white">Description</TableHead>
+                                <TableHead className="text-center text-white">Amount</TableHead>
+                                <TableHead className="text-center text-white">% of Total</TableHead>
                             </TableRow>
                         </TableHeader>
                     )}
