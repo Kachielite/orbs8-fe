@@ -52,17 +52,17 @@ function RecentTransactions() {
                         />
                     </div>
                 ) : (
-                    <Table>
+                    <Table className="border border-spacing-0 rounded-lg">
                         <TableHeader>
-                            <TableRow className="bg-muted">
-                                <TableHead className="border-r text-center">Date</TableHead>
-                                <TableHead className="border-r text-center">
+                            <TableRow noHover className="bg-primary">
+                                <TableHead className="border-r text-center text-white">Date</TableHead>
+                                <TableHead className="border-r text-center text-white">
                                     Description
                                 </TableHead>
-                                <TableHead className="border-r text-center">Category</TableHead>
-                                <TableHead className="border-r text-center">Bank</TableHead>
-                                <TableHead className="border-r text-center">Amount</TableHead>
-                                <TableHead className="text-center">Type</TableHead>
+                                <TableHead className="border-r text-center text-white">Category</TableHead>
+                                <TableHead className="border-r text-center text-white">Bank</TableHead>
+                                <TableHead className="border-r text-center text-white">Amount</TableHead>
+                                <TableHead className="text-center text-white">Type</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
