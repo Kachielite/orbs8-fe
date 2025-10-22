@@ -185,11 +185,11 @@ function TransactionTable() {
                         <span>{col.label}</span>
                         <span className="ml-2">
                           {active && direction === 'asc' ? (
-                            <ChevronUp className="h-4 w-4 text-foreground" />
+                              <ChevronUp className="h-4 w-4 text-white"/>
                           ) : active && direction === 'desc' ? (
-                            <ChevronDown className="h-4 w-4 text-foreground" />
+                              <ChevronDown className="h-4 w-4 text-white"/>
                           ) : (
-                            <ChevronsUpDown className="h-4 w-4 text-muted-foreground" />
+                              <ChevronsUpDown className="h-4 w-4 text-white"/>
                           )}
                         </span>
                       </div>
@@ -225,13 +225,17 @@ function TransactionTable() {
                 </TableUI.TableCell>
               )}
               {visibleColumns.includes('amount') && (
-                <TableUI.TableCell className="border-r border-border last-border-r-0">
+                  <TableUI.TableCell className="border-r border-border last-border-r-0 text-center">
                   {transaction.amount.toLocaleString('en-US')}
                 </TableUI.TableCell>
               )}
               {visibleColumns.includes('type') && (
                 <TableUI.TableCell className="border-r border-border last-border-r-0">
-                  {transaction.type}
+                  <span
+                      className={`px-2 py-1 rounded-full text-xs ${transaction.type === 'credit' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}
+                  >
+                      {transaction.type}
+                    </span>
                 </TableUI.TableCell>
               )}
               {visibleColumns.includes('category') && (
@@ -250,7 +254,7 @@ function TransactionTable() {
                 </TableUI.TableCell>
               )}
               {visibleColumns.includes('transactionDate') && (
-                <TableUI.TableCell className="border-r border-border last-border-r-0">
+                  <TableUI.TableCell className="border-r border-border last-border-r-0 text-center">
                   {moment(transaction.transactionDate).format('DD/MM/YYYY')}
                 </TableUI.TableCell>
               )}
@@ -311,7 +315,7 @@ function TransactionTable() {
                     disabled={p === currentPage}
                     className={`px-3 py-1 rounded text-sm border ${
                       p === currentPage
-                        ? 'bg-foreground text-background border-foreground'
+                          ? 'bg-primary text-white border-foreground'
                         : 'bg-background text-foreground border-border'
                     }`}
                   >
