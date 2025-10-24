@@ -54,4 +54,22 @@ export class NotificationNetwork {
             throw extractErrorNetwork(error, 'NotificationNetwork:markAllAsRead');
         }
     }
+
+    public async deleteNotification(id: number) {
+        try {
+            const response = await this.axios.getInstance().delete(`${this.path}/${id}`);
+            return response.data;
+        } catch (error) {
+            throw extractErrorNetwork(error, 'NotificationNetwork:deleteNotification');
+        }
+    }
+
+    public async deleteAllNotifications() {
+        try {
+            const response = await this.axios.getInstance().delete(`${this.path}`);
+            return response.data;
+        } catch (error) {
+            throw extractErrorNetwork(error, 'NotificationNetwork:deleteAllNotifications');
+        }
+    }
 }
