@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { cn } from '@/core/lib/utils';
+import {cn} from '@/core/lib/utils';
 
 function Table({ className, ...props }: React.ComponentProps<'table'>) {
   return (
@@ -50,12 +50,12 @@ function TableFooter({ className, ...props }: React.ComponentProps<'tfoot'>) {
   );
 }
 
-function TableRow({ className, ...props }: React.ComponentProps<'tr'>) {
+function TableRow({className, noHover, ...props}: React.ComponentProps<'tr'> & { noHover?: boolean }) {
   return (
     <tr
       data-slot="table-row"
       className={cn(
-        'hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors',
+          `${noHover ? '' : 'hover:bg-muted/50'} data-[state=selected]:bg-muted border-b transition-colors`,
         className
       )}
       {...props}

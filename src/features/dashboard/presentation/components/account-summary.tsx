@@ -1,7 +1,6 @@
 import {CreditCard} from 'lucide-react';
 import React from 'react';
 
-
 import EmptyState from '@/core/common/presentation/components/empty-state';
 import SmallTableLoader from '@/core/common/presentation/components/loaders/small-table-loader';
 import {
@@ -58,28 +57,28 @@ function AccountSummary() {
                 <CardDescription>Overview of all accounts</CardDescription>
             </CardHeader>
             <CardContent>
-                <Table>
-                    <TableHeader>
+                <Table className="border border-spacing-0">
+                    <TableHeader className="bg-primary">
                         <TableRow>
-                            <TableHead>Account</TableHead>
-                            <TableHead className="text-right">Spend</TableHead>
-                            <TableHead className="text-right">Income</TableHead>
-                            <TableHead className="text-right">Balance</TableHead>
+                            <TableHead className="text-center border-r text-white">Account</TableHead>
+                            <TableHead className="text-center border-r text-white">Spend</TableHead>
+                            <TableHead className="text-center border-r text-white">Income</TableHead>
+                            <TableHead className="text-center border-r text-white">Balance</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                         {accountSummaries.map(account => (
                             <TableRow key={account.accountName}>
-                                <TableCell className="font-medium">
+                                <TableCell className="font-medium text-center border-r">
                                     {account.accountName}
                                 </TableCell>
-                                <TableCell className="text-right text-red-600">
+                                <TableCell className="text-center border-r text-red-600">
                                     ${account.totalSpend.toLocaleString()}
                                 </TableCell>
-                                <TableCell className="text-right text-green-600">
+                                <TableCell className="text-center border-r text-green-600">
                                     ${account.totalIncome.toLocaleString()}
                                 </TableCell>
-                                <TableCell className="text-right font-semibold">
+                                <TableCell className="text-center border-r font-semibold">
                                     ${account.currentBalance.toLocaleString()}
                                 </TableCell>
                             </TableRow>

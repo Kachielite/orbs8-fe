@@ -1,4 +1,4 @@
-import {TrendingUp} from "lucide-react";
+import {TrendingUp} from 'lucide-react';
 import moment from 'moment/moment';
 import {Bar, BarChart, CartesianGrid, XAxis} from 'recharts';
 

@@ -95,7 +95,9 @@ export function DashboardIncomeSpend() {
                   >
                       <PieChart>
                           <Pie data={chartData} dataKey="percentage" nameKey="type"/>
-                          <ChartTooltip content={<ChartTooltipContent hideLabel={false}/>}/>
+                          <ChartTooltip
+                              content={<ChartTooltipContent hideLabel={false}/>}
+                          />
                       </PieChart>
                   </ChartContainer>
                   <div className="flex justify-center gap-4 mt-4">

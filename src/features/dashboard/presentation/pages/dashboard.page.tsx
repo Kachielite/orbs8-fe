@@ -1,8 +1,6 @@
 import React from 'react';
-import {Navigate} from 'react-router-dom';
 
 import {GlobalLoader} from '@/core/common/presentation/components/global-loader';
-import {useAppStore} from '@/core/common/presentation/state/store';
 import useGetBanks from '@/features/bank/presentation/state/hooks/use-get-banks';
 import AccountSummary from '@/features/dashboard/presentation/components/account-summary';
 import TransactionCards from '@/features/dashboard/presentation/components/dashboard-cards';
@@ -13,19 +11,12 @@ import {DashboardSpendByCategory} from '@/features/dashboard/presentation/compon
 import {DashboardSpendByType} from '@/features/dashboard/presentation/components/dashboard-spend-by-type';
 import RecentTransactions from '@/features/dashboard/presentation/components/recent-transactions';
 import TopMerchants from '@/features/dashboard/presentation/components/top-mercants';
-import useGetUser from '@/features/user/presentation/state/hook/use-get-user';
 
 function DashboardPage() {
-  const { user } = useAppStore();
-  const { isFetchingUser } = useGetUser();
   const { isGettingBanks } = useGetBanks();
 
-  if (isFetchingUser || isGettingBanks) {
+    if (isGettingBanks) {
     return <GlobalLoader show={true} />;
-  }
-
-  if (!user?.emailLinked) {
-    return <Navigate to="/link-email" replace />;
   }
 
   return (

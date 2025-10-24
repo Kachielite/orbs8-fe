@@ -1,27 +1,26 @@
-import { ChevronsUpDown, LogOut } from 'lucide-react';
-import { useState } from 'react';
+import {Bell, ChevronsUpDown, LogOut} from 'lucide-react';
+import {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 
-import { CustomAlertDialogue } from '@/core/common/presentation/components/dialogue/custom-alert-dialogue';
+import {CustomAlertDialogue} from '@/core/common/presentation/components/dialogue/custom-alert-dialogue';
+import {Avatar, AvatarFallback,} from '@/core/common/presentation/components/ui/avatar';
 import {
-  Avatar,
-  AvatarFallback,
-} from '@/core/common/presentation/components/ui/avatar';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuTrigger,
 } from '@/core/common/presentation/components/ui/dropdown-menu';
 import {
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  useSidebar,
+    SidebarMenu,
+    SidebarMenuButton,
+    SidebarMenuItem,
+    useSidebar,
 } from '@/core/common/presentation/components/ui/sidebar';
-import { useAppStore } from '@/core/common/presentation/state/store';
+import {useAppStore} from '@/core/common/presentation/state/store';
 
 export function NavUser() {
+    const navigate = useNavigate();
   const { isMobile } = useSidebar();
   const { user, setAuth } = useAppStore();
 
@@ -67,6 +66,10 @@ export function NavUser() {
             sideOffset={4}
           >
             <DropdownMenuLabel className="p-0 font-normal"></DropdownMenuLabel>
+              <DropdownMenuItem onClick={() => navigate('/notifications')}>
+                  <Bell/>
+                  Notifications
+              </DropdownMenuItem>
             <DropdownMenuItem onClick={() => setShowLogout(true)}>
               <LogOut />
               Log out

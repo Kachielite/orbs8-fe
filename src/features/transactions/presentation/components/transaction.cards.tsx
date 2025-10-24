@@ -1,17 +1,10 @@
-import {
-  ArrowRightLeft,
-  BanknoteArrowDown,
-  BanknoteArrowUp,
-  FolderSync,
-} from 'lucide-react';
+import {BanknoteArrowDown, BanknoteArrowUp, FolderSync, ReceiptText,} from 'lucide-react';
 import moment from 'moment';
 import React from 'react';
 
 import CardLoaders from '@/core/common/presentation/components/loaders/card-loader';
-import StatsCard, {
-  StatsCardData,
-} from '@/core/common/presentation/components/stats-card';
-import { useAppStore } from '@/core/common/presentation/state/store';
+import StatsCard, {StatsCardData,} from '@/core/common/presentation/components/stats-card';
+import {useAppStore} from '@/core/common/presentation/state/store';
 import useGetSyncStatus from '@/features/email/presentation/state/hooks/use-get-sync-status';
 import useGetTransactionSummary from '@/features/transactions/presentation/state/hooks/use-get-transaction-summary';
 
@@ -25,21 +18,21 @@ function TransactionCards() {
   const cardData: StatsCardData[] = [
     {
       name: 'Total Income',
-      description: 'Total income across all accounts',
+        description: 'Income across all accounts within the selected date range',
       count: `${user?.preferredCurrency || 'USD'} ${transactionSummary?.totalIncome.toLocaleString() || 0}`,
       icon: BanknoteArrowUp,
     },
     {
       name: 'Total Spend',
-      description: 'Total spend across all accounts',
+        description: 'Spend across all accounts within the selected date range',
       count: `${user?.preferredCurrency || 'USD'} ${transactionSummary?.totalSpend.toLocaleString() || 0}`,
       icon: BanknoteArrowDown,
     },
     {
       name: 'Total Transactions',
-      description: 'Total number of transactions across all accounts',
+        description: 'Number of transactions across all accounts within the selected date range',
       count: transactionSummary?.totalTransactions || 0,
-      icon: ArrowRightLeft,
+        icon: ReceiptText,
     },
     {
       name: 'Last Sync',

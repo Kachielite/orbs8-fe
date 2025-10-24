@@ -1,13 +1,12 @@
-import {FolderOpen, LucideIcon} from "lucide-react"
+import {FolderOpen, LucideIcon} from 'lucide-react';
 
-import {Button} from "@/core/common/presentation/components/ui/button"
 import {
     Empty,
     EmptyDescription,
     EmptyHeader,
     EmptyMedia,
     EmptyTitle,
-} from "@/core/common/presentation/components/ui/empty"
+} from '@/core/common/presentation/components/ui/empty';
 
 interface EmptyStateProps {
     title?: string;
@@ -20,10 +19,9 @@ interface EmptyStateProps {
 }
 
 export function EmptyState({
-                               title = "No data available",
-                               description = "There is no data to display at the moment.",
+                               title = 'No data available',
+                               description = 'There is no data to display at the moment.',
                                icon: Icon = FolderOpen,
-                               action
                            }: EmptyStateProps) {
     return (
         <Empty>
@@ -32,19 +30,10 @@ export function EmptyState({
                     <Icon/>
                 </EmptyMedia>
                 <EmptyTitle>{title}</EmptyTitle>
-                <EmptyDescription>
-                    {description}
-                </EmptyDescription>
+                <EmptyDescription>{description}</EmptyDescription>
             </EmptyHeader>
-            {action && (
-                <EmptyContent>
-                    <Button onClick={action.onClick}>
-                        {action.label}
-                    </Button>
-                </EmptyContent>
-            )}
         </Empty>
-    )
+    );
 }
 
 export default EmptyState;

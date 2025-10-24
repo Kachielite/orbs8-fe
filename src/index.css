@@ -84,6 +84,11 @@
   --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
   --sidebar-border: oklch(0.92 0.004 286.32);
   --sidebar-ring: oklch(0.623 0.214 259.815);
+    /* Notification colors */
+    --notification-started: 217 91% 60%;
+    --notification-progress: 271 81% 56%;
+    --notification-completed: 142 76% 36%;
+    --notification-failed: 0 84% 60%;
 }
 
 .dark {
@@ -123,6 +128,10 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.488 0.243 264.376);
+    --notification-started: 217 91% 65%;
+    --notification-progress: 271 81% 65%;
+    --notification-completed: 142 76% 45%;
+    --notification-failed: 0 84% 65%;
 }
 
 @layer base {

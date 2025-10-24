@@ -10,7 +10,7 @@ import {
     CardTitle,
 } from '@/core/common/presentation/components/ui/card';
 import {Tooltip, TooltipContent, TooltipTrigger,} from '@/core/common/presentation/components/ui/tooltip';
-import {useAppStore} from "@/core/common/presentation/state/store";
+import {useAppStore} from '@/core/common/presentation/state/store';
 
 export type DashboardCardData = {
     name: string;
@@ -107,11 +107,10 @@ function DashboardCard({card}: { card: DashboardCardData }) {
                             <ArrowDownRight className={`h-3 w-3 ${changeColor}`}/>
                         )}
                         <span className={changeColor}>
-                            {card.change === 0
-                                ? `No change in ${getTimePeriodText()}`
-                                : `${Math.abs(card.change).toFixed(1)}% from ${getTimePeriodText()}`
-                            }
-                        </span>
+              {card.change === 0
+                  ? `No change in ${getTimePeriodText()}`
+                  : `${Math.abs(card.change).toFixed(1)}% from ${getTimePeriodText()}`}
+            </span>
                     </p>
                 ) : (
                     <div className="text-muted-foreground">{card.description}</div>

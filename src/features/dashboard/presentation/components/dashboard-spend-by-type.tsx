@@ -1,6 +1,6 @@
 'use client';
 
-import {TrendingUp} from "lucide-react";
+import {TrendingUp} from 'lucide-react';
 import moment from 'moment';
 import {useState} from 'react';
 import {Area, AreaChart, CartesianGrid, XAxis} from 'recharts';
@@ -133,7 +133,10 @@ export function DashboardSpendByType() {
                       {start.format('DD MMM, YYYY')} - {end.format('DD MMM, YYYY')}
                   </CardDescription>
               </div>
-              {!(chartData.length === 0 || chartData.every(item => item.debit === 0 && item.credit === 0)) && (
+              {!(
+                  chartData.length === 0 ||
+                  chartData.every(item => item.debit === 0 && item.credit === 0)
+              ) && (
                   <Tabs
                       value={transactionType}
                       onValueChange={value =>
@@ -150,7 +153,8 @@ export function DashboardSpendByType() {
           </div>
       </CardHeader>
         <CardContent className="flex-1 h-[70%]">
-            {chartData.length === 0 || chartData.every(item => item.debit === 0 && item.credit === 0) ? (
+            {chartData.length === 0 ||
+            chartData.every(item => item.debit === 0 && item.credit === 0) ? (
                 <div className="flex items-center justify-center h-full">
                     <EmptyState
                         title="No Transaction Data"
@@ -197,7 +201,10 @@ export function DashboardSpendByType() {
                 </ChartContainer>
             )}
         </CardContent>
-        {!(chartData.length === 0 || chartData.every(item => item.debit === 0 && item.credit === 0)) && (
+        {!(
+            chartData.length === 0 ||
+            chartData.every(item => item.debit === 0 && item.credit === 0)
+        ) && (
             <CardFooter className="flex-col items-start gap-2 text-sm w-full h-fit">
                 <div className="flex items-center justify-center gap-4 w-full">
                     {transactionType === 'all' && (

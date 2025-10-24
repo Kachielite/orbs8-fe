@@ -157,6 +157,15 @@ npm run format:check  # Check formatting
 - `GET  /category` — Get categories
 - `GET  /category/{id}` — Get category by ID
 
+**Notification Endpoints:**
+
+- `GET  /notification` — Get notifications
+- `GET  /notification/{id}` — Get notification by ID
+- `PUT  /notification/{id}` — Mark notification as read
+- `POST  /notification/mark-all-as-read` — Mark all notification as read
+- `DELETE  /notification/{id}` — delete notification
+- `DELETE  /notification` — delete all notification as read
+
 ---
 
 ## Routing & Access Control
