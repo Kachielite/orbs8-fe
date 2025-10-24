@@ -16,6 +16,10 @@ export interface INotificationDataSource {
     markAsRead(id: number): Promise<string>;
 
     markAllAsRead(): Promise<string>;
+
+    deleteNotification(id: number): Promise<string>;
+
+    deleteAllNotifications(): Promise<string>;
 }
 
 @injectable()
@@ -78,6 +82,28 @@ export class NotificationDataSource implements INotificationDataSource {
             return extractErrorDatasource(
                 error,
                 'NotificationDataSource:markAllAsRead'
+            );
+        }
+    }
+
+    async deleteNotification(id: number): Promise<string> {
+        try {
+            return await this.notificationNetwork.deleteNotification(id);
+        } catch (error) {
+            return extractErrorDatasource(
+                error,
+                'NotificationDataSource:deleteNotification'
+            );
+        }
+    }
+
+    async deleteAllNotifications(): Promise<string> {
+        try {
+            return await this.notificationNetwork.deleteAllNotifications();
+        } catch (error) {
+            return extractErrorDatasource(
+                error,
+                'NotificationDataSource:deleteAllNotifications'
             );
         }
     }
