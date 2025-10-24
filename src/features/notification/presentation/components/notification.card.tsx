@@ -1,4 +1,4 @@
-import {Activity, AlertCircle, CheckCircle2, Clock, Loader2} from "lucide-react";
+import {Activity, AlertCircle, CheckCircle2, Clock, Loader2, Trash} from "lucide-react";
 import moment from "moment";
 
 import {Badge} from "@/core/common/presentation/components/ui/badge";
@@ -7,6 +7,7 @@ import {Card} from "@/core/common/presentation/components/ui/card";
 import {cn} from "@/core/lib/utils";
 import {NotificationType} from "@/features/notification/domain/entity/enum/notification-type.enum";
 import {NotificationEntity} from "@/features/notification/domain/entity/notification.entity";
+import useDeleteNotification from "@/features/notification/presentation/state/hooks/use-delete-notification";
 import useMarkAsRead from "@/features/notification/presentation/state/hooks/use-mark-as-read";
 
 interface NotificationCardProps {
@@ -38,6 +39,7 @@ const notificationConfig = {
 
 export const NotificationCard = ({notification}: NotificationCardProps) => {
     const {isMarkingAsRead, markAsReadHandler} = useMarkAsRead();
+    const {isDeletingNotification, deleteNotificationHandler} = useDeleteNotification();
     const config = notificationConfig[notification.type];
     const Icon = config.icon;
 
@@ -100,7 +102,8 @@ export const NotificationCard = ({notification}: NotificationCardProps) => {
                             {timeAgo}
                         </div>
 
-                        <Button
+                        <div className="flex items-center gap-2">
+                            <Button
                             variant="ghost"
                             size="sm"
                             onClick={() => markAsReadHandler(notification.id)}
@@ -113,6 +116,20 @@ export const NotificationCard = ({notification}: NotificationCardProps) => {
                                 </>
                             )}
                         </Button>
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => deleteNotificationHandler(notification.id)}
+                                className="h-7 text-xs text-red-500"
+                            >
+                                {isDeletingNotification ? 'Deleting...' : (
+                                    <>
+                                        <Trash className="h-3 w-3 mr-1"/>
+                                        Delete
+                                    </>
+                                )}
+                            </Button>
+                        </div>
                     </div>
                 </div>
             </div>
