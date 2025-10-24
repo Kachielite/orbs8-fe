@@ -15,4 +15,8 @@ export interface INotificationRepository {
     markAsRead(id: number): Promise<Either<Failure, string>>;
 
     markAllAsRead(): Promise<Either<Failure, string>>;
+
+    deleteNotification(id: number): Promise<Either<Failure, string>>;
+
+    deleteAllNotifications(): Promise<Either<Failure, string>>;
 }

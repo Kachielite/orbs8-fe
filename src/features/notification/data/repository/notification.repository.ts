@@ -17,6 +17,7 @@ export class NotificationRepository implements INotificationRepository {
     ) {
     }
 
+
     async getNotification(
         id: number
     ): Promise<Either<Failure, NotificationEntity>> {
@@ -63,6 +64,30 @@ export class NotificationRepository implements INotificationRepository {
             throw extractErrorRepository(
                 error,
                 'NotificationRepository:markAllAsRead'
+            );
+        }
+    }
+
+    async deleteNotification(id: number): Promise<Either<Failure, string>> {
+        try {
+            const response = await this.notificationDataSource.deleteNotification(id);
+            return right(response);
+        } catch (error) {
+            throw extractErrorRepository(
+                error,
+                'NotificationRepository:deleteNotification'
+            );
+        }
+    }
+
+    async deleteAllNotifications(): Promise<Either<Failure, string>> {
+        try {
+            const response = await this.notificationDataSource.deleteAllNotifications();
+            return right(response);
+        } catch (error) {
+            throw extractErrorRepository(
+                error,
+                'NotificationRepository:deleteAllNotifications'
             );
         }
     }
