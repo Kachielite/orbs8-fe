@@ -6,6 +6,7 @@ import {Pagination} from '@/core/interfaces/pagination.interface';
 import {NoParams} from '@/core/use-case';
 import {INotificationQuery} from '@/features/notification/domain/entity/interface/notification.interface';
 import {NotificationEntity} from '@/features/notification/domain/entity/notification.entity';
+import {DeleteNotificationParam} from "@/features/notification/domain/use-case/delete-notification";
 import {GetNotificationParam} from '@/features/notification/domain/use-case/get-notification';
 import {GetNotificationsParam} from '@/features/notification/domain/use-case/get-notifications';
 import {MarkAsReadParam} from '@/features/notification/domain/use-case/mark-as-read';
@@ -61,6 +62,37 @@ export const markAsReadEffect = async (id: number) => {
 
 export const markAllAsReadEffect = async () => {
     const response = await getNotificationUseCases().markAllAsRead.execute(
+        new NoParams()
+    );
+
+    return fold<Failure, string, string>(
+        failure => {
+            throw failure;
+        },
+        result => {
+            return result;
+        }
+    )(response);
+};
+
+
+export const deleteNotificationEffect = async (id: number) => {
+    const response = await getNotificationUseCases().deleteNotification.execute(
+        new DeleteNotificationParam(id)
+    );
+
+    return fold<Failure, string, string>(
+        failure => {
+            throw failure;
+        },
+        result => {
+            return result;
+        }
+    )(response);
+};
+
+export const deleteAllNotificationEffects = async () => {
+    const response = await getNotificationUseCases().deleteAllNotifications.execute(
         new NoParams()
     );
 
