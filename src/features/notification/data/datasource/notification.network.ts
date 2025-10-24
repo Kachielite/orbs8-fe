@@ -66,7 +66,7 @@ export class NotificationNetwork {
 
     public async deleteAllNotifications() {
         try {
-            const response = await this.axios.getInstance().delete(`${this.path}`);
+            const response = await this.axios.getInstance().delete(`${this.path}/`);
             return response.data;
         } catch (error) {
             throw extractErrorNetwork(error, 'NotificationNetwork:deleteAllNotifications');
