@@ -86,7 +86,7 @@ function RecentTransactions() {
                                     <TableCell
                                         className={`font-semibold border-r text-center ${tx.type === 'credit' ? 'text-green-600' : 'text-red-600'}`}
                                     >
-                                        ${tx.amount.toLocaleString()}
+                                        ${(tx.amount || 0).toLocaleString()}
                                     </TableCell>
                                     <TableCell className="text-center">
                     <span

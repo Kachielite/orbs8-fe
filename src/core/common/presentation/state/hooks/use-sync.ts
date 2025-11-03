@@ -42,6 +42,11 @@ const useSync = () => {
             // Refresh notifications and sync status when sync completes
             queryClient.invalidateQueries(["notifications"]);
             queryClient.invalidateQueries(["sync-status"]);
+            queryClient.invalidateQueries(["recent-transactions"]);
+            queryClient.invalidateQueries(["transactions-by-type"]);
+            queryClient.invalidateQueries(["transactions-by-bank"]);
+            queryClient.invalidateQueries(["dashboard-transaction-summary"]);
+
         });
 
         return () => {

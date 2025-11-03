@@ -76,7 +76,7 @@ function AccountSummary() {
                                     ${account.totalSpend.toLocaleString()}
                                 </TableCell>
                                 <TableCell className="text-center border-r text-green-600">
-                                    ${account.totalIncome.toLocaleString()}
+                                    ${(account.totalIncome || 0).toLocaleString()}
                                 </TableCell>
                                 <TableCell className="text-center border-r font-semibold">
                                     ${account.currentBalance.toLocaleString()}
