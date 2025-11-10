@@ -60,10 +60,18 @@ function AccountSummary() {
                 <Table className="border border-spacing-0">
                     <TableHeader className="bg-primary">
                         <TableRow>
-                            <TableHead className="text-center border-r text-white">Account</TableHead>
-                            <TableHead className="text-center border-r text-white">Spend</TableHead>
-                            <TableHead className="text-center border-r text-white">Income</TableHead>
-                            <TableHead className="text-center border-r text-white">Balance</TableHead>
+                            <TableHead className="text-center border-r text-white">
+                                Account
+                            </TableHead>
+                            <TableHead className="text-center border-r text-white">
+                                Spend
+                            </TableHead>
+                            <TableHead className="text-center border-r text-white">
+                                Income
+                            </TableHead>
+                            <TableHead className="text-center border-r text-white">
+                                Balance
+                            </TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>

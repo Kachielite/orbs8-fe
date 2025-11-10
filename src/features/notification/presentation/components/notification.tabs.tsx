@@ -5,7 +5,10 @@ import {Tabs, TabsList, TabsTrigger,} from '@/core/common/presentation/component
 function NotificationTabs({
                               handleUpdateQuery,
                           }: {
-    handleUpdateQuery: (type: string, value: boolean | number | undefined) => void;
+    handleUpdateQuery: (
+        type: string,
+        value: boolean | number | undefined
+    ) => void;
 }) {
     const [activeTab, setActiveTab] = useState<'all' | 'unread'>('all');
 
@@ -17,7 +20,7 @@ function NotificationTabs({
             handleUpdateQuery('isRead', false);
             setActiveTab('unread');
         }
-    }
+    };
 
     return (
         <Tabs value={activeTab} onValueChange={handleTabChange} className="mb-6">

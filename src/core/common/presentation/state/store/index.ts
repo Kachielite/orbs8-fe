@@ -15,8 +15,8 @@ import {createEmailSlice} from '@/features/email/presentation/state/store/slice'
 import {EmailSlice} from '@/features/email/presentation/state/store/type';
 import {createNotificationSlice} from '@/features/notification/presentation/state/store/slice';
 import {NotificationSlice} from '@/features/notification/presentation/state/store/types';
-import {createSettingsSlice} from "@/features/settings/presentation/state/store/slice";
-import {SettingsSlice} from "@/features/settings/presentation/state/store/types";
+import {createSettingsSlice} from '@/features/settings/presentation/state/store/slice';
+import {SettingsSlice} from '@/features/settings/presentation/state/store/types';
 import {createTransactionSlice} from '@/features/transactions/presentation/state/store/slice';
 import {TransactionSlice} from '@/features/transactions/presentation/state/store/types';
 import {createUserSlice} from '@/features/user/presentation/state/store/slice';
@@ -30,7 +30,8 @@ type AppState = AuthSlice &
   CategorySlice &
   BankSlice &
     DashboardSlice &
-    NotificationSlice & SettingsSlice;
+    NotificationSlice &
+    SettingsSlice;
 
 export const useAppStore = create<AppState>()(
   persist(

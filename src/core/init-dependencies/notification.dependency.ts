@@ -7,8 +7,8 @@ import {
 import {NotificationNetwork} from '@/features/notification/data/datasource/notification.network';
 import {NotificationRepository} from '@/features/notification/data/repository/notification.repository';
 import {INotificationRepository} from '@/features/notification/domain/repository/notification.repository';
-import {DeleteAllNotifications} from "@/features/notification/domain/use-case/delete-all-notifications";
-import {DeleteNotification} from "@/features/notification/domain/use-case/delete-notification";
+import {DeleteAllNotifications} from '@/features/notification/domain/use-case/delete-all-notifications';
+import {DeleteNotification} from '@/features/notification/domain/use-case/delete-notification';
 import {GetNotification} from '@/features/notification/domain/use-case/get-notification';
 import {GetNotifications} from '@/features/notification/domain/use-case/get-notifications';
 import {MarkAllAsRead} from '@/features/notification/domain/use-case/mark-all-as-read';
@@ -30,7 +30,7 @@ export function configureNotificationContainer() {
     container.registerSingleton<MarkAsRead>(MarkAsRead);
     container.registerSingleton<MarkAllAsRead>(MarkAllAsRead);
     container.registerSingleton<DeleteNotification>(DeleteNotification);
-    container.registerSingleton<DeleteAllNotifications>(DeleteAllNotifications)
+    container.registerSingleton<DeleteAllNotifications>(DeleteAllNotifications);
 }
 
 export function getNotificationUseCases() {
@@ -40,6 +40,6 @@ export function getNotificationUseCases() {
         markAsRead: container.resolve(MarkAsRead),
         markAllAsRead: container.resolve(MarkAllAsRead),
         deleteNotification: container.resolve(DeleteNotification),
-        deleteAllNotifications: container.resolve(DeleteAllNotifications)
+        deleteAllNotifications: container.resolve(DeleteAllNotifications),
     };
 }

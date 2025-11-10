@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 import {Outlet} from 'react-router-dom';
 
-import {GlobalLoader} from "@/core/common/presentation/components/global-loader";
-import useSync from "@/core/common/presentation/state/hooks/use-sync";
-import useGetUser from "@/features/user/presentation/state/hook/use-get-user";
+import {GlobalLoader} from '@/core/common/presentation/components/global-loader';
+import useSync from '@/core/common/presentation/state/hooks/use-sync';
+import useGetUser from '@/features/user/presentation/state/hook/use-get-user';
 
 const AuthLayout = () => {
     useSync();

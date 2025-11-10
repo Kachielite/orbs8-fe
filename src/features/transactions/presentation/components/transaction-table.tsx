@@ -6,7 +6,7 @@ import ColumnToggleDropdown from '@/core/common/presentation/components/column-t
 import EmptyState from '@/core/common/presentation/components/empty-state';
 import TableSkeleton from '@/core/common/presentation/components/loaders/table-skeleton';
 import {Button} from '@/core/common/presentation/components/ui/button';
-import {Card, CardContent} from '@/core/common/presentation/components/ui/card';
+import {Card, CardContent,} from '@/core/common/presentation/components/ui/card';
 import {Input} from '@/core/common/presentation/components/ui/input';
 import * as TableUI from '@/core/common/presentation/components/ui/table';
 import {useAppStore} from '@/core/common/presentation/state/store';
@@ -178,7 +178,9 @@ function TransactionTable() {
 
                                     // render sortable header for amount and transactionDate
                                     if (isAmount || isDate) {
-                                        const field: 'amount' | 'date' = isAmount ? 'amount' : 'date';
+                                        const field: 'amount' | 'date' = isAmount
+                                            ? 'amount'
+                                            : 'date';
                                         const active = sortBy === field;
                                         const direction = active ? orderBy : undefined;
 
@@ -248,8 +250,8 @@ function TransactionTable() {
                       <span
                           className={`px-2 py-1 rounded-full text-xs ${transaction.type === 'credit' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}
                       >
-                          {transaction.type}
-                        </span>
+                        {transaction.type}
+                      </span>
                                     </TableUI.TableCell>
                                 )}
                                 {visibleColumns.includes('category') && (

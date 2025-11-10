@@ -10,7 +10,7 @@ import {
     DropdownMenuItem,
     DropdownMenuLabel,
     DropdownMenuSeparator,
-    DropdownMenuTrigger
+    DropdownMenuTrigger,
 } from '@/core/common/presentation/components/ui/dropdown-menu';
 import {
     SidebarMenu,

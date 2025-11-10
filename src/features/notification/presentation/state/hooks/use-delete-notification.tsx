@@ -6,7 +6,10 @@ import {deleteNotificationEffect} from '@/features/notification/presentation/sta
 
 const useDeleteNotification = () => {
     const queryClient = useQueryClient();
-    const {mutate: deleteNotificationHandler, isLoading: isDeletingNotification} = useMutation(
+    const {
+        mutate: deleteNotificationHandler,
+        isLoading: isDeletingNotification,
+    } = useMutation(
         ['deleteNotification', 'id'],
         async (id: number) => {
             return deleteNotificationEffect(id);

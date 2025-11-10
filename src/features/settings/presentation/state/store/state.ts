@@ -1,4 +1,10 @@
 export const initialSettingsState = {
-    options: ['Profile', 'Security', 'Connected Accounts', 'Appearance', 'Help & Feedback'],
-    activeOption: 'Profile',
+    settingsOptions: [
+        'Profile',
+        'Security',
+        'Connected Accounts',
+        'Appearance',
+        'Help & Feedback',
+    ],
+    activeSettingsOption: 'Profile',
 };

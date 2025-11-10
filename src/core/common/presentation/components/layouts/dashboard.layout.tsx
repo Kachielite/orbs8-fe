@@ -4,7 +4,6 @@ import SideHeader from '@/core/common/presentation/components/side-header';
 import {SidebarInset, SidebarProvider,} from '@/core/common/presentation/components/ui/sidebar';
 
 const DashboardLayout = () => {
-
   return (
     <SidebarProvider>
       <AppSidebar />

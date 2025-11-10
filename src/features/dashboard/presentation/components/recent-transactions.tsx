@@ -55,13 +55,21 @@ function RecentTransactions() {
                     <Table className="border border-spacing-0">
                         <TableHeader>
                             <TableRow noHover className="bg-primary">
-                                <TableHead className="border-r text-center text-white">Date</TableHead>
+                                <TableHead className="border-r text-center text-white">
+                                    Date
+                                </TableHead>
                                 <TableHead className="border-r text-center text-white">
                                     Description
                                 </TableHead>
-                                <TableHead className="border-r text-center text-white">Category</TableHead>
-                                <TableHead className="border-r text-center text-white">Bank</TableHead>
-                                <TableHead className="border-r text-center text-white">Amount</TableHead>
+                                <TableHead className="border-r text-center text-white">
+                                    Category
+                                </TableHead>
+                                <TableHead className="border-r text-center text-white">
+                                    Bank
+                                </TableHead>
+                                <TableHead className="border-r text-center text-white">
+                                    Amount
+                                </TableHead>
                                 <TableHead className="text-center text-white">Type</TableHead>
                             </TableRow>
                         </TableHeader>

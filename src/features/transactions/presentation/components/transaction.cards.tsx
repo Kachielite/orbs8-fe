@@ -30,7 +30,8 @@ function TransactionCards() {
     },
     {
       name: 'Total Transactions',
-        description: 'Number of transactions across all accounts within the selected date range',
+        description:
+            'Number of transactions across all accounts within the selected date range',
       count: transactionSummary?.totalTransactions || 0,
         icon: ReceiptText,
     },

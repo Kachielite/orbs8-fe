@@ -10,14 +10,11 @@ function SettingsHeader() {
                         <Settings className="h-6 w-6 text-white"/>
                     </div>
                     <div>
-                        <h1 className="text-3xl font-bold text-foreground">
-                            Settings
-                        </h1>
+                        <h1 className="text-3xl font-bold text-foreground">Settings</h1>
                     </div>
                 </div>
 
-                <div className="flex items-center gap-2">
-                </div>
+                <div className="flex items-center gap-2"></div>
             </div>
         </div>
     );

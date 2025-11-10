@@ -32,7 +32,6 @@ const useGetNotifications = () => {
         }
     };
 
-
     const query = useMemo<INotificationQuery>(
         () => ({
             page,

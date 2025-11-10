@@ -1,7 +1,7 @@
 export type SettingsSlice = {
     // state
-    options: string[];
-    activeOption: string;
+    settingsOptions: string[];
+    activeSettingsOption: string;
     // actions
-    setActiveOption: (option: string) => void;
-}
+    setActiveSettingsOption: (settingsOptions: string) => void;
+};

@@ -50,7 +50,11 @@ function TableFooter({ className, ...props }: React.ComponentProps<'tfoot'>) {
   );
 }
 
-function TableRow({className, noHover, ...props}: React.ComponentProps<'tr'> & { noHover?: boolean }) {
+function TableRow({
+                      className,
+                      noHover,
+                      ...props
+                  }: React.ComponentProps<'tr'> & { noHover?: boolean }) {
   return (
     <tr
       data-slot="table-row"

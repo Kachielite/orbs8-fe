@@ -2,16 +2,17 @@ import React from 'react';
 
 import EmptyState from '@/core/common/presentation/components/empty-state';
 import {Button} from '@/core/common/presentation/components/ui/button';
-import {ScrollArea} from "@/core/common/presentation/components/ui/scroll-area";
-import {useAppStore} from "@/core/common/presentation/state/store";
-import {NotificationCard} from "@/features/notification/presentation/components/notification.card";
-import {NotificationCardLoader} from "@/features/notification/presentation/components/notification.card-loader";
+import {ScrollArea} from '@/core/common/presentation/components/ui/scroll-area';
+import {useAppStore} from '@/core/common/presentation/state/store';
+import {NotificationCard} from '@/features/notification/presentation/components/notification.card';
+import {NotificationCardLoader} from '@/features/notification/presentation/components/notification.card-loader';
 import NotificationHeader from '@/features/notification/presentation/components/notification.header';
 import NotificationTabs from '@/features/notification/presentation/components/notification.tabs';
 import useGetNotifications from '@/features/notification/presentation/state/hooks/use-get-notifications';
 
 function NotificationPage() {
-    const {isLoadingNotifications, handleUpdateQuery, query} = useGetNotifications();
+    const {isLoadingNotifications, handleUpdateQuery, query} =
+        useGetNotifications();
     const {notifications} = useAppStore();
 
     const total = notifications?.total ?? 0;
@@ -21,8 +22,10 @@ function NotificationPage() {
     const start = total === 0 ? 0 : (currentPage - 1) * limit + 1;
     const end = Math.min(total, currentPage * limit);
 
-    const goToPrevious = () => handleUpdateQuery('page', Math.max(1, currentPage - 1));
-    const goToNext = () => handleUpdateQuery('page', Math.min(totalPages, currentPage + 1));
+    const goToPrevious = () =>
+        handleUpdateQuery('page', Math.max(1, currentPage - 1));
+    const goToNext = () =>
+        handleUpdateQuery('page', Math.min(totalPages, currentPage + 1));
 
     return (
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
@@ -43,7 +46,10 @@ function NotificationPage() {
                         <>
                             <ScrollArea className="h-[calc(95vh-280px)]">
                                 {notifications?.data.map(notification => (
-                                    <NotificationCard key={notification.id} notification={notification}/>
+                                    <NotificationCard
+                                        key={notification.id}
+                                        notification={notification}
+                                    />
                                 ))}
                             </ScrollArea>
 
@@ -85,24 +91,32 @@ function NotificationPage() {
                                             }
 
                                             return pageItems.map((p, idx) =>
-                                                typeof p === 'number' ? (
-                                                    <Button
-                                                        key={p}
-                                                        variant={p === currentPage ? 'default' : 'outline'}
-                                                        size="sm"
-                                                        onClick={p === currentPage ? undefined : () => handleUpdateQuery('page', p)}
-                                                        aria-current={p === currentPage ? 'page' : undefined}
-                                                        tabIndex={p === currentPage ? -1 : 0}
-                                                        className={p === currentPage ? 'cursor-default' : ''}
-                                                        type="button"
-                                                    >
-                                                        {p}
-                                                    </Button>
-                                                ) : (
-                                                    <span key={`dot-${idx}`} className="px-2 text-sm">
-                                                        {p}
-                                                    </span>
-                                                )
+                                                    typeof p === 'number' ? (
+                                                        <Button
+                                                            key={p}
+                                                            variant={p === currentPage ? 'default' : 'outline'}
+                                                            size="sm"
+                                                            onClick={
+                                                                p === currentPage
+                                                                    ? undefined
+                                                                    : () => handleUpdateQuery('page', p)
+                                                            }
+                                                            aria-current={
+                                                                p === currentPage ? 'page' : undefined
+                                                            }
+                                                            tabIndex={p === currentPage ? -1 : 0}
+                                                            className={
+                                                                p === currentPage ? 'cursor-default' : ''
+                                                            }
+                                                            type="button"
+                                                        >
+                                                            {p}
+                                                        </Button>
+                                                    ) : (
+                                                        <span key={`dot-${idx}`} className="px-2 text-sm">
+                            {p}
+                          </span>
+                                                    )
                                             );
                                         })()}
                                     </div>
