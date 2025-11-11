@@ -31,7 +31,6 @@ function SettingsOptionMobile() {
             <SelectTrigger className="w-full">
                 <SelectValue
                     defaultValue={activeSettingsOption}
-                    placeholder="Select time range"
                 />
             </SelectTrigger>
             <SelectContent>
