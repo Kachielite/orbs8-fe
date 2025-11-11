@@ -8,7 +8,9 @@ export const updateUserSchema = z.object({
 export type UpdateUserSchemaType = z.infer<typeof updateUserSchema>;
 
 export const updatePasswordSchema = z.object({
-    currentPassword: z.string().min(1, {message: 'Current password is required'}),
+    currentPassword: z
+        .string()
+        .min(1, {message: 'Current password is required'}),
     newPassword: z.string().min(1, {message: 'New password is required'}),
 });
 

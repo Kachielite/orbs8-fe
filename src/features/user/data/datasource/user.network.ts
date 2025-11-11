@@ -2,7 +2,7 @@ import {inject, injectable} from 'tsyringe';
 
 import extractErrorNetwork from '@/core/helpers/extract-error-network';
 import CustomAxios from '@/core/network/custom-axios';
-import {UpdatePasswordSchemaType, UpdateUserSchemaType} from "@/features/user/presentation/validation/user.validation";
+import {UpdatePasswordSchemaType, UpdateUserSchemaType,} from '@/features/user/presentation/validation/user.validation';
 
 @injectable()
 export class UserNetwork {
@@ -22,7 +22,9 @@ export class UserNetwork {
 
     public async updateUser(request: UpdateUserSchemaType) {
         try {
-            const response = await this.axios.getInstance().put(this.authPath, request);
+            const response = await this.axios
+                .getInstance()
+                .put(this.authPath, request);
             return response.data;
         } catch (error) {
             throw extractErrorNetwork(error, 'UserNetwork:updateUser');
@@ -31,11 +33,12 @@ export class UserNetwork {
 
     public async updatePassword(request: UpdatePasswordSchemaType) {
         try {
-            const response = await this.axios.getInstance().put(this.authPath, request);
+            const response = await this.axios
+                .getInstance()
+                .put(this.authPath, request);
             return response.data;
         } catch (error) {
             throw extractErrorNetwork(error, 'UserNetwork:updatePassword');
         }
     }
 }
-

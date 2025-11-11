@@ -29,9 +29,7 @@ function SettingsOptionMobile() {
             onValueChange={setActiveSettingsOption}
         >
             <SelectTrigger className="w-full">
-                <SelectValue
-                    defaultValue={activeSettingsOption}
-                />
+                <SelectValue defaultValue={activeSettingsOption}/>
             </SelectTrigger>
             <SelectContent>
                 {settingsOptions.map(s => {
