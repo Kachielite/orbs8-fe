@@ -22,9 +22,10 @@ export class UserNetwork {
 
     public async updateUser(request: UpdateUserSchemaType) {
         try {
-            const response = await this.axios
-                .getInstance()
-                .put(this.authPath, request);
+            const response = await this.axios.getInstance().put(this.authPath, {
+                name: request.name,
+                preferredCurrency: request.currencyCode,
+            });
             return response.data;
         } catch (error) {
             throw extractErrorNetwork(error, 'UserNetwork:updateUser');
@@ -33,9 +34,10 @@ export class UserNetwork {
 
     public async updatePassword(request: UpdatePasswordSchemaType) {
         try {
-            const response = await this.axios
-                .getInstance()
-                .put(this.authPath, request);
+            const response = await this.axios.getInstance().put(this.authPath, {
+                newPassword: request.newPassword,
+                oldPassword: request.currentPassword,
+            });
             return response.data;
         } catch (error) {
             throw extractErrorNetwork(error, 'UserNetwork:updatePassword');
