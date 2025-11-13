@@ -1,6 +1,6 @@
 import {Either} from "fp-ts/Either";
 import {right} from "fp-ts/lib/Either";
-import {injectable} from "tsyringe";
+import {inject, injectable} from "tsyringe";
 
 import {Failure} from "@/core/errors/failure.error";
 import extractErrorRepository from "@/core/helpers/extract-error-respository";
@@ -11,6 +11,7 @@ import {type ICurrencyRepository} from "@/features/currency/domain/repository/cu
 @injectable()
 export class CurrencyRepository implements ICurrencyRepository {
     constructor(
+        @inject('ICurrencyDataSource')
         private readonly currencyDataSource: ICurrencyDataSource
     ) {
     }
