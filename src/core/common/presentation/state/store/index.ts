@@ -9,8 +9,8 @@ import {createBankSlice} from '@/features/bank/presentation/state/store/slice';
 import {BankSlice} from '@/features/bank/presentation/state/store/types';
 import {createCategorySlice} from '@/features/category/presentation/state/store/slice';
 import {CategorySlice} from '@/features/category/presentation/state/store/types';
-import {createCurrencySlice} from "@/features/currency/presentation/state/store/slice";
-import {CurrencySlice} from "@/features/currency/presentation/state/store/types";
+import {createCurrencySlice} from '@/features/currency/presentation/state/store/slice';
+import {CurrencySlice} from '@/features/currency/presentation/state/store/types';
 import {createDashboardSlice} from '@/features/dashboard/presentation/state/store/slice';
 import {DashboardSlice} from '@/features/dashboard/presentation/state/store/types';
 import {createEmailSlice} from '@/features/email/presentation/state/store/slice';
@@ -33,7 +33,8 @@ type AppState = AuthSlice &
   BankSlice &
     DashboardSlice &
     NotificationSlice &
-    SettingsSlice & CurrencySlice;
+    SettingsSlice &
+    CurrencySlice;
 
 export const useAppStore = create<AppState>()(
   persist(

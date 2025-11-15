@@ -1,7 +1,7 @@
-import {useQuery} from "react-query";
+import {useQuery} from 'react-query';
 
-import {useAppStore} from "@/core/common/presentation/state/store";
-import {getCurrenciesEffect} from "@/features/currency/presentation/state/store/effects";
+import {useAppStore} from '@/core/common/presentation/state/store';
+import {getCurrenciesEffect} from '@/features/currency/presentation/state/store/effects';
 
 const useGetCurrencies = () => {
     const {setCurrencies} = useAppStore();
@@ -12,15 +12,15 @@ const useGetCurrencies = () => {
             return getCurrenciesEffect();
         },
         {
-            onSuccess: (data) => {
+            onSuccess: data => {
                 setCurrencies(data);
-            }
+            },
         }
     );
 
     return {
         isFetchingCurrencies: isLoading || isRefetching || isFetching,
-    }
-}
+    };
+};
 
 export default useGetCurrencies;

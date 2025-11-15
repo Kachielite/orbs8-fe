@@ -55,7 +55,7 @@ function SettingsOptionDesktop() {
         useAppStore();
 
     return (
-        <div className="w-56 flex flex-col justify-start gap-2.5">
+        <div className="w-72 flex flex-col justify-start gap-2.5">
             {settingsOptions.map(s => {
                 const IconComponent =
                     SETTINGS_OPTIONS_ICONS[s as keyof typeof SETTINGS_OPTIONS_ICONS] ||

@@ -1,7 +1,12 @@
-import {CurrencyEntity} from "@/features/currency/domain/entity/currency.entity";
+import {CurrencyEntity} from '@/features/currency/domain/entity/currency.entity';
 
 export class CurrencyModel extends CurrencyEntity {
-    constructor(params: { id: number; name: string; symbol: string; code: string }) {
+    constructor(params: {
+        id: number;
+        name: string;
+        symbol: string;
+        code: string;
+    }) {
         super(params);
     }
 
