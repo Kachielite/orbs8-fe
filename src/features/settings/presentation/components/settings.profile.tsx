@@ -77,14 +77,14 @@ export const SettingsProfileAction = ({
     isUpdating: boolean;
 }) => {
     return (
-        <Button disabled={isUpdating} type="submit">
+        <Button disabled={isUpdating} type="submit" className="text-white">
             {isUpdating ? 'Updating' : 'Update Profile'}
         </Button>
     );
 };
 
 export const SettingsProfile = () => {
-    const {currencies, user} = useAppStore();
+    const {currencies} = useAppStore();
     const {isUpdatingUser, updateUserHandler, updateUserForm} = useUpdateUser();
     useGetCurrencies();
 
