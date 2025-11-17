@@ -3,6 +3,15 @@ import {UseFormReturn} from 'react-hook-form';
 
 import CustomInput from '@/core/common/presentation/components/forms/custom-input';
 import {Button} from '@/core/common/presentation/components/ui/button';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@/core/common/presentation/components/ui/select';
+import {useAppStore} from '@/core/common/presentation/state/store';
+import useGetCurrencies from '@/features/currency/presentation/state/hooks/use-get-currencies';
 import SettingOptionHeader from '@/features/settings/presentation/components/setting.option-header';
 import useUpdateUser from '@/features/user/presentation/state/hook/use-update-user';
 import {UpdateUserSchemaType} from '@/features/user/presentation/validation/user.validation';
@@ -12,7 +21,9 @@ export const SettingsProfileWrapper = ({
                                        }: {
     children: ReactNode;
 }) => {
-    return <div className="flex flex-col gap-6 w-full">{children}</div>;
+    return (
+        <div className="flex flex-col gap-6 w-full lg:w-[30vw]">{children}</div>
+    );
 };
 
 export const SettingsProfileForm = ({
@@ -27,7 +38,7 @@ export const SettingsProfileForm = ({
     return (
         <form
             onSubmit={formController.handleSubmit(data => onUpdate(data))}
-            className="flex flex-col gap-6 w-full"
+            className="flex flex-col gap-10 w-full"
         >
             {children}
         </form>
@@ -73,7 +84,15 @@ export const SettingsProfileAction = ({
 };
 
 export const SettingsProfile = () => {
+    const {currencies, user} = useAppStore();
     const {isUpdatingUser, updateUserHandler, updateUserForm} = useUpdateUser();
+    useGetCurrencies();
+
+    const currencyCode = updateUserForm.watch('currencyCode');
+    const preferredCurrency = currencies?.find(
+        item => item.code === currencyCode
+    );
+
     return (
         <SettingsProfileWrapper>
             <SettingOptionHeader
@@ -91,13 +110,34 @@ export const SettingsProfile = () => {
                     id="name"
                     hint="This is the name that will be displayed on your profile and in emails."
                 />
-                <SettingsProfileInput
-                    formController={updateUserForm}
-                    label="Preferred Currency"
-                    placeholder="Select your preferred currency"
-                    id="currencyCode"
-                    hint="This will be currency used on the dashboard and reports"
-                />
+                <div className="flex flex-col gap-3 w-full">
+                    <label className="block text-sm font-medium text-gray-900 dark:text-white">
+                        Preferred Currency
+                    </label>
+                    <Select
+                        onValueChange={e => updateUserForm.setValue('currencyCode', e)}
+                        value={updateUserForm.watch('currencyCode')}
+                    >
+                        <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Select Preferred Currency">
+                                {preferredCurrency
+                                    ? `${preferredCurrency.name} (${preferredCurrency.code})`
+                                    : 'Select Preferred Currency'}
+                            </SelectValue>
+                        </SelectTrigger>
+                        <SelectContent>
+                            {currencies?.map(item => (
+                                <SelectItem key={item.id} value={item.code}>
+                                    {item.name} ({item.code})
+                                </SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                    <p>
+                        This currency will be used as your default for transactions and
+                        reports.
+                    </p>
+                </div>
                 <SettingsProfileAction isUpdating={isUpdatingUser}/>
             </SettingsProfileForm>
         </SettingsProfileWrapper>

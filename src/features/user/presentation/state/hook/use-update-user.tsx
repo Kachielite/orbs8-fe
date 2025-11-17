@@ -30,7 +30,6 @@ const useUpdateUser = () => {
             {
                 onSuccess: () => {
                     queryClient.invalidateQueries(['user']);
-                    updateUserForm.reset();
                     toast.success('User updated successfully');
                 },
             }
