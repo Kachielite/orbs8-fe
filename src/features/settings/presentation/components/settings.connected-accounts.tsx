@@ -35,7 +35,7 @@ export const SettingsConnectedAccountItem = () => {
                     <div className="p-2.5 bg-muted rounded-md">
                         <Mail/>
                     </div>
-                    <div className="font-medium">GMail</div>
+                    <div className="font-medium">Gmail</div>
                 </div>
                 <div className="flex flex-row items-center gap-4">
                     <div className="text-sm text-green-500 border border-green-500 px-2 py-1 rounded-md">
@@ -55,18 +55,23 @@ export const SettingsConnectedAccountItem = () => {
                 </div>
             </div>
             {showDetails && (
-                <div className="flex flex-row items-center gap-4">
+                <div className="flex flex-col w-full gap-7">
+                    <div className="flex flex-row items-start gap-4">
                     <div className='w-[90%] flex flex-col gap-2'>
-                        <CustomInput id="labelName" formController={emailLabelForm} label="Email label"/>
+                        <CustomInput id="labelName" formController={emailLabelForm}/>
                         <p className="text-muted-foreground text-sm">This is the email label that is being sync. Update
                             value if the label has changed </p>
                     </div>
                     <button
-                        className="px-2.5 py-1.5 bg-primary text-white rounded-md flex-1"
+                        className="px-2.5 py-1.5 bg-primary text-white rounded-md flex-1 text-sm self-start mt-3.5"
                         onClick={() => verifyEmailLabelAccessHandler({labelName: emailLabelForm.getValues('labelName')})}
                         disabled={verifyingAccess}
                     >
                         {verifyingAccess ? "Verifying..." : "Verify"}
+                    </button>
+                    </div>
+                    <button className="px-2.5 py-1.5 bg-red-600 text-white text-sm rounded-md self-end">
+                        Disconnect Account and Delete Data
                     </button>
                 </div>
             )}
