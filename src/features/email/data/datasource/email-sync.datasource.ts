@@ -1,9 +1,9 @@
-import { inject, injectable } from 'tsyringe';
+import {inject, injectable} from 'tsyringe';
 
 import extractErrorDatasource from '@/core/helpers/extract-error-datasource';
-import { EmailSyncNetwork } from '@/features/email/data/datasource/email-sync.network';
-import { EmailSyncStatusModel } from '@/features/email/data/model/email-sync-status.model';
-import { GetOauthTokenSchemaType } from '@/features/email/presentation/validation/email-sync';
+import {EmailSyncNetwork} from '@/features/email/data/datasource/email-sync.network';
+import {EmailSyncStatusModel} from '@/features/email/data/model/email-sync-status.model';
+import {GetOauthTokenSchemaType} from '@/features/email/presentation/validation/email-sync';
 
 export interface IEmailSyncDataSource {
   getOAuthUrl(): Promise<string>;
@@ -11,6 +11,8 @@ export interface IEmailSyncDataSource {
   getSyncStatus(): Promise<EmailSyncStatusModel>;
   syncEmail(): Promise<string>;
   verifyAccessToEmailLabel(labelName: string): Promise<string>;
+
+    revokeAccessAndDeleteData(): Promise<string>;
 }
 
 @injectable()
@@ -63,4 +65,16 @@ export class EmailSyncDataSource implements IEmailSyncDataSource {
       );
     }
   }
+
+    async revokeAccessAndDeleteData(): Promise<string> {
+        try {
+            return await this.emailSyncNetwork.revokeAccessAndDeleteData();
+        } catch (error) {
+            throw extractErrorDatasource(
+                error,
+                'EmailSyncDataSource:revokeAccessAndDeleteData'
+            );
+        }
+    }
+
 }
