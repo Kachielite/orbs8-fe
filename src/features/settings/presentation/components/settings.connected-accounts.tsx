@@ -1,11 +1,14 @@
 import {ChevronDown, ChevronUp, Mail} from "lucide-react";
 import React, {ReactNode} from "react";
+import {useNavigate} from "react-router-dom";
 
 import CustomInput from "@/core/common/presentation/components/forms/custom-input";
 import {useAppStore} from "@/core/common/presentation/state/store";
+import {cn} from "@/core/lib/utils";
 import useGetSyncStatus from "@/features/email/presentation/state/hooks/use-get-sync-status";
 import useVerifyEmailLabel from "@/features/email/presentation/state/hooks/use-verify-email-label";
 import SettingOptionHeader from "@/features/settings/presentation/components/setting.option-header";
+import SettingsDeleteData from "@/features/settings/presentation/components/settings.delete-data";
 import useGetUser from "@/features/user/presentation/state/hook/use-get-user";
 
 export const SettingsConnectedAccountWrapper = ({
@@ -20,12 +23,14 @@ export const SettingsConnectedAccountWrapper = ({
 
 
 export const SettingsConnectedAccountItem = () => {
+    const navigate = useNavigate();
     const {user} = useAppStore();
     const {isFetchingUser} = useGetUser();
     const {emailLabelForm, verifyingAccess, verifyEmailLabelAccessHandler} = useVerifyEmailLabel();
     useGetSyncStatus();
 
     const [showDetails, setShowDetails] = React.useState(false);
+    const [showDeleteDataDialogue, setShowDeleteDataDialogue] = React.useState(false);
 
 
     return (
@@ -38,7 +43,9 @@ export const SettingsConnectedAccountItem = () => {
                     <div className="font-medium">Gmail</div>
                 </div>
                 <div className="flex flex-row items-center gap-4">
-                    <div className="text-sm text-green-500 border border-green-500 px-2 py-1 rounded-md">
+                    <div className={cn("text-sm px-2 py-1 rounded-md",
+                        user?.emailLinked ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
+                    )}>
                         {isFetchingUser
                             ? "Loading..."
                             : user?.emailLinked
@@ -55,6 +62,7 @@ export const SettingsConnectedAccountItem = () => {
                 </div>
             </div>
             {showDetails && (
+                user?.emailLinked ?
                 <div className="flex flex-col w-full gap-7">
                     <div className="flex flex-row items-start gap-4">
                     <div className='w-[90%] flex flex-col gap-2'>
@@ -70,11 +78,23 @@ export const SettingsConnectedAccountItem = () => {
                         {verifyingAccess ? "Verifying..." : "Verify"}
                     </button>
                     </div>
-                    <button className="px-2.5 py-1.5 bg-red-600 text-white text-sm rounded-md self-end">
+                    <button onClick={() => setShowDeleteDataDialogue(true)}
+                            className="px-2.5 py-1.5 bg-red-600 text-white text-sm rounded-md self-end">
                         Disconnect Account and Delete Data
                     </button>
+                </div> :
+                    <div className="flex flex-col items-center gap-4">
+                        <p className="text-sm text-foreground">Connect your Gmail account to start syncing your emails.
+                            Once connected, you can manage your email
+                            label and data from here.</p>
+                        <button
+                            onClick={() => navigate("/link-email")}
+                            className="px-2.5 py-1.5 bg-primary text-white rounded-md self-end text-sm"
+                        >Connect Gmail Account
+                        </button>
                 </div>
             )}
+            <SettingsDeleteData setVisibility={setShowDeleteDataDialogue} visibility={showDeleteDataDialogue}/>
         </div>
     )
 }
