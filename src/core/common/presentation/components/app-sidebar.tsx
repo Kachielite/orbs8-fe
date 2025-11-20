@@ -1,6 +1,6 @@
 'use client';
 
-import {ArrowRightLeft, Brain, Landmark, LayoutDashboard} from 'lucide-react';
+import {ArrowRightLeft, Bell, Landmark, LayoutDashboard, Settings} from 'lucide-react';
 import * as React from 'react';
 
 import {Brand} from '@/core/common/presentation/components/brand';
@@ -33,10 +33,15 @@ const data = {
       icon: Landmark,
     },
     {
-      title: 'Insights',
-      url: '/insights',
-      icon: Brain,
+        title: 'Notifications',
+        url: '/notifications',
+        icon: Bell,
     },
+      {
+          title: 'Settings',
+          url: '/settings',
+          icon: Settings,
+      },
   ],
 };
 
