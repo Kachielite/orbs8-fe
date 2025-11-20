@@ -1,6 +1,6 @@
 import React from 'react';
 
-import AccountHeader from "@/features/accounts/presentation/components/account-header";
+import AccountHeader from '@/features/accounts/presentation/components/account-header';
 import AccountTable from '@/features/accounts/presentation/components/account.table';
 import AccountsCards from '@/features/accounts/presentation/components/accounts.cards';
 

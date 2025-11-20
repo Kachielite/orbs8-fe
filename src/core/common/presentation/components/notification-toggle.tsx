@@ -14,7 +14,7 @@ import {
 } from '@/core/common/presentation/components/ui/dropdown-menu';
 import {NotificationEntity} from '@/features/notification/domain/entity/notification.entity';
 import {NotificationCardMini} from '@/features/notification/presentation/components/notification.card-mini';
-import useGetNotifications from "@/features/notification/presentation/state/hooks/use-get-notifications";
+import useGetNotifications from '@/features/notification/presentation/state/hooks/use-get-notifications';
 
 function NotificationToggle() {
     const {notifications} = useGetNotifications();
@@ -27,7 +27,10 @@ function NotificationToggle() {
     const unreadNotifications = notificationsList.filter(n => !n.isRead);
     const unreadCount = unreadNotifications.length;
     const visibleNotifications = unreadNotifications.slice(0, 6);
-    const moreCount = Math.max(0, unreadNotifications.length - visibleNotifications.length);
+    const moreCount = Math.max(
+        0,
+        unreadNotifications.length - visibleNotifications.length
+    );
 
   return (
     <DropdownMenu>
@@ -46,31 +49,36 @@ function NotificationToggle() {
         <DropdownMenuContent align="end" className="w-[20rem] lg:w-[30rem]">
         <DropdownMenuLabel>Notifications</DropdownMenuLabel>
         <DropdownMenuSeparator />
-          {visibleNotifications.map(notification => (
-              <DropdownMenuItem key={notification.id} className="p-0">
-                  <NotificationCardMini notification={notification}/>
-              </DropdownMenuItem>
-          ))}
-          {moreCount > 0 && (
-              <DropdownMenuItem className="justify-center text-sm text-muted-foreground"
-                                onClick={() => navigate('/notifications')}>
-                  +{moreCount} more
-              </DropdownMenuItem>
-          )}
+            {visibleNotifications.map(notification => (
+                <DropdownMenuItem key={notification.id} className="p-0">
+                    <NotificationCardMini notification={notification}/>
+                </DropdownMenuItem>
+            ))}
+            {moreCount > 0 && (
+                <DropdownMenuItem
+                    className="justify-center text-sm text-muted-foreground"
+                    onClick={() => navigate('/notifications')}
+                >
+                    +{moreCount} more
+                </DropdownMenuItem>
+            )}
 
-          {unreadNotifications.length === 0 && (
-              <div className="p-4 w-[20rem] mx-auto">
-                  <EmptyState
-                      title="No new notifications"
-                      description="You're all caught up"
-                  />
-              </div>
-          )}
+            {unreadNotifications.length === 0 && (
+                <div className="p-4 w-[20rem] mx-auto">
+                    <EmptyState
+                        title="No new notifications"
+                        description="You're all caught up"
+                    />
+                </div>
+            )}
 
-          <DropdownMenuSeparator/>
-          <DropdownMenuItem className="justify-center font-medium" onClick={() => navigate('/notifications')}>
-              View all
-          </DropdownMenuItem>
+            <DropdownMenuSeparator/>
+            <DropdownMenuItem
+                className="justify-center font-medium"
+                onClick={() => navigate('/notifications')}
+            >
+                View all
+            </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

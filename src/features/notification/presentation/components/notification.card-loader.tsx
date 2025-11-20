@@ -1,11 +1,13 @@
-import {Card} from "@/core/common/presentation/components/ui/card";
-import {Skeleton} from "@/core/common/presentation/components/ui/skeleton";
+import {Card} from '@/core/common/presentation/components/ui/card';
+import {Skeleton} from '@/core/common/presentation/components/ui/skeleton';
 
 interface NotificationCardLoaderProps {
     count?: number;
 }
 
-export const NotificationCardLoader = ({count = 1}: NotificationCardLoaderProps) => {
+export const NotificationCardLoader = ({
+                                           count = 1,
+                                       }: NotificationCardLoaderProps) => {
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {Array.from({length: count}, (_, i) => (

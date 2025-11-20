@@ -1,12 +1,12 @@
-import { container } from 'tsyringe';
-import { UserNetwork } from '@/features/user/data/datasource/user.network';
-import {
-  IUserDatasource,
-  UserDataSource,
-} from '@/features/user/data/datasource/user.datasource';
-import { UserRepository } from '@/features/user/data/repository/user.repository';
-import { GetUserUseCase } from '@/features/user/domain/use-case/get-user';
-import { IUserRepository } from '@/features/user/domain/repository/user.repository';
+import {container} from 'tsyringe';
+
+import {IUserDatasource, UserDataSource,} from '@/features/user/data/datasource/user.datasource';
+import {UserNetwork} from '@/features/user/data/datasource/user.network';
+import {UserRepository} from '@/features/user/data/repository/user.repository';
+import {IUserRepository} from '@/features/user/domain/repository/user.repository';
+import {GetUserUseCase} from '@/features/user/domain/use-case/get-user';
+import {UpdatePassword} from '@/features/user/domain/use-case/update-password';
+import {UpdateUser} from '@/features/user/domain/use-case/update-user';
 
 export function configureUserContainer() {
   // Register network/data dependencies
@@ -20,8 +20,14 @@ export function configureUserContainer() {
     useClass: UserRepository,
   });
   container.registerSingleton<GetUserUseCase>(GetUserUseCase);
+    container.registerSingleton<UpdateUser>(UpdateUser);
+    container.registerSingleton<UpdatePassword>(UpdatePassword);
 }
 
 export function getUserUseCases() {
-  return { getUserUseCase: container.resolve(GetUserUseCase) };
+    return {
+        getUserUseCase: container.resolve(GetUserUseCase),
+        updateUserUseCase: container.resolve(UpdateUser),
+        updatePasswordUseCase: container.resolve(UpdatePassword),
+    };
 }

@@ -23,7 +23,7 @@ import useDashboardTransactionsByBank
     from '@/features/dashboard/presentation/state/hooks/use-dashboard-transactions-by-bank';
 
 function AccountSummary() {
-    const {dashboardTransactionsSummary} = useAppStore();
+    const {dashboardTransactionsSummary, user} = useAppStore();
     const {isGettingTransactionsByBank} = useDashboardTransactionsByBank();
 
     if (isGettingTransactionsByBank) {
@@ -60,10 +60,18 @@ function AccountSummary() {
                 <Table className="border border-spacing-0">
                     <TableHeader className="bg-primary">
                         <TableRow>
-                            <TableHead className="text-center border-r text-white">Account</TableHead>
-                            <TableHead className="text-center border-r text-white">Spend</TableHead>
-                            <TableHead className="text-center border-r text-white">Income</TableHead>
-                            <TableHead className="text-center border-r text-white">Balance</TableHead>
+                            <TableHead className="text-center border-r text-white">
+                                Account
+                            </TableHead>
+                            <TableHead className="text-center border-r text-white">
+                                Spend ({user?.preferredCurrency})
+                            </TableHead>
+                            <TableHead className="text-center border-r text-white">
+                                Income ({user?.preferredCurrency})
+                            </TableHead>
+                            <TableHead className="text-center border-r text-white">
+                                Balance ({user?.preferredCurrency})
+                            </TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -73,13 +81,13 @@ function AccountSummary() {
                                     {account.accountName}
                                 </TableCell>
                                 <TableCell className="text-center border-r text-red-600">
-                                    ${account.totalSpend.toLocaleString()}
+                                    {account.totalSpend.toLocaleString()}
                                 </TableCell>
                                 <TableCell className="text-center border-r text-green-600">
-                                    ${(account.totalIncome || 0).toLocaleString()}
+                                    {(account.totalIncome || 0).toLocaleString()}
                                 </TableCell>
                                 <TableCell className="text-center border-r font-semibold">
-                                    ${account.currentBalance.toLocaleString()}
+                                    {account.currentBalance.toLocaleString()}
                                 </TableCell>
                             </TableRow>
                         ))}

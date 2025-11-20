@@ -1,5 +1,5 @@
-import {Landmark} from "lucide-react";
-import React from 'react'
+import {Landmark} from 'lucide-react';
+import React from 'react';
 
 function AccountHeader() {
     return (
@@ -10,14 +10,12 @@ function AccountHeader() {
                         <Landmark className="h-6 w-6 text-white"/>
                     </div>
                     <div>
-                        <h1 className="text-3xl font-bold text-foreground">
-                            Accounts
-                        </h1>
+                        <h1 className="text-3xl font-bold text-foreground">Accounts</h1>
                     </div>
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 export default AccountHeader;

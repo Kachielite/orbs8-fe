@@ -1,12 +1,28 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 import CustomInput from '@/core/common/presentation/components/forms/custom-input';
-import { Button } from '@/core/common/presentation/components/ui/button';
+import {Button} from '@/core/common/presentation/components/ui/button';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@/core/common/presentation/components/ui/select';
+import {useAppStore} from '@/core/common/presentation/state/store';
 import useRegister from '@/features/authentication/presentation/state/hooks/use-register';
+import useGetCurrencies from '@/features/currency/presentation/state/hooks/use-get-currencies';
 
 function RegisterForm() {
+    const {currencies} = useAppStore();
   const { registerForm, registerHandler, isRegistering } = useRegister();
+    useGetCurrencies();
+
+    const currencyCode = registerForm.watch('currencyCode');
+    const preferredCurrency = currencies?.find(
+        item => item.code === currencyCode
+    );
   return (
     <form
       className="flex flex-col gap-6"
@@ -43,6 +59,28 @@ function RegisterForm() {
           placeholder="Renter your password"
           type="password"
         />
+          <div className="grid gap-3">
+              <p className="text-sm">Preferred Currency</p>
+              <Select
+                  onValueChange={e => registerForm.setValue('currencyCode', e)}
+                  value={registerForm.watch('currencyCode')}
+              >
+                  <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Select Preferred Currency">
+                          {preferredCurrency
+                              ? `${preferredCurrency.name} (${preferredCurrency.code})`
+                              : 'Select Preferred Currency'}
+                      </SelectValue>
+                  </SelectTrigger>
+                  <SelectContent>
+                      {currencies?.map(item => (
+                          <SelectItem key={item.id} value={item.code}>
+                              {item.name} ({item.code})
+                          </SelectItem>
+                      ))}
+                  </SelectContent>
+              </Select>
+          </div>
         <Button type="submit" className="w-full" disabled={isRegistering}>
           {isRegistering ? 'Creating account...' : 'Create account'}
         </Button>

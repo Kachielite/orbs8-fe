@@ -23,7 +23,7 @@ import useDashboardTransactionsByBank
     from '@/features/dashboard/presentation/state/hooks/use-dashboard-transactions-by-bank';
 
 function TopMerchants() {
-    const {dashboardTransactionsSummary} = useAppStore();
+    const {dashboardTransactionsSummary, user} = useAppStore();
     const {isGettingTransactionsByBank} = useDashboardTransactionsByBank();
 
     if (isGettingTransactionsByBank) {
@@ -43,9 +43,15 @@ function TopMerchants() {
                     {(dashboardTransactionsSummary?.topMerchants?.length ?? 0) > 0 && (
                         <TableHeader className="bg-primary">
                             <TableRow>
-                                <TableHead className="border-r text-center text-white">Description</TableHead>
-                                <TableHead className="text-center text-white">Amount</TableHead>
-                                <TableHead className="text-center text-white">% of Total</TableHead>
+                                <TableHead className="border-r text-center text-white">
+                                    Description
+                                </TableHead>
+                                <TableHead className="text-center text-white">
+                                    Amount ({user?.preferredCurrency})
+                                </TableHead>
+                                <TableHead className="text-center text-white">
+                                    % of Total
+                                </TableHead>
                             </TableRow>
                         </TableHeader>
                     )}
@@ -72,7 +78,7 @@ function TopMerchants() {
                                         {merchant.name}
                                     </TableCell>
                                     <TableCell className="text-center border-r">
-                                        ${merchant.amount.toLocaleString()}
+                                        {merchant.amount.toLocaleString()}
                                     </TableCell>
                                     <TableCell className="border-r text-center">
                                         {merchant.percentage}%

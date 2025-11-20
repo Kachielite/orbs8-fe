@@ -1,15 +1,15 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { useMutation } from 'react-query';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'sonner';
+import {zodResolver} from '@hookform/resolvers/zod';
+import {useForm} from 'react-hook-form';
+import {useMutation} from 'react-query';
+import {useNavigate} from 'react-router-dom';
+import {toast} from 'sonner';
 
-import { extractErrorHooks } from '@/core/helpers/extract-error-hooks';
-import { registerEffect } from '@/features/authentication/presentation/state/store/effect';
+import {extractErrorHooks} from '@/core/helpers/extract-error-hooks';
+import {registerEffect} from '@/features/authentication/presentation/state/store/effect';
 import {
-  RegisterFormSchemaType,
-  registerSchema,
-  RegisterSchemaType,
+    RegisterFormSchemaType,
+    registerSchema,
+    RegisterSchemaType,
 } from '@/features/authentication/presentation/validation/auth.validation';
 
 const useRegister = () => {
@@ -23,6 +23,7 @@ const useRegister = () => {
       email: '',
       password: '',
       confirmPassword: '',
+        currencyCode: 'USD',
     },
   });
 
@@ -34,6 +35,7 @@ const useRegister = () => {
           name: data.name,
           email: data.email,
           password: data.password,
+            currencyCode: data.currencyCode,
         });
       },
       {

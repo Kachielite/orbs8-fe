@@ -17,7 +17,6 @@ export class NotificationRepository implements INotificationRepository {
     ) {
     }
 
-
     async getNotification(
         id: number
     ): Promise<Either<Failure, NotificationEntity>> {
@@ -82,7 +81,8 @@ export class NotificationRepository implements INotificationRepository {
 
     async deleteAllNotifications(): Promise<Either<Failure, string>> {
         try {
-            const response = await this.notificationDataSource.deleteAllNotifications();
+            const response =
+                await this.notificationDataSource.deleteAllNotifications();
             return right(response);
         } catch (error) {
             throw extractErrorRepository(

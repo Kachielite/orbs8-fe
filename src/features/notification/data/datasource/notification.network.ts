@@ -57,10 +57,15 @@ export class NotificationNetwork {
 
     public async deleteNotification(id: number) {
         try {
-            const response = await this.axios.getInstance().delete(`${this.path}/${id}`);
+            const response = await this.axios
+                .getInstance()
+                .delete(`${this.path}/${id}`);
             return response.data;
         } catch (error) {
-            throw extractErrorNetwork(error, 'NotificationNetwork:deleteNotification');
+            throw extractErrorNetwork(
+                error,
+                'NotificationNetwork:deleteNotification'
+            );
         }
     }
 
@@ -69,7 +74,10 @@ export class NotificationNetwork {
             const response = await this.axios.getInstance().delete(`${this.path}/`);
             return response.data;
         } catch (error) {
-            throw extractErrorNetwork(error, 'NotificationNetwork:deleteAllNotifications');
+            throw extractErrorNetwork(
+                error,
+                'NotificationNetwork:deleteAllNotifications'
+            );
         }
     }
 }

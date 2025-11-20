@@ -1,6 +1,6 @@
 import React from 'react';
 
-import TransactionHeader from "@/features/transactions/presentation/components/transaction-header";
+import TransactionHeader from '@/features/transactions/presentation/components/transaction-header';
 import TransactionTable from '@/features/transactions/presentation/components/transaction-table';
 import TransactionCards from '@/features/transactions/presentation/components/transaction.cards';
 

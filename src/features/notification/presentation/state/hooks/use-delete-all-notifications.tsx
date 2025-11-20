@@ -6,23 +6,28 @@ import {deleteAllNotificationEffects} from '@/features/notification/presentation
 
 const useDeleteAllNotifications = () => {
     const queryClient = useQueryClient();
-    const {mutate: deleteAllNotificationHandler, isLoading: isDeletingAllNotifications} =
-        useMutation(
-            ['deleteAllNotifications',],
-            async () => {
-                return deleteAllNotificationEffects();
+    const {
+        mutate: deleteAllNotificationHandler,
+        isLoading: isDeletingAllNotifications,
+    } = useMutation(
+        ['deleteAllNotifications'],
+        async () => {
+            return deleteAllNotificationEffects();
+        },
+        {
+            onSuccess: () => {
+                queryClient.invalidateQueries(['notifications']);
+                toast.success('All notifications have been deleted');
             },
-            {
-                onSuccess: () => {
-                    queryClient.invalidateQueries(['notifications']);
-                    toast.success('All notifications have been deleted');
-                },
-                onError: error => {
-                    const errorMessage = extractErrorHooks(error, 'useDeleteAllNotifications');
-                    toast.error(errorMessage);
-                },
-            }
-        );
+            onError: error => {
+                const errorMessage = extractErrorHooks(
+                    error,
+                    'useDeleteAllNotifications'
+                );
+                toast.error(errorMessage);
+            },
+        }
+    );
 
     return {
         deleteAllNotificationHandler,

@@ -1,12 +1,12 @@
-import { fold } from 'fp-ts/Either';
+import {fold} from 'fp-ts/Either';
 
-import { Failure } from '@/core/errors/failure.error';
-import { getEmailSyncUseCases } from '@/core/init-dependencies/email-sync.dependency';
-import { NoParams } from '@/core/use-case';
-import { EmailSyncStatusEntity } from '@/features/email/domain/entity/email-sync-status.entity';
-import { GetTokenUseCaseParam } from '@/features/email/domain/use-case/get-token';
-import { VerifyEmailLabelUseCaseParam } from '@/features/email/domain/use-case/verify-email-label';
-import { GetOauthTokenSchemaType } from '@/features/email/presentation/validation/email-sync';
+import {Failure} from '@/core/errors/failure.error';
+import {getEmailSyncUseCases} from '@/core/init-dependencies/email-sync.dependency';
+import {NoParams} from '@/core/use-case';
+import {EmailSyncStatusEntity} from '@/features/email/domain/entity/email-sync-status.entity';
+import {GetTokenUseCaseParam} from '@/features/email/domain/use-case/get-token';
+import {VerifyEmailLabelUseCaseParam} from '@/features/email/domain/use-case/verify-email-label';
+import {GetOauthTokenSchemaType} from '@/features/email/presentation/validation/email-sync';
 
 export const getOAuthUrlEffect = async () => {
   const response = await getEmailSyncUseCases().getOauthUrlUseCase.execute(
@@ -80,4 +80,20 @@ export const verifyAccessToEmailLabelEffect = async (labelName: string) => {
       return message;
     }
   )(response);
+};
+
+export const revokeAccessAndDeleteDataUseCaseEffect = async () => {
+    const response =
+        await getEmailSyncUseCases().revokeAccessAndDeleteDataUseCase.execute(
+            new NoParams()
+    );
+
+    return fold<Failure, string, string>(
+        failure => {
+            throw failure;
+        },
+        message => {
+            return message;
+        }
+    )(response);
 };

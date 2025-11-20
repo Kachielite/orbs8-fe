@@ -1,9 +1,9 @@
-import {ArrowRightLeft} from "lucide-react";
-import moment from "moment";
-import React from 'react'
+import {ArrowRightLeft} from 'lucide-react';
+import moment from 'moment';
+import React from 'react';
 
-import {useAppStore} from "@/core/common/presentation/state/store";
-import ExchangeRate from "@/features/accounts/presentation/components/exchange-rate";
+import {useAppStore} from '@/core/common/presentation/state/store';
+import ExchangeRate from '@/features/accounts/presentation/components/exchange-rate';
 
 function TransactionHeader() {
     const {transactionStartDate, transactionEndDate} = useAppStore();
@@ -15,18 +15,20 @@ function TransactionHeader() {
                         <ArrowRightLeft className="h-6 w-6 text-white"/>
                     </div>
                     <div>
-                        <h1 className="text-3xl font-bold text-foreground">
-                            Transactions
-                        </h1>
+                        <h1 className="text-3xl font-bold text-foreground">Transactions</h1>
                     </div>
                 </div>
-                <p className="font-normal text-md">Showing transactions
-                    for: <span>{moment(transactionStartDate).format('DD MMM, YYYY')} - {moment(transactionEndDate).format('DD MMM, YYYY')}</span>
+                <p className="font-normal text-md">
+                    Showing transactions for:{' '}
+                    <span>
+            {moment(transactionStartDate).format('DD MMM, YYYY')} -{' '}
+                        {moment(transactionEndDate).format('DD MMM, YYYY')}
+          </span>
                 </p>
                 <ExchangeRate/>
             </div>
         </div>
-    )
+    );
 }
 
-export default TransactionHeader
+export default TransactionHeader;

@@ -9,12 +9,16 @@ import {createBankSlice} from '@/features/bank/presentation/state/store/slice';
 import {BankSlice} from '@/features/bank/presentation/state/store/types';
 import {createCategorySlice} from '@/features/category/presentation/state/store/slice';
 import {CategorySlice} from '@/features/category/presentation/state/store/types';
+import {createCurrencySlice} from '@/features/currency/presentation/state/store/slice';
+import {CurrencySlice} from '@/features/currency/presentation/state/store/types';
 import {createDashboardSlice} from '@/features/dashboard/presentation/state/store/slice';
 import {DashboardSlice} from '@/features/dashboard/presentation/state/store/types';
 import {createEmailSlice} from '@/features/email/presentation/state/store/slice';
 import {EmailSlice} from '@/features/email/presentation/state/store/type';
 import {createNotificationSlice} from '@/features/notification/presentation/state/store/slice';
 import {NotificationSlice} from '@/features/notification/presentation/state/store/types';
+import {createSettingsSlice} from '@/features/settings/presentation/state/store/slice';
+import {SettingsSlice} from '@/features/settings/presentation/state/store/types';
 import {createTransactionSlice} from '@/features/transactions/presentation/state/store/slice';
 import {TransactionSlice} from '@/features/transactions/presentation/state/store/types';
 import {createUserSlice} from '@/features/user/presentation/state/store/slice';
@@ -28,7 +32,9 @@ type AppState = AuthSlice &
   CategorySlice &
   BankSlice &
     DashboardSlice &
-    NotificationSlice;
+    NotificationSlice &
+    SettingsSlice &
+    CurrencySlice;
 
 export const useAppStore = create<AppState>()(
   persist(
@@ -42,6 +48,8 @@ export const useAppStore = create<AppState>()(
       ...createBankSlice(...a),
       ...createDashboardSlice(...a),
         ...createNotificationSlice(...a),
+        ...createSettingsSlice(...a),
+        ...createCurrencySlice(...a),
     }),
     {
       name: 'auth-data', // unique name

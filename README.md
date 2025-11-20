@@ -13,6 +13,7 @@ A privacy-focused bank email notification reader UI built with React, TypeScript
 - [Setup & Development](#setup--development)
 - [Environment Variables](#environment-variables)
 - [API Integration](#api-integration)
+- [Realtime sync (Socket.IO)](#realtime-sync-socketio)
 - [Routing & Access Control](#routing--access-control)
 - [Error Handling](#error-handling)
 - [Styling](#styling)
@@ -66,7 +67,10 @@ src/
 ├─ index.css         # Global styles
 ├─ core/
 │  ├─ assets/        # Images, static assets
+│  │  └─ images/
 │  ├─ common/
+│  │  ├─ domain/
+│  │  │  └─ entity/
 │  │  └─ presentation/
 │  │     ├─ components/
 │  │     │  ├─ forms/
@@ -77,15 +81,37 @@ src/
 │  ├─ errors/        # Failure, ServerException
 │  ├─ helpers/       # Error extraction helpers
 │  ├─ init-dependencies/ # DI wiring
+│  ├─ interfaces/    # Shared interfaces (e.g., pagination)
+│  ├─ lib/           # Utility functions
+│  ├─ network/       # Axios instances, network helpers
 │  ├─ route/         # Router, auth loaders
 │  └─ use-case/      # Base UseCase contracts
 ├─ features/
 │  ├─ authentication/
 │  │  ├─ data/
+│  │  │  ├─ datasource/
+│  │  │  ├─ model/
+│  │  │  └─ repository/
 │  │  ├─ domain/
+│  │  │  ├─ entity/
+│  │  │  ├─ repository/
+│  │  │  └─ use-case/
 │  │  ├─ presentation/
+│  │  │  ├─ components/
+│  │  │  ├─ pages/
+│  │  │  └─ state/
 │  │  └─ validation/
-│  └─ dashboard/
+│  ├─ accounts/
+│  ├─ bank/
+│  ├─ category/
+│  ├─ currency/
+│  ├─ dashboard/
+│  ├─ email/
+│  ├─ insights/
+│  ├─ notification/
+│  ├─ settings/
+│  ├─ transactions/
+│  └─ user/
 └─ types/
 ```
 
@@ -116,55 +142,111 @@ npm run format:check  # Check formatting
 
 ## API Integration
 
-**Auth Endpoints:**
+Below are the backend endpoints used by the frontend according to the feature datasource/network files.
 
-- `POST /auth/register` — Create user
-- `POST /auth/login` — Obtain tokens
-- `POST /auth/google` — Google login
-- `POST /auth/refresh-token` — Rotate access token
-- `GET  /auth/request-reset-password` — Send reset link
-- `POST /auth/verify-token` — Verify reset token
-- `POST /auth/reset-password` — Set new password
-- `GET  /auth/me` — Get user profile
+Authentication
 
-**Email Endpoints:**
+- POST /auth/login — Obtain tokens (login)
+- POST /auth/register — Create user (register)
+- POST /auth/refresh-token — Rotate access token
+- POST /auth/google — Google login
+- GET /auth/request-reset-password?email={email} — Send reset link
+- POST /auth/verify-token — Verify reset token
+- POST /auth/reset-password — Set new password
+- GET /auth/me — Get user profile
+- PUT /auth — Update user (name, preferredCurrency)
+- PUT /auth — Update password (newPassword, oldPassword)
 
-- `GET  /email/get-auth` — Get OAuth URL
-- `POST /email/get-token` — Exchange OAuth code
-- `GET  /email/sync-status` — Sync status
-- `POST /email/manual-sync` — Trigger sync
+Email / Gmail sync
 
-**Transaction Endpoints:**
+- GET /email/get-auth — Get OAuth URL to start Gmail linking
+- POST /email/get-token — Exchange OAuth code for access (request body)
+- GET /email/sync-status — Get current sync status
+- POST /email/manual-sync — Trigger a manual sync (body: {})
+- GET /email/verify-label-access?label-name={labelName} — Verify access to a Gmail label
+- POST /email/revoke-access — Revoke Gmail access and delete synced data
 
-- `GET  /transaction` — Get transactions with query params
-- `GET  /transaction/{id}` — Get transaction by ID
-- `PUT  /transaction/{id}` — Update transaction
-- `GET  /transaction/summary` — Get transaction summary
+Transactions
 
-**Account Endpoints:**
+- GET /transaction?{query} — Get transactions (query params: page, limit, transactionType, startDate, endDate,
+  categoryIds (repeatable), accountIds (repeatable), bankIds (repeatable), search, order, sort)
+- GET /transaction/{id} — Get transaction by ID
+- PUT /transaction/{id} — Update transaction (categoryId, commonName, applyToAll)
+- GET /transaction/summary?startDate={startDate}&endDate={endDate} — Get transaction summary
 
-- `GET  /account` — Get accounts
-- `GET  /account/{id}` — Get account by ID
-- `GET  /account/summary` — Get account summary
+Accounts
 
-**Bank Endpoints:**
+- GET /account — Get accounts list
+- GET /account/{id} — Get account by ID
+- GET /account/summary — Get account summary
 
-- `GET  /bank` — Get banks
-- `GET  /bank/{id}` — Get bank by ID
+Bank
 
-**Category Endpoints:**
+- GET /bank — Get banks list
+- GET /bank/{id} — Get bank by ID
 
-- `GET  /category` — Get categories
-- `GET  /category/{id}` — Get category by ID
+Category
 
-**Notification Endpoints:**
+- GET /category — Get categories list
+- GET /category/{id} — Get category by ID
 
-- `GET  /notification` — Get notifications
-- `GET  /notification/{id}` — Get notification by ID
-- `PUT  /notification/{id}` — Mark notification as read
-- `POST  /notification/mark-all-as-read` — Mark all notification as read
-- `DELETE  /notification/{id}` — delete notification
-- `DELETE  /notification` — delete all notification as read
+Notification
+
+- GET /notification?page={page}&limit={limit}[&isRead={true|false}] — Get notifications (pagination, optional isRead
+  filter)
+- GET /notification/{id} — Get notification by ID
+- PUT /notification/{id} — Mark notification as read
+- POST /notification/mark-all-as-read — Mark all notifications as read
+- DELETE /notification/{id} — Delete a notification
+- DELETE /notification/ — Delete all notifications
+
+Currency
+
+- GET /currency — Get currencies list
+
+Other notes
+
+- Most feature network clients use a shared Axios wrapper (`src/core/network/custom-axios.ts`) which applies auth
+  headers and the base URL where applicable; some network files build paths using `BASE_URL` from
+  `src/core/constants/env.constants.ts` while others use relative paths and the shared Axios client.
+
+---
+
+## Realtime sync (Socket.IO)
+
+This project also connects to a Socket.IO realtime gateway used for sync operations and notifications. The frontend
+listener is implemented in `src/core/common/presentation/state/hooks/use-sync.ts` and behaves as follows:
+
+- Connection
+    - Endpoint: `${BASE_URL}/sync` (falls back to `http://localhost:3000/sync` if `BASE_URL` is not set)
+    - Client: `socket.io-client`
+    - Auth: sends the user's access token as `auth: { token }` when establishing the socket connection
+    - Transport: `websocket` (configured via `transports: ['websocket']`)
+
+- Events listened
+    - `connect` — logs a successful connection
+    - `connect_error` — logs connection errors
+    - `notifications` — server explicitly notifies the client about new notifications; handler invalidates the
+      `['notifications']` query
+    - `sync_started` — emitted when a sync begins; handler invalidates `['notifications']` and `['sync-status']`
+    - `sync_completed` — emitted when a sync finishes; handler invalidates the following queries to refresh data in the
+      UI:
+        - `['notifications']`
+        - `['sync-status']`
+        - `['recent-transactions']`
+        - `['transactions-by-type']`
+        - `['transactions-by-bank']`
+        - `['dashboard-transaction-summary']`
+
+- Cleanup
+    - The hook disconnects the socket when the component using the hook unmounts or the token changes.
+
+Notes
+
+- The hook uses React Query's `queryClient.invalidateQueries()` with the keys listed above — make sure these keys match
+  the query keys used across the app to ensure data is refreshed correctly when events arrive.
+- If you run the frontend against a different backend host, ensure `VITE_BACKEND_URL` (or `BASE_URL` in
+  `src/core/constants/env.constants.ts`) points to the server that exposes the `/sync` socket namespace.
 
 ---
 

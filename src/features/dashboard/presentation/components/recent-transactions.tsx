@@ -20,7 +20,8 @@ import useDashboardRecentTransactions
     from '@/features/dashboard/presentation/state/hooks/use-dashboard-recent-transactions';
 
 function RecentTransactions() {
-    const {dashboardRecentTransactions: recentTransactions} = useAppStore();
+    const {dashboardRecentTransactions: recentTransactions, user} =
+        useAppStore();
     const {isGettingTransactions} = useDashboardRecentTransactions();
     const navigate = useNavigate();
 
@@ -55,13 +56,21 @@ function RecentTransactions() {
                     <Table className="border border-spacing-0">
                         <TableHeader>
                             <TableRow noHover className="bg-primary">
-                                <TableHead className="border-r text-center text-white">Date</TableHead>
+                                <TableHead className="border-r text-center text-white">
+                                    Date
+                                </TableHead>
                                 <TableHead className="border-r text-center text-white">
                                     Description
                                 </TableHead>
-                                <TableHead className="border-r text-center text-white">Category</TableHead>
-                                <TableHead className="border-r text-center text-white">Bank</TableHead>
-                                <TableHead className="border-r text-center text-white">Amount</TableHead>
+                                <TableHead className="border-r text-center text-white">
+                                    Category
+                                </TableHead>
+                                <TableHead className="border-r text-center text-white">
+                                    Bank
+                                </TableHead>
+                                <TableHead className="border-r text-center text-white">
+                                    Amount ({user?.preferredCurrency})
+                                </TableHead>
                                 <TableHead className="text-center text-white">Type</TableHead>
                             </TableRow>
                         </TableHeader>
@@ -86,7 +95,7 @@ function RecentTransactions() {
                                     <TableCell
                                         className={`font-semibold border-r text-center ${tx.type === 'credit' ? 'text-green-600' : 'text-red-600'}`}
                                     >
-                                        ${(tx.amount || 0).toLocaleString()}
+                                        {(tx.amount || 0).toLocaleString()}
                                     </TableCell>
                                     <TableCell className="text-center">
                     <span

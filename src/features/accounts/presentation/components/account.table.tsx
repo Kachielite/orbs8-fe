@@ -4,7 +4,7 @@ import React, {useState} from 'react';
 import ColumnToggleDropdown from '@/core/common/presentation/components/column-toggle-dropdown';
 import EmptyState from '@/core/common/presentation/components/empty-state';
 import TableSkeleton from '@/core/common/presentation/components/loaders/table-skeleton';
-import {Card, CardContent} from '@/core/common/presentation/components/ui/card';
+import {Card, CardContent,} from '@/core/common/presentation/components/ui/card';
 import {
     Table,
     TableBody,
