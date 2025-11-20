@@ -13,6 +13,7 @@ A privacy-focused bank email notification reader UI built with React, TypeScript
 - [Setup & Development](#setup--development)
 - [Environment Variables](#environment-variables)
 - [API Integration](#api-integration)
+- [Realtime sync (Socket.IO)](#realtime-sync-socketio)
 - [Routing & Access Control](#routing--access-control)
 - [Error Handling](#error-handling)
 - [Styling](#styling)
