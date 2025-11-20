@@ -3,7 +3,6 @@ export const initialSettingsState = {
         'Profile',
         'Security',
         'Connected Accounts',
-        'Appearance',
         'Help & Feedback',
     ],
     activeSettingsOption: 'Profile',
