@@ -3,6 +3,7 @@ import {useForm} from 'react-hook-form';
 import {useMutation} from 'react-query';
 import {toast} from 'sonner';
 
+import {Failure} from "@/core/errors/failure.error";
 import {updatePasswordEffect} from '@/features/user/presentation/state/store/effects';
 import {updatePasswordSchema, UpdatePasswordSchemaType,} from '@/features/user/presentation/validation/user.validation';
 
@@ -28,6 +29,10 @@ const useUpdatePassword = () => {
                     updatePasswordForm.reset();
                     toast.success('User updated successfully');
                 },
+                onError: (error: Failure) => {
+                    console.log(error);
+                    toast.error(error.message || 'Failed to update user');
+                }
             }
     );
 

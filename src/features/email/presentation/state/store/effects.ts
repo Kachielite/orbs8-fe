@@ -83,8 +83,9 @@ export const verifyAccessToEmailLabelEffect = async (labelName: string) => {
 };
 
 export const revokeAccessAndDeleteDataUseCaseEffect = async () => {
-    const response = await getEmailSyncUseCases().revokeAccessAndDeleteDataUseCase.execute(
-        new NoParams()
+    const response =
+        await getEmailSyncUseCases().revokeAccessAndDeleteDataUseCase.execute(
+            new NoParams()
     );
 
     return fold<Failure, string, string>(
@@ -95,4 +96,4 @@ export const revokeAccessAndDeleteDataUseCaseEffect = async () => {
             return message;
         }
     )(response);
-}
+};

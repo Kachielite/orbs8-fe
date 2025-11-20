@@ -1,5 +1,5 @@
 import {zodResolver} from '@hookform/resolvers/zod';
-import {useEffect} from "react";
+import {useEffect} from 'react';
 import {useForm} from 'react-hook-form';
 import {useMutation, useQueryClient} from 'react-query';
 import {toast} from 'sonner';
@@ -47,7 +47,7 @@ const useVerifyEmailLabel = () => {
     useEffect(() => {
         emailLabelForm.reset({
             labelName: syncStatus?.label || '',
-        })
+        });
     }, [emailLabelForm, syncStatus]);
 
   return {

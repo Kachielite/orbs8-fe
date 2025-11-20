@@ -1,13 +1,17 @@
-import React from 'react'
+import React from 'react';
 
-import {CustomAlertDialogue} from "@/core/common/presentation/components/dialogue/custom-alert-dialogue";
-import useRevokeAccessDeleteData from "@/features/email/presentation/state/hooks/use-revoke-access-delete-data";
+import {CustomAlertDialogue} from '@/core/common/presentation/components/dialogue/custom-alert-dialogue';
+import useRevokeAccessDeleteData from '@/features/email/presentation/state/hooks/use-revoke-access-delete-data';
 
-function SettingsDeleteData({visibility, setVisibility}: {
-    visibility: boolean,
-    setVisibility: (visibility: boolean) => void
+function SettingsDeleteData({
+                                visibility,
+                                setVisibility,
+                            }: {
+    visibility: boolean;
+    setVisibility: (visibility: boolean) => void;
 }) {
-    const {isRevokingAccessAndDeletingData, revokeAccessAndDeleteDataHandler} = useRevokeAccessDeleteData();
+    const {isRevokingAccessAndDeletingData, revokeAccessAndDeleteDataHandler} =
+        useRevokeAccessDeleteData();
     return (
         <CustomAlertDialogue
             title="Are you absolutely sure?"
@@ -19,7 +23,7 @@ function SettingsDeleteData({visibility, setVisibility}: {
             actionText="Proceed"
             actionIsLoading={isRevokingAccessAndDeletingData}
         />
-    )
+    );
 }
 
-export default SettingsDeleteData
+export default SettingsDeleteData;

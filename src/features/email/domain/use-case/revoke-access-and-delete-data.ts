@@ -1,12 +1,13 @@
-import {Either} from "fp-ts/Either";
-import {inject, injectable} from "tsyringe";
+import {Either} from 'fp-ts/Either';
+import {inject, injectable} from 'tsyringe';
 
-import {Failure} from "@/core/errors/failure.error";
-import {NoParams, UseCase} from "@/core/use-case";
-import type {IEmailSyncRepository} from "@/features/email/domain/repository/email-sync.repository";
+import {Failure} from '@/core/errors/failure.error';
+import {NoParams, UseCase} from '@/core/use-case';
+import type {IEmailSyncRepository} from '@/features/email/domain/repository/email-sync.repository';
 
 @injectable()
-export class RevokeAccessAndDeleteDataUseCase implements UseCase<string, NoParams> {
+export class RevokeAccessAndDeleteDataUseCase
+    implements UseCase<string, NoParams> {
     constructor(
         @inject('IEmailSyncRepository')
         private readonly emailSyncRepository: IEmailSyncRepository

@@ -1,7 +1,7 @@
-import {useMutation, useQueryClient} from "react-query";
-import {toast} from "sonner";
+import {useMutation, useQueryClient} from 'react-query';
+import {toast} from 'sonner';
 
-import {revokeAccessAndDeleteDataUseCaseEffect} from "@/features/email/presentation/state/store/effects";
+import {revokeAccessAndDeleteDataUseCaseEffect} from '@/features/email/presentation/state/store/effects';
 
 const useRevokeAccessDeleteData = () => {
     const queryClient = useQueryClient();
@@ -9,7 +9,7 @@ const useRevokeAccessDeleteData = () => {
     const {isLoading, mutateAsync} = useMutation(
         ['revoke-access-delete-data'],
         async () => {
-            return revokeAccessAndDeleteDataUseCaseEffect()
+            return revokeAccessAndDeleteDataUseCaseEffect();
         },
         {
             onSuccess: () => {
@@ -21,16 +21,16 @@ const useRevokeAccessDeleteData = () => {
                 });
                 toast.success('Revoke access and data deleted successfully.');
             },
-            onError: (error) => {
+            onError: error => {
                 console.error('Error in useRevokeAccessDeleteData:', error);
-            }
+            },
         }
-    )
+    );
 
     return {
         isRevokingAccessAndDeletingData: isLoading,
         revokeAccessAndDeleteDataHandler: mutateAsync,
-    }
-}
+    };
+};
 
 export default useRevokeAccessDeleteData;

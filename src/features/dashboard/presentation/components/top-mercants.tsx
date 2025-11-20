@@ -46,8 +46,9 @@ function TopMerchants() {
                                 <TableHead className="border-r text-center text-white">
                                     Description
                                 </TableHead>
-                                <TableHead className="text-center text-white">Amount
-                                    ({user?.preferredCurrency})</TableHead>
+                                <TableHead className="text-center text-white">
+                                    Amount ({user?.preferredCurrency})
+                                </TableHead>
                                 <TableHead className="text-center text-white">
                                     % of Total
                                 </TableHead>

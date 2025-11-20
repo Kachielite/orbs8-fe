@@ -7,7 +7,7 @@ import {IEmailSyncRepository} from '@/features/email/domain/repository/email-syn
 import {GetOauthUrlUseCase} from '@/features/email/domain/use-case/get-oauth-url';
 import {GetSyncStatus} from '@/features/email/domain/use-case/get-sync-status';
 import {GetTokenUseCase} from '@/features/email/domain/use-case/get-token';
-import {RevokeAccessAndDeleteDataUseCase} from "@/features/email/domain/use-case/revoke-access-and-delete-data";
+import {RevokeAccessAndDeleteDataUseCase} from '@/features/email/domain/use-case/revoke-access-and-delete-data';
 import {SyncEmailUseCase} from '@/features/email/domain/use-case/sync-email';
 import {VerifyEmailLabelUseCase} from '@/features/email/domain/use-case/verify-email-label';
 
@@ -27,7 +27,9 @@ export function configureEmailSyncContainer() {
   container.registerSingleton<GetTokenUseCase>(GetTokenUseCase);
   container.registerSingleton<SyncEmailUseCase>(SyncEmailUseCase);
   container.registerSingleton<VerifyEmailLabelUseCase>(VerifyEmailLabelUseCase);
-    container.registerSingleton<RevokeAccessAndDeleteDataUseCase>(RevokeAccessAndDeleteDataUseCase);
+    container.registerSingleton<RevokeAccessAndDeleteDataUseCase>(
+        RevokeAccessAndDeleteDataUseCase
+    );
 }
 
 export function getEmailSyncUseCases() {
@@ -37,6 +39,8 @@ export function getEmailSyncUseCases() {
     getTokenUseCase: container.resolve(GetTokenUseCase),
     syncEmailUseCase: container.resolve(SyncEmailUseCase),
     verifyEmailLabelUseCase: container.resolve(VerifyEmailLabelUseCase),
-      revokeAccessAndDeleteDataUseCase: container.resolve(RevokeAccessAndDeleteDataUseCase),
+      revokeAccessAndDeleteDataUseCase: container.resolve(
+          RevokeAccessAndDeleteDataUseCase
+      ),
   };
 }

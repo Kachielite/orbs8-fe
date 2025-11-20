@@ -20,7 +20,8 @@ import useDashboardRecentTransactions
     from '@/features/dashboard/presentation/state/hooks/use-dashboard-recent-transactions';
 
 function RecentTransactions() {
-    const {dashboardRecentTransactions: recentTransactions, user} = useAppStore();
+    const {dashboardRecentTransactions: recentTransactions, user} =
+        useAppStore();
     const {isGettingTransactions} = useDashboardRecentTransactions();
     const navigate = useNavigate();
 

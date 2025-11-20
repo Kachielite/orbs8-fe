@@ -10,7 +10,7 @@ export class EmailSyncStatusEntity {
     syncStatus: SyncStatusEnum,
     lastSyncAt: string,
     emailsScanned: number,
-    label?: string,
+    label?: string
   ) {
     this.syncStatus = syncStatus;
     this.lastSyncAt = lastSyncAt;
