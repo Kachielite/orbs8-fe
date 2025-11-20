@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import {z} from 'zod';
 
 export const loginSchema = z.object({
   email: z
@@ -22,6 +22,7 @@ export const registerSchema = z
     confirmPassword: z
       .string()
       .min(8, { message: 'Confirm Password must be at least 8 characters' }),
+      currencyCode: z.string().optional(),
   })
   .refine(data => data.password === data.confirmPassword, {
     message: 'Passwords do not match',

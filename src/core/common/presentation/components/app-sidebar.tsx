@@ -1,6 +1,6 @@
 'use client';
 
-import {ArrowRightLeft, Bell, Landmark, LayoutDashboard, Settings} from 'lucide-react';
+import {ArrowRightLeft, Bell, Landmark, LayoutDashboard, Settings,} from 'lucide-react';
 import * as React from 'react';
 
 import {Brand} from '@/core/common/presentation/components/brand';
